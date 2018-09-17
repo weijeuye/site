@@ -55,13 +55,4 @@ public class SiteDao extends MyBatisDao {
     public int updateSite(Site site){
         return super.update("updateByPrimaryKeySelective",site);
     }
-
-    /***
-     * 删除工地
-     * @param id
-     * @return
-     */
-    public int deleteSite(Long id){
-        return super.update("deleteSite",id);
-    }
 }

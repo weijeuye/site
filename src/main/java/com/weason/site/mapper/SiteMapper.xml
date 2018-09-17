@@ -16,7 +16,7 @@
     select 
     <include refid="Base_Column_List" />
     from u_site
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and status = 1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_site
@@ -39,18 +39,14 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
       <if test="siteNumber != null" >
         site_number,
       </if>
       <if test="siteName != null" >
         site_name,
       </if>
+      create_time,
+      update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -59,18 +55,14 @@
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="siteNumber != null" >
         #{siteNumber,jdbcType=VARCHAR},
       </if>
       <if test="siteName != null" >
         #{siteName,jdbcType=VARCHAR},
       </if>
+      SYSDATE(),
+      SYSDATE()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.weason.site.pojo.Site" >
@@ -82,15 +74,13 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="siteNumber != null" >
         site_number = #{siteNumber,jdbcType=VARCHAR},
       </if>
       <if test="siteName != null" >
         site_name = #{siteName,jdbcType=VARCHAR},
       </if>
+      update_time = SYSDATE()
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -103,4 +93,28 @@
       site_name = #{siteName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="querySites" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from u_user
+    where 1=1
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="siteNumber != null" >
+      and site_number = #{siteNumber,jdbcType=VARCHAR},
+    </if>
+    <if test="siteName != null" >
+      and site_name = #{siteName,jdbcType=VARCHAR},
+    </if>
+    <if test="alias != null">
+      and alias = #{alias,jdbcType=VARCHAR},
+    </if>
+  </select>
 </mapper>

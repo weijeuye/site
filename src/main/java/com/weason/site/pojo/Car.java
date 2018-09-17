@@ -6,7 +6,7 @@ import java.util.Date;
 public class Car implements Serializable {
     private Long id;
 
-    private Byte status;
+    private Integer status;
 
     private Date createTime;
 
@@ -30,11 +30,11 @@ public class Car implements Serializable {
         this.id = id;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

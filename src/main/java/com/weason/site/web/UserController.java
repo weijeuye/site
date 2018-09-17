@@ -40,9 +40,9 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getSingle",method = RequestMethod.GET)
+    @RequestMapping(value = "/getSingle/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultMessage queryUser(Long id){
+    public ResultMessage queryUser(@PathVariable Long id){
        return userService.queryUser(id);
     }
 

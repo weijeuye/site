@@ -1,0 +1,138 @@
+package com.weason.site.service.impl;
+
+import com.weason.site.dao.SiteDao;
+import com.weason.site.pojo.Site;
+import com.weason.site.pojo.User;
+import com.weason.site.service.SiteService;
+import com.weason.util.ResultMessage;
+import com.weason.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @Author Administrator
+ * @CreateTime 2018/9/17 17:47
+ **/
+@Component
+public class SiteServiceImpl implements SiteService {
+    @Autowired
+    private SiteDao siteDao;
+
+    /***
+     * 获取所有工地
+     * @param site
+     * @return
+     */
+    @Override
+    public ResultMessage querySites(Site site) {
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        Map<String,Object> param = new HashMap<>();
+        if (null != site){
+            if (null !=site.getSiteName()&& StringUtils.isBlank(site.getSiteName())){
+                param.put("siteName",site.getSiteName());
+            }
+            if (null !=site.getSiteNumber()&&StringUtils.isBlank(site.getSiteNumber())){
+                param.put("siteNumber",site.getSiteNumber());
+            }
+        }
+        param.put("status",1);
+        List<Site> sites = siteDao.querySites(param);
+        if (sites.size()==0){
+            resultMessage.setMessage("暂无工地");
+        }
+        resultMessage.addObject("sites",sites);
+        return resultMessage;
+    }
+
+    /***
+     * 获取单个工地信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ResultMessage querySite(Long id) {
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        Site site = siteDao.querySiteById(id);
+        if (null==site){
+            resultMessage.setMessage("需要查询的工地不存在");
+        }
+        resultMessage.addObject("site",site);
+        return resultMessage;
+    }
+
+    /***
+     * 添加工地
+     * @param site
+     * @return
+     */
+    @Override
+    public ResultMessage addSite(Site site) {
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        if (StringUtils.isBlank(site.getSiteName())){
+            resultMessage.setCode(ResultMessage.ERROR);
+            resultMessage.setMessage("工地名称不能为空");
+            return resultMessage;
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteName",site.getSiteName());
+        param.put("status",1);
+        List<Site> sites = siteDao.querySites(param);
+        if (sites.size()>0){
+            resultMessage.setCode(ResultMessage.ERROR);
+            resultMessage.setMessage("添加的工地已存在");
+            return resultMessage;
+        }
+        String siteNumber = "BH"+System.currentTimeMillis()+"";
+        site.setSiteNumber(siteNumber);
+        siteDao.addSite(site);
+        return resultMessage;
+    }
+
+    /***
+     * 修改工地信息
+     * @param site
+     * @return
+     */
+    @Override
+    public ResultMessage updateSite(Site site) {
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        Long id = site.getId();
+        Site site1 = siteDao.querySiteById(id);
+        if (null==site1){
+            resultMessage.setMessage("需要修改的工地不存在");
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteName",site.getSiteName());
+        param.put("status",1);
+        List<Site> sites = siteDao.querySites(param);
+        if (sites.size()>0){
+            resultMessage.setMessage("工地名称已存在");
+        }
+        siteDao.updateSite(site);
+        return resultMessage;
+    }
+
+    /***
+     * 删除工地
+     * @param id
+     * @return
+     */
+    @Override
+    public ResultMessage deleteSite(Long id) {
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        Site site = siteDao.querySiteById(id);
+        if (null==site){
+            resultMessage.setMessage("需要删除的工地不存在");
+        }
+        Site site1 = new Site();
+        site1.setId(id);
+        site1.setStatus(0);
+        siteDao.updateSite(site1);
+        return resultMessage;
+    }
+}
