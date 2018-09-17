@@ -1,0 +1,46 @@
+.reschedule-tabs{
+    width:auto;
+    height:auto;
+    margin: 1px;
+    overflow: hidden;
+}
+.reschedule-tabs-title{
+    height: 27px;
+    position: relative;
+}
+.reschedule-tabs-title ul{
+    position: absolute;
+    width: 301px;
+    left: -1px;
+}
+.reschedule-tabs-title ul li:hover{
+    cursor:pointer;
+}
+.reschedule-tabs-title li{
+    float: left;
+    width: 98px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    padding: 0px 1px;
+    overflow: hidden;
+    background: #ffffff;
+    border-style: solid;
+    border-width: 1px 1px 1px 2px;
+    border-color: #777777;
+}
+.reschedule-tabs-title li:visited{
+    text-decoration: none;
+    color: #111111;
+}
+.reschedule-tabs-title li.reschedule-tabs-select{
+    background: #777777;
+    border-bottom-color: #777777;
+    border-left: 1px solid #777777;
+    border-right: 1px solid #777777;
+    padding: 0;
+    font-weight: bolder;
+}
+.reschedule-tabs-content div{
+    display: none;
+}

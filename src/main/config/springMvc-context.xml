@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="  
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"
+>
+
+	<description>library MVC配置</description>
+
+	<mvc:annotation-driven />
+
+  <!--<mvc:view-controller path="/" view-name="forward:/index.do" />-->
+	<context:component-scan base-package="com.weason"  >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<!-- 配置FreeMarker -->
+	<bean id="freeMarkerConfigrer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="/WEB-INF/"></property>
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">10</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="boolean_format">true,false</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+				<prop key="whitespace_stripping">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 用FreeMarker解析视图 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></property>
+		<property name="cache" value="false"></property>
+		<property name="prefix" value=""></property>
+		<property name="suffix" value=".ftl"></property>
+		<property name="contentType" value="text/html;charset=utf-8"></property>
+		<property name="exposeRequestAttributes" value="true"></property>
+		<property name="exposeSessionAttributes" value="true"></property>
+		<property name="exposeSpringMacroHelpers" value="true"></property>
+	</bean>
+
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/bootstrap/" mapping="/bootstrap/**"/>
+	<mvc:resources location="/lodop/" mapping="/lodop/**"/>
+
+
+
+    <!--<bean id="bytesSizeMethod" class="com.lvmama.vst.front.freemarker.BytesSizeMethod" />-->
+	<!-- JSON转换器 -->
+    <bean id="jsonConverter"
+        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json; charset=UTF-8</value>
+
+            </list>
+        </property>
+    </bean>
+    <!-- Client -->
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonConverter" />
+            </list>
+        </property>
+    </bean>
+
+
+	<!--<mvc:interceptors>
+	    <mvc:interceptor>  
+	        <mvc:mapping path="/order/*/create.do"/>
+	        &lt;!&ndash; 对特定的请求才进行拦截的 &ndash;&gt;
+	        <bean class="com.lvmama.vst.comm.web.interceptor.TokenValidInterceptor"/>  
+	    </mvc:interceptor>  
+	</mvc:interceptors>-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+
+			<!-- 与登录相关的请求 -->
+			<mvc:exclude-mapping    path="/login.do" />
+			<mvc:exclude-mapping    path="/index.do" />
+			<!--&lt;!&ndash; 以下是静态资源 &ndash;&gt;-->
+			<mvc:exclude-mapping path="/img/**" />
+			<mvc:exclude-mapping path="/css/**" />
+			<mvc:exclude-mapping path="/bootstrap/**" />
+			<mvc:exclude-mapping path="/js/**" />
+
+			<bean  class="com.weason.library.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+</beans>

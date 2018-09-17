@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book_user">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.BookUser">
+        <id  column="userId"  property="userId" jdbcType="INTEGER"/>
+        <result column="user_account"  property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+
+        <result column="mother_name" property="motherName" jdbcType="VARCHAR"/>
+        <result column="father_name" property="fatherName" jdbcType="VARCHAR"/>
+        <result column="school" property="school" jdbcType="VARCHAR"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="mother_telephone" property="motherTelephone" jdbcType="VARCHAR"/>
+        <result column="father_telephone" property="fatherTelephone" jdbcType="VARCHAR"/>
+
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="recommendUserId" property="recommendUserId" jdbcType="INTEGER"/>
+        <result column="recommendDateTime" property="recommendDateTime" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="VARCHAR"/>
+        <result column="qq_account" property="qqAccount" jdbcType="VARCHAR"/>
+        <result column="webchat_account" property="webchatAccount" jdbcType="VARCHAR"/>
+        <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
+        <result column="point" property="point" jdbcType="INTEGER"/>
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="borrowNum" property="borrowNum" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+    <select id="queryBookUsers" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        <include refid="basic.pageSearchHead"/>
+        select bu.*,a.borrowNum FROM  library.book_user bu
+        LEFT JOIN
+        (SELECT bb.user_id ,COUNT(*) AS borrowNum FROM library.`book_borrow` bb WHERE 1=1 GROUP BY bb.user_id) a
+        ON bu.userId=a.user_id
+        where
+        1=1
+        <if test="userAccount !=null and userAccount !='' " >
+            and bu.user_account =#{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="userName !=null and userName !='' ">
+            and bu.user_name  like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="telephone !=null and telephone !='' ">
+            and bu.telephone =#{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="gender !=null and gender !='' ">
+            and bu.gender =#{gender,jdbcType=VARCHAR}
+        </if>
+
+        <if test="motherName !=null and motherName !='' ">
+            and bu.mother_name =#{motherName,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherName !=null and fatherName !='' ">
+            and bu.father_name =#{fatherName,jdbcType=VARCHAR}
+        </if>
+        <if test="school !=null and school !='' ">
+            and bu.school =#{school,jdbcType=VARCHAR}
+        </if>
+        <if test="className !=null and className !='' ">
+            and bu.className =#{className,jdbcType=VARCHAR}
+        </if>
+        <if test="motherTelephone !=null and motherTelephone !='' ">
+            and bu.mother_telephone =#{motherTelephone,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherTelephone !=null and fatherTelephone !='' ">
+            and bu.father_telephone =#{fatherTelephone,jdbcType=VARCHAR}
+        </if>
+
+        <if test="userType !=null and userType !='' ">
+            and bu.user_type =#{userType,jdbcType=VARCHAR}
+        </if>
+        <if test="isvalid !=null and isvalid !='' ">
+            and bu.is_valid =#{isvalid,jdbcType=VARCHAR}
+        </if>
+
+        <include refid="basic.pageSearchFoot"/>
+    </select>
+
+    <select id="findBookUserByPassword" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * FROM  library.book_user b
+        WHERE 1=1
+        <if test="userId !=null and userId !=''">
+            and b.userId=#{userId,jdbcType=INTEGER}
+        </if>
+        <if test="userAccount !=null and userAccount !=''">
+            and b.user_account=#{userAccount,jdbcType=VARCHAR}
+
+        </if>
+        <if test="password !=null and password !=''">
+        and  b.user_password=#{password,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="findBookUsersCount" resultType="java.lang.Integer" >
+        select count(*) FROM  library.book_user bu WHERE
+        1=1
+        <if test="userAccount !=null and userAccount !='' " >
+            and bu.user_account =#{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="userName !=null and userName !='' ">
+            and bu.user_name like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="telephone !=null and telephone !='' ">
+            and bu.telephone =#{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="gender !=null and gender !='' ">
+            and bu.gender =#{gender,jdbcType=VARCHAR}
+        </if>
+        <if test="motherName !=null and motherName !='' ">
+            and bu.mother_name =#{motherName,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherName !=null and fatherName !='' ">
+            and bu.father_name =#{fatherName,jdbcType=VARCHAR}
+        </if>
+        <if test="school !=null and school !='' ">
+            and bu.school =#{school,jdbcType=VARCHAR}
+        </if>
+        <if test="className !=null and className !='' ">
+            and bu.className =#{className,jdbcType=VARCHAR}
+        </if>
+        <if test="motherTelephone !=null and motherTelephone !='' ">
+            and bu.mother_telephone =#{motherTelephone,jdbcType=VARCHAR}
+        </if>
+        <if test="fatherTelephone !=null and fatherTelephone !='' ">
+            and bu.father_telephone =#{fatherTelephone,jdbcType=VARCHAR}
+        </if>
+        <if test="userType !=null and userType !='' ">
+            and bu.user_type =#{userType,jdbcType=VARCHAR}
+        </if>
+        <if test="isvalid !=null and isvalid !='' ">
+            and bu.is_valid =#{isvalid,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <update id="updateBookUserById"  parameterType="com.weason.library.po.BookUser">
+      UPDATE library.book_user bu SET
+        <if test="userName !=null and userName !=''">
+            bu.user_name=#{userName,jdbcType=VARCHAR},
+        </if>
+        <if test="birthday !=null and birthday !=''">
+            bu.birthday=#{birthday,jdbcType=DATE},
+        </if>
+        <if test="address !=null and address !=''">
+            bu.address=#{address,jdbcType=VARCHAR},
+        </if>
+        <if test="email !=null and email !=''">
+            bu.email=#{email,jdbcType=VARCHAR},
+        </if>
+        <if test="idNumber !=null and idNumber !=''">
+            bu.id_number=#{idNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="qqAccount !=null and qqAccount !=''">
+            bu.qq_account=#{qqAccount,jdbcType=VARCHAR},
+        </if>
+        <if test="telephone !=null and telephone !=''">
+            bu.telephone=#{telephone,jdbcType=VARCHAR},
+        </if>
+        <if test="motherName !=null and motherName !='' ">
+             bu.mother_name =#{motherName,jdbcType=VARCHAR},
+        </if>
+        <if test="fatherName !=null and fatherName !='' ">
+          bu.father_name =#{fatherName,jdbcType=VARCHAR},
+        </if>
+        <if test="school !=null and school !='' ">
+             bu.school =#{school,jdbcType=VARCHAR},
+        </if>
+        <if test="className !=null and className !='' ">
+             bu.class_name =#{className,jdbcType=VARCHAR},
+        </if>
+        <if test="motherTelephone !=null and motherTelephone !='' ">
+             bu.mother_telephone =#{motherTelephone,jdbcType=VARCHAR},
+        </if>
+        <if test="fatherTelephone !=null and fatherTelephone !='' ">
+             bu.father_telephone =#{fatherTelephone,jdbcType=VARCHAR},
+        </if>
+        <if test="isValid !=null and isValid !=''">
+          bu.is_valid=#{isValid,jdbcType=VARCHAR},
+        </if>
+        <if test="userPassword !=null and userPassword !=''">
+            bu.user_password=#{userPassword,jdbcType=VARCHAR},
+        </if>
+      bu.update_time = sysdate() WHERE bu.userId=#{userId,jdbcType=INTEGER}
+        <if test="userAccount !=null and userAccount !=''">
+           and  bu.user_account=#{userAccount,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <delete id="deleteBookeUserById" parameterType="java.lang.Long">
+        delete from library.book_user bu where
+        bu.userId=#{userId,jdbc=INTEGER}
+    </delete>
+    <insert id="addBookUser" parameterType="com.weason.library.po.BookUser">
+      insert into library.book_user
+      (user_account,
+      user_name,
+      gender,
+      telephone,
+      address,
+      birthday,
+      create_time,
+      email,
+      qq_account,
+      webchat_account,
+      memo,
+      user_type,
+      id_number,
+      point,
+      is_valid ,
+      mother_name,
+      father_name,
+      school,
+      class_name,
+      mother_telephone,
+      father_telephone
+      ) VALUES (
+            #{userAccount,jdbcType=VARCHAR},
+
+            #{userName,jdbcType=VARCHAR},
+
+            #{gender,jdbcType=VARCHAR},
+
+            #{telephone,jdbcType=VARCHAR},
+
+            #{address,jdbcType=VARCHAR},
+
+            #{birthday,jdbcType=VARCHAR},
+
+            sysdate(),
+
+            #{email,jdbcType=VARCHAR},
+
+            #{qqAccount,jdbcType=VARCHAR},
+
+            #{webchatAccount,jdbcType=VARCHAR},
+
+            #{memo,jdbcType=VARCHAR},
+            'u',
+            #{idNumber,jdbcType=VARCHAR},
+            0,
+             'Y',
+              #{motherName,jdbcType=VARCHAR},
+              #{fatherName,jdbcType=VARCHAR},
+              #{school,jdbcType=VARCHAR},
+              #{className,jdbcType=VARCHAR},
+              #{motherTelephone,jdbcType=VARCHAR},
+              #{fatherTelephone,jdbcType=VARCHAR}
+      );
+    </insert>
+</mapper>

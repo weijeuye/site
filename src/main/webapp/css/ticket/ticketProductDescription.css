@@ -1,0 +1,35 @@
+.select {
+    width: 80px;
+}
+.detail_table tr {
+    margin: 20px;
+    border-bottom: 20px solid #e5f1fc;
+}
+.detail_table th, .detail_show th, .detail_show_disabled th{
+    vertical-align: top;
+    width: 100px;
+    padding-top: 5px;
+}
+.detail_table div, .detail_show div {
+    padding-bottom: 5px;
+}
+.detail_table td, .detail_show td {
+    padding-right: 200px;
+}
+.detail_table input {
+    margin: 0;
+}
+.detail_btn {
+    padding:  5px 20px 5px 20px;
+    border: thin solid;
+    cursor: pointer;
+}
+.detail_btn_active {
+    color: #ffffff;
+}
+.detail_btn_selected{
+    background-color: #2979fe;
+}
+.detail_btn_unselected{
+    background-color: #cfcfcf;
+}

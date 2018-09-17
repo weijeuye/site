@@ -1,0 +1,73 @@
+@charset "UTF-8";
+/*!
+ * Author:      Jiang Sheng
+ * Date:        2015-08-05
+ * Version:     1.0.0.0
+ * Description: 线路产品优化交通信息结构
+ * Tool:        SASS, Compass
+ */
+.JS_has_not_reference { display: none; }
+
+.lp-template { display: none; }
+
+.form-inline .lp-radio { vertical-align: -2px; }
+
+.lp-add { display: none; margin-bottom: 20px; }
+
+.lp-red { color: #f00; }
+
+.lp-traffics { display: none; color: #333333; width: 1200px; }
+
+.lp-head { font-family: "Microsoft YaHei", sans-serif; position: relative; border: solid 1px #CCCCCC; height: 35px; background: #f9fafb; }
+
+.lp-left { cursor: pointer; top: 0; left: 0; position: absolute; width: 24px; height: 35px; border-right: 1px solid #D8DCE5; background: #fff url(./images/transportation.png) no-repeat 0 -50px; }
+
+.lp-left:hover { background: #E3E3E3 url(./images/transportation.png) no-repeat 0 -50px; }
+
+.lp-left.disabled { background: #fff url(./images/transportation.png) no-repeat 0 0; }
+
+.lp-right { cursor: pointer; position: absolute; top: 0; right: 0; width: 25px; height: 35px; border-left: 1px solid #D8DCE5; background: #fff url(./images/transportation.png) no-repeat -25px -50px; }
+
+.lp-right:hover { background: #E3E3E3 url(./images/transportation.png) no-repeat -25px -50px; }
+
+.lp-right.disabled { background: #fff url(./images/transportation.png) no-repeat -25px 0; }
+
+.lp-tabs-box { height: 36px; overflow: hidden; position: relative; }
+
+.lp-tabs { position: absolute; }
+.lp-tabs .active { background: #fff; border-bottom: solid 1px #fff; }
+
+.lp-tab { position: relative; float: left; width: 127px; height: 35px; line-height: 35px; display: block; text-align: center; border-right: 1px solid #d8dce5; border-bottom: 1px solid #d8dce5; }
+
+.lp-close { position: absolute; cursor: pointer; display: block; height: 11px; right: 6px; top: 12px; width: 11px; }
+
+.lp-tab:hover .lp-close { background: url(./images/transportation.png) no-repeat -55px -55px; }
+
+.lp-body { position: relative; padding: 20px 40px; border: solid 1px #CCCCCC; border-top: none; }
+
+.lp-delete { position: absolute; right: 15px; top: 15px; }
+
+.lp-content { display: none; }
+
+.lp-content.active { display: block; }
+
+.lp-item { padding: 10px 0; }
+
+.lp-info { line-height: 30px; }
+
+.lp-title { font-family: "Microsoft YaHei", sans-serif; line-height: 30px; }
+
+.lp-table { border-collapse: collapse; width: 100%; margin: 10px 0; line-height: 30px; font-family: "Microsoft YaHei", sans-serif; }
+.lp-table th { color: #fff; background: #7bb7f2; }
+.lp-table th, .lp-table td { text-align: center; border: solid 1px #d8dce5; }
+
+.lp-w16p { width: 16%; }
+.lp-w25p { width: 25%; }
+
+.lp-w156 { width: 156px; }
+
+.lp-pr20 { padding-right: 20px; }
+
+.lp-search-box { position: relative; }
+
+.lp-search { cursor: pointer; position: absolute; display: block; width: 25px; height: 25px; right: 10px; top: 5px; background: url(./images/transportation.png) no-repeat -50px -75px; }

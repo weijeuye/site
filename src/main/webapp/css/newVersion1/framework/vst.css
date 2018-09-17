@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+    /*border-radius: 4px;*/
+}
+
+::-webkit-scrollbar-thumb {
+    /*border-radius: 4px;*/
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: "Arial", "PingFang SC", "Microsoft Yahei", "SimSun", sans-serif;
+}
+
+ul.messenger-theme-flat .messenger-message.alert-info .messenger-message-inner:before {
+    background-color: #dd3377;
+}
+
+.modal-footer {
+    border-top: none;
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
+}
+
+label {
+    font-weight: normal;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+.ml5 {
+    margin-left: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.Pages {
+    text-align: center;
+}
+
+.Pages nav { display: inline-block; }
+
+.Pages nav ul { margin: 0; vertical-align: middle; }
+
+.jumbotron {
+    margin-top: 50px;
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="test" targetRuntime="MyBatis3">
+    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+    <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+    <commentGenerator>
+      <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
+      <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
+      <property name="suppressDate" value="true" />
+      <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+      <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+    <!--数据库链接URL，用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://39.106.157.93:3306/library" userId="root" password="">
+    </jdbcConnection>
+    <javaTypeResolver>
+      <!-- This property is used to specify whether MyBatis Generator should
+          force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+    <!-- targetProject:生成PO类的位置 -->
+    <javaModelGenerator targetPackage="com.weason.pojo"
+                        targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
+      <!-- 从数据库返回的值被清理前后的空格 -->
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+    <!-- targetProject:mapper映射文件生成的位置
+       如果maven工程只是单独的一个工程，targetProject="src/main/java"
+       若果maven工程是分模块的工程，targetProject="所属模块的名称"，例如：
+       targetProject="ecps-manager-mapper"，下同-->
+    <sqlMapGenerator targetPackage="com.weason.mapper"
+                     targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+    <!-- targetPackage：mapper接口生成的位置 -->
+    <javaClientGenerator type="XMLMAPPER"
+                         targetPackage="com.weason.mapper"
+                         targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+
+    <!-- 要生成哪些表 -->
+    <table tableName="book_user" domainObjectName="bookUser"
+           enableCountByExample="false" enableUpdateByExample="false"
+           enableDeleteByExample="false" enableSelectByExample="false"
+           selectByExampleQueryId="false"></table>
+  </context>
+</generatorConfiguration>

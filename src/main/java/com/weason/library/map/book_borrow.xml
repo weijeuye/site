@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book_borrow">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.BookBorrow">
+        <id  column="borrow_id"  property="borrowId" jdbcType="INTEGER"/>
+        <result column="user_id"  property="userId" jdbcType="INTEGER"/>
+        <result column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="borrow_time" property="borrowTime" jdbcType="VARCHAR"/>
+        <result column="return_time" property="returnTime" jdbcType="VARCHAR"/>
+        <result column="act_return_time" property="actReturnTime" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="create_date_time" property="createDateTime" jdbcType="INTEGER"/>
+        <result column="update_date_time" property="updateDateTime" jdbcType="INTEGER"/>
+        <result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <resultMap id="bookBorrowVoMap" type="com.weason.library.vo.BookBorrowVo">
+        <id  column="borrow_id"  property="borrowId" jdbcType="INTEGER"/>
+        <result column="user_id"  property="userId" jdbcType="INTEGER"/>
+        <result column="book_id" property="bookId" jdbcType="INTEGER"/>
+        <result column="borrow_time" property="borrowTime" jdbcType="VARCHAR"/>
+        <result column="return_time" property="returnTime" jdbcType="VARCHAR"/>
+        <result column="act_return_time" property="actReturnTime" jdbcType="VARCHAR"/>
+        <result column="is_return" property="isReturn" jdbcType="VARCHAR"/>
+        <result column="user_name"  property="userName" jdbcType="VARCHAR"/>
+        <result column="book_name"  property="bookName" jdbcType="VARCHAR"/>
+        <result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
+        <result column="ISBN" property="isbn" jdbcType="VARCHAR"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="findBookBorrowListByParam" resultMap="bookBorrowVoMap"  parameterType="java.util.Map">
+        <include refid="basic.pageSearchHead"/>
+        SELECT
+        bb.borrow_id,bb.user_id,bb.book_id,bb.borrow_time,bb.return_time,bb.act_return_time,bb.is_return,
+        bb.operator_id,bu.user_name,bu.user_account,bbo.book_name,bbo.ISBN
+        FROM library.`book_borrow` bb,library.`book_user` bu ,library.`book_book` bbo
+        WHERE bb.`user_id`=bu.`userId` AND bb.`book_id`=bbo.`book_id`
+        <if test="userAccount !=null and userAccount !='' ">
+        AND bu.`user_account`=#{userAccount,jdbcType=INTEGER}
+        </if>
+        <if test="userName !=null and userName !='' ">
+          AND bu.`user_name` LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="bookName !=null and bookName !='' ">
+          AND bbo.`book_name` like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="isbn !=null and isbn !='' " >
+        AND bbo.`ISBN`=#{isbn,jdbcType=VARCHAR}
+        </if>
+        <if test="borrowTime !=null and borrowTime !='' " >
+            AND bb.`borrow_time` = #{borrowTime,jdbcType=DATE}
+        </if>
+        <if test="returnTime !=null and returnTime !='' " >
+            AND bb.`return_time`= #{returnTime,jdbcType=DATE}
+        </if>
+        <if test="isReturn !=null and isReturn !='' " >
+            AND bb.`is_return`=#{isReturn,jdbcType=VARCHAR}
+        </if>
+        <include refid="basic.pageSearchFoot"/>
+    </select>
+
+    <select id="findBookBorrowCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT count(*)
+        FROM library.`book_borrow` bb,library.`book_user` bu ,library.`book_book` bbo
+        WHERE bb.`user_id`=bu.`userId` AND bb.`book_id`=bbo.`book_id`
+        <if test="userAccount !=null and userAccount !='' ">
+            AND bu.`user_account`=#{userAccount,jdbcType=INTEGER}
+        </if>
+        <if test="userName !=null and userName !='' ">
+            AND bu.`user_name` LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="bookName !=null and bookName !='' ">
+            AND bbo.`book_name` like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="isbn !=null and isbn !='' " >
+            AND bbo.`ISBN`=#{isbn,jdbcType=VARCHAR}
+        </if>
+        <if test="borrowTime !=null and borrowTime !='' " >
+            AND bb.`borrow_time` = #{borrowTime,jdbcType=DATE}
+        </if>
+          <if test="returnTime !=null and returnTime !='' " >
+            AND bb.`return_time`= #{returnTime,jdbcType=DATE}
+        </if>
+        <if test="isReturn !=null and isReturn !='' " >
+            AND bb.`is_return`=#{isReturn,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="findBookBorrowParam" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        select * FROM  library.book_borrow bu  where
+        1=1
+        <if test="borrowId !=null and borrowId !='' " >
+            and bu.borrow_id =#{borrowId,jdbcType=INTEGER}
+        </if>
+        <if test="isReturn !=null and isReturn !='' ">
+            and bu.is_return =#{isReturn,jdbcType=VARCHAR}
+        </if>
+        <if test="bookId !=null">
+            and bu.book_id =#{bookId,jdbcType=INTEGER}
+        </if>
+        <if test="userId !=null">
+            and bu.user_id =#{userId,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+    <update id="updateBookBorrowById"  parameterType="java.util.Map">
+      UPDATE library.book_borrow bu SET
+        <if test="returnTime !=null and returnTime !=''">
+            bu.return_time=#{returnTime,jdbcType=DATE},
+        </if>
+        <if test="actReturnTime !=null and actReturnTime !=''">
+            bu.act_return_time=#{actReturnTime,jdbcType=DATE},
+        </if>
+        <if test="isReturn !=null and isReturn !=''">
+            bu.is_return=#{isReturn,jdbcType=VARCHAR},
+        </if>
+        bu.update_date_time = sysdate() WHERE bu.borrow_id=#{borrowId,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteBookById" parameterType="java.lang.Long">
+        delete from library.book_book bu where bu.book_id=#{bookId,jdbc=INTEGER}
+    </delete>
+    <insert id="addBookBorrow" parameterType="com.weason.library.po.BookBorrow">
+      insert into library.book_borrow
+      (user_id,
+        book_id,
+        borrow_time,
+        return_time,
+        is_return,
+        create_date_time
+     ) VALUES (
+            #{userId,jdbcType=INTEGER},
+            #{bookId,jdbcType=INTEGER},
+            #{borrowTime,jdbcType=DATE},
+            #{returnTime,jdbcType=DATE},
+            'N',
+            sysdate()
+      );
+    </insert>
+</mapper>

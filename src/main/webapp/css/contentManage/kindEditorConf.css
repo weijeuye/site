@@ -1,0 +1,108 @@
+.ke-icon-joyuFirstLevelTitle, .ke-icon-joyuSecondLevelTitle, .ke-icon-joyuMainContent,.ke-icon-joyuDestination{
+	
+}
+.joyu-outline{
+	line-height: 1.5;
+	border: 1px solid #F0F0EE;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 1px;
+    overflow: hidden;
+}
+.joyu-ke-bold{
+	font-weight : 900;
+}
+.joyu-image-box {
+    width:480px;
+    margin:10px;
+}
+    .joyu-image-box li {
+        float:left;
+        overflow: hidden;
+    }
+    .joyu-image-box input {
+        float: left;
+        margin-left: 5px;
+        margin-top: 3px;
+    }
+    .joyu-image-box label {
+        cursor: pointer;
+        display: inline-block;
+        float: left;
+        margin-right: 5px !important;
+    }
+.joyu-image-box-head{
+    border:1px solid black;
+    width:470px;
+    overflow:hidden;
+    padding:0 5px;
+}
+.joyu-image-box-main{
+    border:1px solid black;
+    width:480px;
+    margin:10px auto;
+    overflow: hidden;
+}
+.joyu-image-box-left {
+    float:left;
+}
+.joyu-image-box-right {
+    float:right;
+}
+.joyu-image-content {
+    border:1px solid #000;
+    margin:10px;
+    float:left;
+    height:100px;
+    position:relative;
+}
+.joyu-imageSelect-box {
+    position:absolute;
+    width:50px;
+    height:40px;
+    background-color: #F0F0EE;
+}
+    .joyu-imageSelect-box a:hover {
+        text-decoration:underline;
+    }
+    .joyu-imageSelect-box p {
+        margin:3px auto;
+    }
+.contontHead {
+    margin:auto 10px;
+}
+.contentTable {
+    width:480px;
+    margin:10px 10px 5px;
+    border:1px solid black;
+    
+}
+    .contentTable th {
+        border-bottom:1px solid black;
+    }
+    .contentTable th,.contentTable td {
+        text-align:center;
+        line-height:2;
+    }
+
+
+.btn {
+    cursor:pointer;
+    margin:auto 5px;
+    background-color: #F0F0EE;
+    border:1px solid black;
+    color: #333333 !important;
+}
+.btn-mini {
+    font-size: 12px;
+    font-weight: normal;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 6px;
+}
+.clear {
+    clear:both;
+}
+.hide {
+    display:none;
+}

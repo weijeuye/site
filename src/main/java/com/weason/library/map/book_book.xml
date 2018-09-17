@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book_book">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.Book">
+        <id  column="book_id"  property="bookId" jdbcType="INTEGER"/>
+        <result column="book_name"  property="bookName" jdbcType="VARCHAR"/>
+        <result column="book_type_id" property="bookTypeId" jdbcType="INTEGER"/>
+        <result column="book_type_name" property="bookTypeName" jdbcType="INTEGER"/>
+        <result column="book_author" property="bookAuthor" jdbcType="VARCHAR"/>
+        <result column="book_pub" property="bookPub" jdbcType="VARCHAR"/>
+        <result column="book_pub_time" property="bookPubTime" jdbcType="VARCHAR"/>
+        <result column="book_num" property="bookNum" jdbcType="INTEGER"/>
+        <result column="book_left_num" property="bookLeftNum" jdbcType="INTEGER"/>
+        <result column="book_state" property="bookState" jdbcType="VARCHAR"/>
+        <result column="book_language" property="bookLanguage" jdbcType="VARCHAR"/>
+        <result column="book_introduction" property="bookIntroduction" jdbcType="VARCHAR"/>
+        <result column="book_price" property="bookPrice" jdbcType="DOUBLE"/>
+        <result column="ISBN" property="isbn" jdbcType="VARCHAR"/>
+        <result column="book_img" property="bookImg" jdbcType="VARCHAR"/>
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="create_date_time" property="createDateTime" jdbcType="VARCHAR"/>
+        <result column="update_date_time" property="updateDateTime" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="queryBooksByParam" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        <include refid="basic.pageSearchHead"/>
+        select * FROM  library.book_book bu ,library.`book_type`  bt where
+        bu.`book_type_id`=bt.`book_type_id`
+        <if test="bookId !=null and bookId !='' " >
+            and bu.book_id =#{bookId,jdbcType=INTEGER}
+        </if>
+        <if test="bookName !=null and bookName !='' ">
+            and bu.book_name  like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !='' ">
+            and bu.book_type_id =#{bookTypeId,jdbcType=INTEGER}
+        </if>
+
+        <if test="bookAuthor !=null and bookAuthor !='' ">
+            and bu.book_author like CONCAT('%',#{bookAuthor},'%')
+        </if>
+        <if test="isbn !=null and isbn !='' ">
+            and bu.ISBN =#{isbn,jdbcType=VARCHAR}
+        </if>
+        <if test="bookPub !=null and bookPub !='' ">
+            and bu.book_pub like CONCAT('%',#{bookPub},'%')
+        </if>
+        <if test="isValid !=null and isValid !='' ">
+            and bu.is_valid =#{isValid,jdbcType=VARCHAR}
+        </if>
+        <if test="bookState !=null and bookState !='' ">
+            and bu.book_state =#{bookState,jdbcType=VARCHAR}
+        </if>
+
+        <include refid="basic.pageSearchFoot"/>
+    </select>
+
+    <select id="queryBooksCount" resultType="java.lang.Integer" >
+        select count(*) FROM  library.book_book bu ,library.`book_type`  bt where
+        bu.`book_type_id`=bt.`book_type_id`
+        <if test="bookId !=null and bookId !='' " >
+            and bu.book_id =#{bookId,jdbcType=INTEGER}
+        </if>
+        <if test="bookName !=null and bookName !='' ">
+            and bu.book_name  like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !='' ">
+            and bu.book_type_id =#{bookTypeId,jdbcType=INTEGER}
+        </if>
+
+        <if test="bookAuthor !=null and bookAuthor !='' ">
+            and bu.book_author like CONCAT('%',#{bookAuthor},'%')
+        </if>
+        <if test="isbn !=null and isbn !='' ">
+            and bu.ISBN =#{isbn,jdbcType=VARCHAR}
+        </if>
+        <if test="bookPub !=null and bookPub !='' ">
+            and bu.book_pub like CONCAT('%',#{bookPub},'%')
+        </if>
+        <if test="isValid !=null and isValid !='' ">
+            and bu.is_valid =#{isValid,jdbcType=VARCHAR}
+        </if>
+        <if test="bookState !=null and bookState !='' ">
+            and bu.book_state =#{bookState,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryBookByParam" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        select * FROM  library.book_book bu ,library.`book_type`  bt where
+        bu.`book_type_id`=bt.`book_type_id`
+        <if test="bookId !=null and bookId !='' " >
+            and bu.book_id =#{bookId,jdbcType=INTEGER}
+        </if>
+        <if test="bookName !=null and bookName !='' ">
+            and bu.book_name  like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !='' ">
+            and bu.book_type_id =#{bookTypeId,jdbcType=INTEGER}
+        </if>
+
+        <if test="bookAuthor !=null and bookAuthor !='' ">
+            and bu.book_author like CONCAT('%',#{bookAuthor},'%')
+        </if>
+        <if test="isbn !=null and isbn !='' ">
+            and bu.ISBN =#{isbn,jdbcType=VARCHAR}
+        </if>
+        <if test="bookPub !=null and bookPub !='' ">
+            and bu.book_pub like CONCAT('%',#{bookPub},'%')
+        </if>
+        <if test="isValid !=null and isValid !='' ">
+            and bu.is_valid =#{isValid,jdbcType=VARCHAR}
+        </if>
+        <if test="bookState !=null and bookState !='' ">
+            and bu.book_state =#{bookState,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <update id="updateBookById"  parameterType="java.util.Map">
+      UPDATE library.book_book bu SET
+        <if test="bookName !=null and bookName !=''">
+            bu.book_name=#{bookName,jdbcType=VARCHAR},
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !=''">
+            bu.book_type_id=#{bookTypeId,jdbcType=INTEGER},
+        </if>
+        <if test="bookAuthor !=null and bookAuthor !=''">
+            bu.book_author=#{bookAuthor,jdbcType=VARCHAR},
+        </if>
+        <if test="bookPub !=null and bookPub !=''">
+            bu.book_pub=#{bookPub,jdbcType=VARCHAR},
+        </if>
+        <if test="bookPubTime !=null and bookPubTime !=''">
+            bu.book_pub_time=#{bookPubTime,jdbcType=VARCHAR},
+        </if>
+        <if test="bookLeftNum !=null">
+            bu.book_left_num=#{bookLeftNum,jdbcType=INTEGER},
+        </if>
+        <if test="bookLanguage !=null and bookLanguage !=''">
+            bu.book_language=#{bookLanguage,jdbcType=VARCHAR},
+        </if>
+        <if test="bookPrice !=null and bookPrice !=''">
+            bu.book_price=#{bookPrice,jdbcType=DOUBLE},
+        </if>
+        <if test="isValid !=null and isValid !='' ">
+            bu.is_valid =#{isValid,jdbcType=VARCHAR},
+        </if>
+        <if test="bookState !=null and bookState !='' ">
+            bu.book_state =#{bookState,jdbcType=VARCHAR},
+        </if>
+        <if test="bookNum !=null and bookNum !='' ">
+            bu.book_num =#{bookNum,jdbcType=INTEGER}
+        </if>
+      bu.update_date_time = sysdate() WHERE bu.book_id=#{bookId,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteBookById" parameterType="java.lang.Long">
+        delete from library.book_book bu where bu.book_id=#{bookId,jdbc=INTEGER}
+    </delete>
+    <insert id="addBook" parameterType="com.weason.library.po.Book">
+      insert into library.book_book
+      (book_name,
+        book_type_id,
+        book_author,
+        book_pub,
+        book_pub_time,
+        book_num,
+        book_left_num,
+        book_state,
+        book_language,
+        book_introduction,
+        book_price,
+        ISBN,
+        book_img,
+        is_valid,
+        create_date_time
+     ) VALUES (
+            #{bookName,jdbcType=VARCHAR},
+            #{bookTypeId,jdbcType=INTEGER},
+            #{bookAuthor,jdbcType=VARCHAR},
+            #{bookPub,jdbcType=VARCHAR},
+            #{bookPubTime,jdbcType=VARCHAR},
+            #{bookNum,jdbcType=INTEGER},
+            #{bookLeftNum,jdbcType=INTEGER},
+            'Y',
+            #{bookLanguage,jdbcType=VARCHAR},
+            #{bookIntroduction,jdbcType=VARCHAR},
+            #{bookPrice,jdbcType=DOUBLE},
+            #{isbn,jdbcType=VARCHAR},
+            #{bookImg,jdbcType=VARCHAR},
+            'Y',
+            sysdate()
+      );
+    </insert>
+</mapper>

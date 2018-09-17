@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.jumbotron {
+    margin-top: 50px;
+}
+
+#verify {
+    font-size: 12px;
+}
+
+#verify input[type=text] {
+    width: 50px;
+    height: 25px;
+}
+
+#verify .table th {
+    text-align: right;
+    font-weight: normal;
+}
+
+#verify form {
+    line-height: 25px;
+}
+
+#verify dl {
+    margin: 5px 0;
+}
+
+#verify dt {
+    padding: 0;
+    line-height: 25px;
+    text-align: right;
+    font-weight: normal;
+}
+
+#verify dd {
+    line-height: 25px;
+}
+
+#verify .radio-inline input[type=radio] {
+    margin-left: -15px;
+    margin-top: 5px;
+}
+
+#verify .radio-inline {
+    padding-left: 15px;
+}
+
+#verify .table th,
+#verify .table td {
+    padding: 5px;
+}

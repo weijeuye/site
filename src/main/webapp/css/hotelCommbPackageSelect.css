@@ -1,0 +1,96 @@
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+.check_wrap {
+	width: 700x;
+	height: 100px;
+	border: 1px solid #e3e3e3;
+	background: #f5f5f5;
+	overflow-y: auto;
+}
+
+.check_wrap .title {
+	float: left;
+	height: inherit;
+	width: 100px;
+	display: inline-block;
+	line-height: 65px;
+	text-align: center;
+	border-right: 1px solid #e3e3e3;
+}
+
+.check_wrap .check_container {
+	float: left;
+	height: inherit;
+	overflow-y: auto;
+}
+
+.check_wrap .check_container ul {
+	width: 660px;
+}
+
+.check_wrap .check_container li {
+	float: left;
+	margin: 5px 10px 0 5px;
+	border: 1px solid #e3e3e3;
+	background: #fff;
+	height: 20px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.check_wrap .check_container span {
+	padding: 2px;
+	font-size: 12px;
+	height: 16px;
+	line-height: 16px;
+	float: left;
+	display: inline-block;
+	text-align: center;
+}
+
+.check_wrap .check_container a {
+	float: left;
+	height: 20px;
+	width: 20px;
+	font-size: 16px;
+	display: inline-block;
+	font-weight: bolder;
+	text-decoration: none;
+	color: #f00;
+	line-height: 20px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.check_wrap .check_container a:hover {
+	background: #fe6969;
+	color: #fff;
+}
+
+.hotel_list {
+	border: 1px solid #000;
+	margin-top: 10px;
+	width: 666px;
+}
+
+.hotel_list th,.hotel_list td {
+	text-align: center;
+	font-size: 12px;
+}
+
+.hotel_list tr {
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+}
+
+.hotel_list tr:hover {
+	background: #fffdd8;
+}

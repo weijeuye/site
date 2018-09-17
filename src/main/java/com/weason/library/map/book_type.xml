@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book_type">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.BookType">
+        <id  column="book_type_id"  property="bookTypeId" jdbcType="INTEGER"/>
+        <result column="book_type_parent_id"  property="bookTypeParentId" jdbcType="INTEGER"/>
+        <result column="book_type_parent_name"  property="bookTypeParentName" jdbcType="VARCHAR"/>
+        <result column="level_code"  property="levelCode" jdbcType="INTEGER"/>
+        <result column="book_type_name" property="bookTypeName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findBookTypeList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+        <include refid="basic.pageSearchHead"/>
+        select bu.*,bu1.book_type_name as book_type_parent_name FROM  library.book_type bu left join library.book_type bu1
+        on bu.book_type_parent_id=bu1.book_type_id where
+        1=1
+        <if test="levelCode !=null and levelCode !='' " >
+            and bu.level_code=#{levelCode,jdbcType=INTEGER}
+        </if>
+        <if test="bookTypeName !=null and bookTypeName !='' " >
+            and bu.book_type_name  like CONCAT('%',#{bookTypeName},'%')
+        </if>
+        <if test="bookTypeParentId !=null and bookTypeParentId !='' ">
+            and bu.book_type_parent_id =#{bookTypeParentId,jdbcType=INTEGER}
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !='' ">
+            and bu.book_type_id =#{bookTypeId,jdbcType=INTEGER}
+        </if>
+
+        <include refid="basic.pageSearchFoot"/>
+    </select>
+
+
+    <select id="findBookTypeCount" resultType="java.lang.Integer" >
+        select count(*) FROM  library.book_type bu WHERE
+          1=1
+        <if test="levelCode !=null and levelCode !='' " >
+            and bu.level_code=#{levelCode,jdbcType=INTEGER}
+        </if>
+        <if test="bookTypeName !=null and bookTypeName !='' " >
+            and bu.book_type_name  like CONCAT('%',#{bookTypeName},'%')
+        </if>
+        <if test="bookTypeParentId !=null and bookTypeParentId !='' ">
+            and bu.book_type_parent_id =#{bookTypeParentId,jdbcType=INTEGER}
+        </if>
+        <if test="bookTypeId !=null and bookTypeId !='' ">
+            and bu.book_type_id =#{bookTypeId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <update id="updateBookType"  parameterType="com.weason.library.po.BookType">
+      UPDATE library.book_type
+        <set >
+        <if test="levelCode !=null and levelCode !='' " >
+             level_code=#{levelCode,jdbcType=INTEGER},
+        </if>
+        <if test="bookTypeName !=null and bookTypeName !='' " >
+            book_type_name=#{bookTypeName,jdbcType=VARCHAR},
+        </if>
+
+            book_type_parent_id =#{bookTypeParentId,jdbcType=INTEGER},
+
+            update_date_time=sysdate() WHERE book_type_id=#{bookTypeId,jdbcType=INTEGER}
+        </set>
+    </update>
+
+
+    <delete id="deleteBookeTypeById" parameterType="java.lang.Long">
+        delete from library.book_type bu where bu.book_type_id=#{bookTypeId,jdbc=INTEGER}
+    </delete>
+
+    <insert id="addBookType" parameterType="com.weason.library.po.BookType">
+      insert into library.book_type
+      (book_type_parent_id,
+        book_type_name,
+        create_date_time,
+        level_code
+     ) VALUES (
+        #{bookTypeParentId,jdbcType=INTEGER},
+        #{bookTypeName,jdbcType=VARCHAR},
+       sysdate(),
+        #{levelCode,jdbcType=INTEGER}
+      );
+    </insert>
+</mapper>

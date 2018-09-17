@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weason.library.dao.ReaderDao">
+    <resultMap id="BaseResultMap" type="com.weason.library.po.ReaderInfo">
+        <id  column="reader_id"  property="readerId" jdbcType="INTEGER"/>
+        <result column="name"  property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="birth" property="birthday" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="telcode" property="telcode" jdbcType="VARCHAR"/>
+
+
+    </resultMap>
+
+    <select id="queryReaders" resultMap="BaseResultMap"  >
+        select * FROM  reader_info;
+
+    </select>
+</mapper>

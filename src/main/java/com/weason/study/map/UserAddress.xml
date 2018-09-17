@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.weason.study.dao.UserAddressDao">
+        <resultMap id="BaseResultMap" type="com.weason.study.po.UserAddress">
+            <id column="address_id" property="addressId" jdbcType="INTEGER"/>
+            <result column="address_no" property="addressNo" jdbcType="VARCHAR"/>
+            <result column="user_no" property="userNo" jdbcType="INTEGER"/>
+            <result column="mobile_number" property="mobileNumber" jdbcType="INTEGER"/>
+            <result column="areacode" property="areacode" jdbcType="VARCHAR"/>
+            <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+            <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+            <result column="province" property="province" jdbcType="VARCHAR"/>
+            <result column="city" property="city" jdbcType="VARCHAR"/>
+            <result column="postcode" property="postCode" jdbcType="VARCHAR"/>
+            <result column="province_id" property="provinceId" jdbcType="VARCHAR"/>
+            <result column="city_id" property="cityId" jdbcType="VARCHAR"/>
+            <result column="county_id" property="countyId" jdbcType="VARCHAR"/>
+            <result column="is_often" property="isOften" jdbcType="VARCHAR"/>
+
+        </resultMap>
+
+        <select id="findUserAddressById" parameterType="java.util.Map" resultMap="BaseResultMap">
+            select
+            *
+            from
+            user_address
+            where
+
+                address_id = #{addressId,jdbcType=INTEGER}
+
+        </select>
+
+        <update id="updateUserAddress" parameterType="com.weason.study.po.UserAddress" >
+            update user_address
+            <set>
+              <if test="userNo !=null" >
+                  user_no=#{userNo,jdbcType=VARCHAR},
+              </if>
+              <if test="userName !=null">
+                  user_name=#{userName,jdbcType=VARCHAR}
+              </if>
+            </set>
+            WHERE
+            address_id=#{addressId,jdbcType=INTEGER}
+        </update>
+    </mapper>

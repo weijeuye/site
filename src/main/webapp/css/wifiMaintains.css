@@ -1,0 +1,52 @@
+/**
+ * Created by niuchen on 2015/11/20.
+ */
+div,p,h1,h2,h3,h4,h5,h6,img,i,em,b,dl,li,dt,dd,ol{margin: 0px;padding: 0px;border: 0px;list-style: none;font-style: normal;font-weight: normal;}
+.wfContent{width: 750px; padding: 10px 0px 0px 40px;}
+.wfTitle{font-size: 16px; font-family: "microsoft yahei";color: #333;font-weight: bold; line-height: 30px;}
+.wfContent1{width: 100%;}
+.clear{clear: both;}
+.wfContent1 dt{width: 87px; margin-right: 11px; float: left;font-size: 14px; font-family: "microsoft yahei";color: #333; text-align: right; line-height: 24px;}
+.wfContent1 dt i{font-size: 14px; font-family: "microsoft yahei";color: #f00; margin-right: 4px;font-style: normal; line-height: 24px;}
+.wfContent1 dl{margin-bottom: 10px;}
+.wfContent1 dd{width: 650px; float: right;font-size: 14px; font-family: "microsoft yahei";color: #333; line-height: 24px;
+}
+.wfSelect{height: 24px; line-height: 24px; vertical-align: middle;}
+.wfText{height: 22px;width: 196px; border:1px solid #aaa;padding-left: 3px;vertical-align: middle;}
+.wfZhu{margin-left: 5px; font-size: 12px; line-height: 24px;color: #999; font-family: "microsoft yahei";}
+.wfContent1 dd b{ margin:0px 6px;font-size: 12px; line-height: 24px;font-family: "microsoft yahei";color: #333;}
+.wfDest1 dd{margin-bottom: 10px;}
+.wfSet,.wfDelete{border: 0px; background: none;line-height: 22px; border:1px solid #aaa; padding: 0px 5px; vertical-align: middle;
+font-size: 14px;font-family: "microsoft yahei"; outline: none; cursor: pointer;
+}
+.wfCkeckIn{display:inline-block;width: 370px; height: 33px;text-align: center; line-height: 33px; background: #f2f2f2; cursor: pointer;
+border-radius: 15px;
+}
+.wfSave{padding:10px 0px 0px 141px;}
+.wfSave1,.wfSave2{border: 0px; height: 24px; padding: 0px 10px; line-height: 24px;
+font-family: "microsoft yahei"; font-size: 14px;color: #333; background: #4E90FE;
+}
+/*目的地弹层*/
+.wfPopUp{width: 980px; height: 630px;background: #fff;box-shadow:0px 2px 3px rgba(0,0,0,0.3);
+position:fixed;top: 50%; left: 50%;margin: -315px 0px 0px -490px; border: 1px solid #ddd \9;display: none;
+}
+.wfPopTitle{padding-left: 10px; height: 38px; line-height: 38px; background: #538ED7; font-size: 16px; color: #fff; font-family: "microsoft yahei";}
+.wfClose{font-family: arial;color: #fff; font-size: 16px;  cursor: pointer; position: absolute; top: 10px; right: 10px;}
+.wfPopContent{padding:30px 20px 70px;}
+.wfSearch{margin: 0px 20px 10px; border: 1px solid #DBE7EF; background: #F9FAFB;padding: 6px 14px 10px 21px;}
+.wftext{width: 165px; height: 24px; padding-left: 3px; border: 1px solid #AABBCC; line-height: 24px;font-size: 14px; font-family: "microsoft yahei";
+color: #333;margin: 6px; vertical-align: middle;
+}
+.wfSearch span{font-size: 14px; font-family: "microsoft yahei";  color: #333; line-height: 26px; margin-right: 15px;margin-right:6px \0;}
+.wfselect{width: 168px;height: 26px;vertical-align: middle;}
+.wfCheck{ padding: 0px 10px; border:0px;background: #4E90FE;line-height: 26px; height: 26px;font-family: "microsoft yahei"; font-size: 14px;color: #333;
+margin-left: 15px; vertical-align: middle;
+}
+.wfTable th{height: 34px; line-height: 34px; text-align: center;font-size: 14px; color: #fff; font-family: "microsoft yahei";
+    background: #538ED7;
+}
+.wfTable{border-left: 1px solid #D8DCE5; }
+.wfTable td{text-align: center; height:24px;padding:7px 0px; line-height: 24px; border-bottom: 1px solid #D8DCE5;
+border-right: 1px solid #D8DCE5;
+}
+

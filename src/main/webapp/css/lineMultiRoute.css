@@ -1,0 +1,119 @@
+.nfadd_dialog{
+	width: 800px;
+	border: 1px solid #ddd;
+	left: 0px;
+	top: 20px;
+	background: #fff;
+	padding: 10px 0;
+}
+
+.nfadd_dialogT{
+	height: 25px;
+	line-height: 18px;
+	text-indent: 1em;
+	font-size: 14px;
+	color: #333;
+	border-bottom: 1px solid #ddd;
+}
+.nfadd_dialogB{
+	padding: 5px;
+}
+.nfadd_List li{
+	padding: 3px 0;
+}
+.nfadd_div{
+	float: none;
+}
+.nfadd_title{
+	margin-right: 15px;
+}
+
+.nfadd_div label{
+	display: inline-block;
+	margin-right: 20px;
+}
+.nfadd_div input{
+	vertical-align: middle;
+	margin-top: -4px;
+}
+.nfadd_minW{
+	width:auto;
+	min-width: 120px;
+}
+.nfadd_line{
+	height: 28px;
+	line-height: 28px;
+}
+.nfadd_line span{
+	padding: 0 8px;
+}
+.nfadd_minText{
+	text-align: center;
+	width: 40px;
+	margin: 0 10px;
+}
+
+.nfadd_table td{
+	padding-bottom: 8px;
+}
+
+.nfadd_table td span{
+	padding-right: 15px;
+}
+.nfadd_table td label{
+	display: inline-block;
+	margin-right: 20px;
+}
+.nfadd_middText{
+	width: 80px;
+	margin-right: 20px;
+}
+
+.nfadd_selectTime{
+	width: 80px;
+}
+
+.nfadd_dialogF{
+	text-align: center;
+	padding:5px 0;
+}
+.nfadd_btn{
+	padding: 3px 15px;
+	display: inline-block;	
+}
+.nfadd_btn_active{
+	background: #4d90fe;
+	color: #fff;
+}
+.nfadd_btn_active:hover{
+	color: #fff;
+	background: #3f87fe;
+	text-decoration: none;
+}
+.nfadd_btn_cancel{
+	color: #aaa;
+}
+.nfadd_btn_cancel:hover{
+	color: #999;
+	text-decoration: none;
+}
+
+.nfadd_bgColor{
+	background-color: #efefef;
+	line-height: 36px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+.nfadd_close{
+	width: 15px;
+	height: 15px;
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	color: #000;
+	font-size: 14px;
+}
+.nfadd_close:hover{
+	text-decoration: none;
+};

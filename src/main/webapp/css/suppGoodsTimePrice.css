@@ -1,0 +1,39 @@
+.aheadBookTime_td div{
+	float: left;
+ 	width: 130px;  
+ 	position: relative; 
+}
+.aheadBookTime_td div i{
+	position: absolute;
+	left: 0;
+	top: 32px;
+	height: 14px;
+	padding: 0 0 0 16px;
+	line-height: 14px;
+}
+.latestHoldTime_td div{
+	float: left;
+ 	width: 130px;  
+ 	position: relative; 
+}
+.latestHoldTime_td div i{
+	position: absolute;
+	left: 0;
+	top: 24px;
+	height: 14px;
+	padding: 0 0 0 16px;
+	line-height: 14px;
+}
+.lastCancelTime_td div{
+	float: left;
+ 	width: 130px;  
+ 	position: relative; 
+}
+.lastCancelTime_td div i{
+	position: absolute;
+	left: 0;
+	top: 24px;
+	height: 14px;
+	padding: 0 0 0 16px;
+	line-height: 14px;
+}
