@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>library</servlet-name>
+    <servlet-name>site</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
@@ -15,7 +15,7 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>library</servlet-name>
+    <servlet-name>site</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet-mapping>

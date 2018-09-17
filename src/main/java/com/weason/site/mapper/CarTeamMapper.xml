@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="carTeamMapper" >
+  <resultMap id="BaseResultMap" type="com.weason.site.pojo.CarTeam" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="car_team_name" property="carTeamName" jdbcType="VARCHAR" />
+    <result column="contact_way" property="contactWay" jdbcType="BIGINT" />
+    <result column="person_liable" property="personLiable" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, status, create_time, update_time, car_team_name, contact_way, person_liable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from u_car_team
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from u_car_team
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.weason.site.pojo.CarTeam" >
+    insert into u_car_team (id, status, create_time, 
+      update_time, car_team_name, contact_way, 
+      person_liable)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{carTeamName,jdbcType=VARCHAR}, #{contactWay,jdbcType=BIGINT}, 
+      #{personLiable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weason.site.pojo.CarTeam" >
+    insert into u_car_team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="carTeamName != null" >
+        car_team_name,
+      </if>
+      <if test="contactWay != null" >
+        contact_way,
+      </if>
+      <if test="personLiable != null" >
+        person_liable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carTeamName != null" >
+        #{carTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null" >
+        #{contactWay,jdbcType=BIGINT},
+      </if>
+      <if test="personLiable != null" >
+        #{personLiable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weason.site.pojo.CarTeam" >
+    update u_car_team
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carTeamName != null" >
+        car_team_name = #{carTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWay != null" >
+        contact_way = #{contactWay,jdbcType=BIGINT},
+      </if>
+      <if test="personLiable != null" >
+        person_liable = #{personLiable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weason.site.pojo.CarTeam" >
+    update u_car_team
+    set status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      car_team_name = #{carTeamName,jdbcType=VARCHAR},
+      contact_way = #{contactWay,jdbcType=BIGINT},
+      person_liable = #{personLiable,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
