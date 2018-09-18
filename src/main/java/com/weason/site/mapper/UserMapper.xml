@@ -15,7 +15,6 @@
     <result column="phone" jdbcType="VARCHAR" property="phone"/>
     <result column="gender" jdbcType="VARCHAR" property="gender"/>
     <result column="memo" jdbcType="VARCHAR" property="memo"/>
-
   </resultMap>
   <sql id="Base_Column_List">
     id, status, create_time, update_time, account, password, alias,is_valid,user_type,phone,gender,memo,site_id
@@ -72,9 +71,9 @@
       <if test="memo != null and memo != ''">
         memo,
       </if>
-        <if test="siteId != null" >
-            site_id,
-        </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
       create_time,
       update_time
     </trim>

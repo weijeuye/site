@@ -70,16 +70,9 @@ public class UserController {
 
     /***
      * 获取单个用户
-     * @param id
+     * @param user
      * @return
      */
-   /* @RequestMapping(value = "/getSingle/{id}",method = RequestMethod.GET)
-    @ResponseBody
-    public ResultMessage queryUser(@PathVariable Long id){
-
-       return userService.queryUser(id);
-    }*/
-
     @RequestMapping(value = "/showAddUser")
     public String showAddUser(HttpServletRequest request,Model model,User user){
         String basePath=HttpUtils.getBasePath(request);
