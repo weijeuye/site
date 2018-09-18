@@ -10,7 +10,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
-
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
     <result column="user_type" jdbcType="VARCHAR" property="userType"/>
     <result column="phone" jdbcType="VARCHAR" property="phone"/>
     <result column="gender" jdbcType="VARCHAR" property="gender"/>
@@ -18,7 +18,7 @@
 
   </resultMap>
   <sql id="Base_Column_List">
-    id, status, create_time, update_time, account, password, alias,is_valid,user_type,phone,gender,memo
+    id, status, create_time, update_time, account, password, alias,is_valid,user_type,phone,gender,memo,site_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
@@ -33,11 +33,11 @@
   <insert id="insert" parameterType="com.weason.site.pojo.User">
     insert into u_user (id, status, create_time,
       update_time, account, password,
-      alias,is_valid,user_type,phone,gender,memo)
+      alias,is_valid,user_type,phone,gender,memo, site_id)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{alias,jdbcType=VARCHAR},#{isValid,jdbcType=VARCHAR},#{userType,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},
-      #{gender,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR})
+      #{gender,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR},#{siteId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.User">
     insert into u_user
@@ -72,6 +72,9 @@
       <if test="memo != null and memo != ''">
         memo,
       </if>
+        <if test="siteId != null" >
+            site_id,
+        </if>
       create_time,
       update_time
     </trim>
@@ -105,6 +108,9 @@
       </if>
       <if test="memo != null and memo != ''">
         #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=BIGINT},
       </if>
       SYSDATE(),
       SYSDATE()
@@ -143,6 +149,9 @@
       <if test="memo != null and memo != ''">
         memo= #{memo,jdbcType=VARCHAR},
       </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=BIGINT},
+      </if>
       update_time = SYSDATE()
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -156,6 +165,8 @@
       password = #{password,jdbcType=VARCHAR},
       alias = #{alias,jdbcType=VARCHAR},
       is_valid =#{isValid,jdbcType=VARCHAR}
+      alias = #{alias,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -235,6 +246,9 @@
     </if>
     <if test="gender != null and gender != ''">
       and gender = #{gender,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null" >
+      and site_id = #{siteId,jdbcType=BIGINT},
     </if>
   </select>
 </mapper>

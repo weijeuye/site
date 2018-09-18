@@ -131,7 +131,7 @@ public class SiteServiceImpl implements SiteService {
         Site site1 = new Site();
         site1.setId(id);
         site1.setStatus(0);
-
+///todo 删除该工地下所有投放点
         return  siteDao.updateSite(site1);
     }
 }
