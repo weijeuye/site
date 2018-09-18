@@ -147,19 +147,19 @@
                     <dl class="nav nav-sidebar tab-client-relation">
                         <dt><i></i><em title="学员管理">基础设置</em><b></b></dt>
                         <dd>
-                            <a data-id="5"  href="${basePath}/site/user/findUsers.do" permId="5"  data-name="用户管理">用户信息管理</a>
+                            <a data-id="5"  href="${basePath}/siteUser/findUsers.do" permId="5"  data-name="用户管理">用户信息管理</a>
                             <a data-id="6"  href="${basePath}/bookBorrow/findBookBorrows.do" permId="6"  data-name="工地管理">工地管理</a>
                             <!--以下为普通用户菜单-->
-                            <a data-id="7"  href="${basePath}/user/findUsers.do" permId="7"  data-name="车辆管理">车辆管理</a>
-                            <a data-id="8"  href="${basePath}/bookBorrow/findBookBorrows.do" permId="8"  data-name="车队管理">车队管理</a>
-                            <a data-id="9"  href="${basePath}/bookBorrow/findBookBorrows.do" permId="9"  data-name="方点管理">方点管理</a>
+                            <a data-id="7"  href="${basePath}/siteUser/findUsers.do" permId="7"  data-name="车辆管理">车辆管理</a>
+                            <a data-id="8"  href="${basePath}/siteUser/findBookBorrows.do" permId="8"  data-name="车队管理">车队管理</a>
+                            <a data-id="9"  href="${basePath}/siteUser/findBookBorrows.do" permId="9"  data-name="方点管理">方点管理</a>
                         </dd>
                     </dl>
 
                     <dl class="nav nav-sidebar tab-financial-management">
                         <dt><i></i><em title="单据管理">单据管理</em><b></b></dt>
                         <dd>
-                            <a data-id="10"  href="${basePath}/book/findBookTypeList.do" permId="10"  data-name="出库单管理">出库单管理</a>
+                            <a data-id="10"  href="${basePath}/siteUser/findBookTypeList.do" permId="10"  data-name="出库单管理">出库单管理</a>
                            <#-- <a data-id="4"  href="${basePath}/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>-->
                         </dd>
                     </dl>

@@ -18,6 +18,15 @@ public class User implements Serializable {
 
     private String alias;
 
+    private String isValid;
+
+    private String userType;
+
+    private String  gender;
+
+    private String  phone;
+
+    private String memo;
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -76,6 +85,46 @@ public class User implements Serializable {
         this.alias = alias == null ? null : alias.trim();
     }
 
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -94,7 +143,8 @@ public class User implements Serializable {
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()));
+            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()))
+                &&(this.getIsValid() == null ? other.getIsValid() == null : this.getIsValid().equals(other.getIsValid()));
     }
 
     @Override
@@ -108,6 +158,7 @@ public class User implements Serializable {
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getAlias() == null) ? 0 : getAlias().hashCode());
+        result = prime * result + ((getIsValid() == null) ? 0 : getIsValid().hashCode());
         return result;
     }
 
@@ -124,6 +175,7 @@ public class User implements Serializable {
         sb.append(", account=").append(account);
         sb.append(", password=").append(password);
         sb.append(", alias=").append(alias);
+        sb.append(", isValid=").append(isValid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

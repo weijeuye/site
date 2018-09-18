@@ -27,21 +27,21 @@ public interface UserService {
      * @param id
      * @return
      */
-    ResultMessage queryUser(Long id);
+    User queryUser(Long id);
 
     /***
      * 添加用户
      * @param user
      * @return
      */
-    ResultMessage addUser(User user);
+    Integer addUser(User user);
 
     /***
      * 修改用户信息
      * @param user
      * @return
      */
-    ResultMessage updateUser(User user);
+    Integer updateUser(User user);
 
     /***
      * 删除用户
