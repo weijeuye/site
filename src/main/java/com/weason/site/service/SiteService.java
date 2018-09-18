@@ -27,19 +27,19 @@ public interface SiteService {
      * @param site
      * @return
      */
-    ResultMessage addSite(Site site);
+    Integer addSite(Site site);
 
     /***
      * 修改工地信息
      * @param site
      * @return
      */
-    ResultMessage updateSite(Site site);
+    Integer updateSite(Site site);
 
     /***
      * 删除工地
      * @param id
      * @return
      */
-    ResultMessage deleteSite(Long id);
+    Integer deleteSite(Long id);
 }
