@@ -18,6 +18,8 @@ public class User implements Serializable {
 
     private String alias;
 
+    private Long siteId;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -76,6 +78,14 @@ public class User implements Serializable {
         this.alias = alias == null ? null : alias.trim();
     }
 
+    public Long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Long siteId) {
+        this.siteId = siteId;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -94,7 +104,8 @@ public class User implements Serializable {
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()));
+            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()))
+            && (this.getSiteId() == null ? other.getSiteId() == null : this.getSiteId().equals(other.getSiteId()));
     }
 
     @Override
@@ -108,6 +119,7 @@ public class User implements Serializable {
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getAlias() == null) ? 0 : getAlias().hashCode());
+        result = prime * result + ((getSiteId() == null) ? 0 : getSiteId().hashCode());
         return result;
     }
 
@@ -124,6 +136,7 @@ public class User implements Serializable {
         sb.append(", account=").append(account);
         sb.append(", password=").append(password);
         sb.append(", alias=").append(alias);
+        sb.append(", siteId=").append(siteId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

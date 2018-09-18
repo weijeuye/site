@@ -69,7 +69,13 @@ public class UserServiceImpl implements UserService {
             resultMessage.setMessage("用户账户或密码为空");
             return resultMessage;
         }
+        if (StringUtils.isBlank(user.getSiteId())){
+            resultMessage.setCode(ResultMessage.ERROR);
+            resultMessage.setMessage("请选择用户所属工地");
+            return resultMessage;
+        }
         Map<String,Object> param = new HashMap<>();
+        param.put("siteId",user.getSiteId());
         param.put("account",account);
         param.put("status",1);
         List<User> users = userDao.queryUsers(param);

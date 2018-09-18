@@ -133,6 +133,7 @@ public class SiteServiceImpl implements SiteService {
         site1.setId(id);
         site1.setStatus(0);
         siteDao.updateSite(site1);
+        //todo 删除该工地下所有投放点
         return resultMessage;
     }
 }
