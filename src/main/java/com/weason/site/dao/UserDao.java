@@ -27,7 +27,16 @@ public class UserDao extends MyBatisDao {
      * @return
      */
     public List<User> queryUsers(Map<String,Object> param){
-        return super.queryForListForReport("queryUsers",param);
+        return super.queryForList("queryUsers",param);
+    }
+
+    /**
+     * 查询用户总数
+     * @param param
+     * @return
+     */
+    public Integer queryUsersCount(Map<String,Object> param){
+        return super.get("queryUsersCount",param);
     }
 
     /***

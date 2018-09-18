@@ -28,24 +28,14 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public ResultMessage queryUsers(User user) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
-        Map<String,Object> param = new HashMap<>();
-        if (null != user){
-            if (null !=user.getAccount()&&StringUtils.isBlank(user.getAccount())){
-                param.put("account",user.getAccount());
-            }
-            if (null !=user.getAlias()&&StringUtils.isBlank(user.getAlias())){
-                param.put("alias",user.getAlias());
-            }
-        }
-        param.put("status",1);
-        List<User> users = userDao.queryUsers(param);
-        if (users.size()==0){
-            resultMessage.setMessage("暂无用户");
-        }
-        resultMessage.addObject("users",users);
-        return resultMessage;
+    public List<User> queryUsers(Map<String,Object> param) {
+        List<User> userList=userDao.queryUsers(param);
+        return userList;
+    }
+
+    @Override
+    public Integer queryUsersCount(Map<String, Object> param) {
+        return userDao.queryUsersCount(param);
     }
 
     @Override

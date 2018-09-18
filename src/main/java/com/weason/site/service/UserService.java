@@ -3,6 +3,9 @@ package com.weason.site.service;
 import com.weason.site.pojo.User;
 import com.weason.util.ResultMessage;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @program: library
  * @description: ${description}
@@ -13,9 +16,11 @@ public interface UserService {
     /***
      * 查询用户列表
      * @return
-     * @param user
+     * @param param
      */
-    ResultMessage queryUsers(User user);
+    List<User> queryUsers(Map<String,Object> param);
+
+    Integer  queryUsersCount(Map<String,Object> param);
 
     /***
      * 查询单个用户

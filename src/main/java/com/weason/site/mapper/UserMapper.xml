@@ -104,6 +104,34 @@
       alias = #{alias,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryUsersCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from u_user
+    where 1=1
+    <if test="id != null" >
+      and id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="account != null" >
+      and account = #{account,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null" >
+      and password = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="alias != null">
+      and alias = #{alias,jdbcType=VARCHAR},
+    </if>
+  </select>
+
   <select id="queryUsers" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select
     <include refid="Base_Column_List" />
