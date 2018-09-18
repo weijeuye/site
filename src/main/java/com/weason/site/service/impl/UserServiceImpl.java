@@ -39,48 +39,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultMessage queryUser(Long id) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
+    public User queryUser(Long id) {
         User user = userDao.queryUserById(id);
-        if (user==null){
-            resultMessage.setMessage("需要查询的用户不存在");
-        }
-        resultMessage.addObject("user",user);
-        return resultMessage;
+
+        return user;
     }
 
     @Override
-    public ResultMessage addUser(User user) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
-        String account = user.getAccount();
-        String password = user.getPassword();
-        if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
-            resultMessage.setCode(ResultMessage.ERROR);
-            resultMessage.setMessage("用户账户或密码为空");
-            return resultMessage;
-        }
-        Map<String,Object> param = new HashMap<>();
-        param.put("account",account);
-        param.put("status",1);
-        List<User> users = userDao.queryUsers(param);
-        if (users.size()>0){
-            resultMessage.setCode(ResultMessage.ERROR);
-            resultMessage.setMessage("创建用户账号已存在,不允许重复创建");
-            return resultMessage;
-        }
-        user.setPassword(CryptographyUtil.md5(password));
-        int i = userDao.addUser(user);
-        if(i==0){
-            resultMessage.setCode(ResultMessage.SYS_ERROR);
-            resultMessage.setMessage("创建账户失败");
-            return resultMessage;
-        }
-        return resultMessage;
+    public Integer addUser(User user) {
+
+
+        return userDao.addUser(user);
     }
 
     @Override
-    public ResultMessage updateUser(User user) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
+    public Integer updateUser(User user) {
+       /* ResultMessage resultMessage = ResultMessage.createResultMessage();
         Long id = user.getId();
         boolean flag = false;
         int i;
@@ -121,8 +95,8 @@ public class UserServiceImpl implements UserService {
         if (i==0){
             resultMessage.setMessage("修改用户信息失败");
             resultMessage.setCode(ResultMessage.SYS_ERROR);
-        }
-        return resultMessage;
+        }*/
+        return userDao.updateUser(user);
     }
 
     @Override
