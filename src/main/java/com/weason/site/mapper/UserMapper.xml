@@ -209,6 +209,7 @@
   </select>
 
   <select id="queryUsers" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    <include refid="basic.pageSearchHead"/>
     select
     <include refid="Base_Column_List" />
     from u_user
@@ -249,5 +250,6 @@
     <if test="siteId != null" >
       and site_id = #{siteId,jdbcType=BIGINT},
     </if>
+    <include refid="basic.pageSearchFoot"/>
   </select>
 </mapper>

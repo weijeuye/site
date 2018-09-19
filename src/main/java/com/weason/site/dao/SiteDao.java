@@ -29,6 +29,14 @@ public class SiteDao extends MyBatisDao {
         return super.queryForListForReport("querySites",param);
     }
 
+    /**
+     * 查询工地总数
+     * @param param
+     * @return
+     */
+    public Integer querySitesCountByParam(Map<String,Object> param){
+        return super.get("querySitesCountByParam",param);
+    }
     /***
      * 查询单个工地信息
      * @param id

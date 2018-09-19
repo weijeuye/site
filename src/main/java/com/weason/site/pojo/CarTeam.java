@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CarTeam implements Serializable {
+
+    private static final long serialVersionUID = -1902446180158035583L;
     private Long id;
 
     private Integer status;
@@ -18,7 +20,35 @@ public class CarTeam implements Serializable {
 
     private String personLiable;
 
-    private static final long serialVersionUID = 1L;
+    private Long siteId;
+
+    private String isValid;
+
+    private String memo;
+
+    public Long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Long siteId) {
+        this.siteId = siteId;
+    }
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public Long getId() {
         return id;

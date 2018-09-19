@@ -25,8 +25,17 @@ public class CarTeamDao extends MyBatisDao {
      * @param param
      * @return
      */
-    public List<CarTeam> queryCarTeams(Map<String,Object> param){
-        return super.queryForListForReport("queryCarTeams",param);
+    public List<CarTeam> queryCarTeamsByParam(Map<String,Object> param){
+        return super.queryForListForReport("queryCarTeamsByParam",param);
+    }
+
+    /**
+     * 查询车队数量
+     * @param param
+     * @return
+     */
+    public Integer queryCarTeamCountByParam(Map<String,Object> param){
+        return super.get("queryCarTeamCountByParam",param);
     }
 
     /***

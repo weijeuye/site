@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Site implements Serializable {
+
+    private static final long serialVersionUID = -3864807377173422760L;
+
     private Long id;
 
     private Integer status;
@@ -16,7 +19,17 @@ public class Site implements Serializable {
 
     private String siteName;
 
-    private static final long serialVersionUID = 1L;
+    private String isValid;
+
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public Long getId() {
         return id;
@@ -64,6 +77,14 @@ public class Site implements Serializable {
 
     public void setSiteName(String siteName) {
         this.siteName = siteName == null ? null : siteName.trim();
+    }
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
     }
 
     @Override

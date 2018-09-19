@@ -3,6 +3,9 @@ package com.weason.site.service;
 import com.weason.site.pojo.Site;
 import com.weason.util.ResultMessage;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author Administrator
  * @CreateTime 2018/9/17 17:46
@@ -13,14 +16,18 @@ public interface SiteService {
      * @param site
      * @return
      */
-    ResultMessage querySites(Site site);
+    List<Site> querySites(Site site);
+
+    public List<Site> querySitesByParam(Map<String,Object> param);
+
+    public Integer querySitesCountByParam(Map<String,Object> param);
 
     /***
      * 获取单个工地信息
      * @param id
      * @return
      */
-    ResultMessage querySite(Long id);
+    Site querySite(Long id);
 
     /***
      * 添加工地

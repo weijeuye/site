@@ -9,9 +9,13 @@
     <result column="car_team_name" property="carTeamName" jdbcType="VARCHAR" />
     <result column="contact_way" property="contactWay" jdbcType="BIGINT" />
     <result column="person_liable" property="personLiable" jdbcType="VARCHAR" />
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, car_team_name, contact_way, person_liable
+    id, status, create_time, update_time, car_team_name, contact_way, person_liable,site_id,is_valid,memo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -26,10 +30,10 @@
   <insert id="insert" parameterType="com.weason.site.pojo.CarTeam" >
     insert into u_car_team (id, status, create_time, 
       update_time, car_team_name, contact_way, 
-      person_liable)
+      person_liable,site_id,is_valid,memo)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{carTeamName,jdbcType=VARCHAR}, #{contactWay,jdbcType=BIGINT}, 
-      #{personLiable,jdbcType=VARCHAR})
+      #{personLiable,jdbcType=VARCHAR},#{siteId,jdbcType=VARCHAR},#{isValid,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.CarTeam" >
     insert into u_car_team
@@ -55,6 +59,15 @@
       <if test="personLiable != null" >
         person_liable,
       </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,6 +90,15 @@
       </if>
       <if test="personLiable != null" >
         #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -101,6 +123,15 @@
       <if test="personLiable != null" >
         person_liable = #{personLiable,jdbcType=VARCHAR},
       </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=BIGINT},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -111,7 +142,63 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       car_team_name = #{carTeamName,jdbcType=VARCHAR},
       contact_way = #{contactWay,jdbcType=BIGINT},
-      person_liable = #{personLiable,jdbcType=VARCHAR}
+      person_liable = #{personLiable,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=BIGINT},
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="queryCarTeamsByParam" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    <include refid="basic.pageSearchHead"/>
+    select
+    <include refid="Base_Column_List" />
+    from u_car_team
+    where 1=1
+    <if test="status != null" >
+     and  status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="carTeamName != null" >
+     and car_team_name like CONCAT('%',#{carTeamName},'%')
+    </if>
+    <if test="contactWay != null" >
+      and contact_way = #{contactWay,jdbcType=BIGINT}
+    </if>
+    <if test="personLiable != null" >
+     and  person_liable = #{personLiable,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null" >
+      and site_id = #{siteId,jdbcType=BIGINT}
+    </if>
+    <if test="isValid != null" >
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+    <include refid="basic.pageSearchFoot"/>
+  </select>
+
+  <select id="queryCarTeamCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(*)
+    from u_car_team
+    where 1=1
+    <if test="status != null" >
+      and  status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="carTeamName != null" >
+      and car_team_name like CONCAT('%',#{carTeamName},'%')
+    </if>
+    <if test="contactWay != null" >
+      and contact_way = #{contactWay,jdbcType=BIGINT}
+    </if>
+    <if test="personLiable != null" >
+      and  person_liable = #{personLiable,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null" >
+      and site_id = #{siteId,jdbcType=BIGINT}
+    </if>
+    <if test="isValid != null" >
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

@@ -8,9 +8,12 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="site_number" property="siteNumber" jdbcType="VARCHAR" />
     <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, site_number, site_name
+    id, status, create_time, update_time, site_number, site_name,is_valid,memo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -24,11 +27,11 @@
   </delete>
   <insert id="insert" parameterType="com.weason.site.pojo.Site" >
     insert into u_site (id, status, create_time, 
-      update_time, site_number, site_name
+      update_time, site_number, site_name,is_valid,memo
       )
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{siteNumber,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}
-      )
+      #{updateTime,jdbcType=TIMESTAMP}, #{siteNumber,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR},
+      #{isValid,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.Site" >
     insert into u_site
@@ -45,6 +48,12 @@
       <if test="siteName != null" >
         site_name,
       </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
       create_time,
       update_time
     </trim>
@@ -59,7 +68,13 @@
         #{siteNumber,jdbcType=VARCHAR},
       </if>
       <if test="siteName != null" >
-        #{siteName,jdbcType=VARCHAR},
+      #{siteName,jdbcType=VARCHAR},
+    </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
       </if>
       SYSDATE(),
       SYSDATE()
@@ -80,6 +95,12 @@
       <if test="siteName != null" >
         site_name = #{siteName,jdbcType=VARCHAR},
       </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
       update_time = SYSDATE()
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -87,34 +108,51 @@
   <update id="updateByPrimaryKey" parameterType="com.weason.site.pojo.Site" >
     update u_site
     set status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = SYSDATE(),
+      update_time = SYSDATE(),
       site_number = #{siteNumber,jdbcType=VARCHAR},
-      site_name = #{siteName,jdbcType=VARCHAR}
+      site_name = #{siteName,jdbcType=VARCHAR},
+      is_valid =#{isValid,jdbcType=VARCHAR},
+      memo =#{memo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="querySites" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    <include refid="basic.pageSearchHead"/>
     select
     <include refid="Base_Column_List" />
-    from u_user
+    from u_site
     where 1=1
     <if test="status != null" >
       and status = #{status,jdbcType=TINYINT}
     </if>
-    <if test="createTime != null" >
-      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    <if test="siteNumber != null and siteNumber !='' " >
+      and site_number = #{siteNumber,jdbcType=VARCHAR}
     </if>
-    <if test="updateTime != null" >
-      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    <if test="siteName != null and siteName !='' " >
+      and site_name like CONCAT('%',#{siteName},'%')
     </if>
-    <if test="siteNumber != null" >
-      and site_number = #{siteNumber,jdbcType=VARCHAR},
+    <if test="isValid != null and isValid !=''">
+      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
-    <if test="siteName != null" >
-      and site_name = #{siteName,jdbcType=VARCHAR},
+    <include refid="basic.pageSearchFoot"/>
+  </select>
+
+  <select id="querySitesCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+     count(*)
+    from u_site
+    where 1=1
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
     </if>
-    <if test="alias != null">
-      and alias = #{alias,jdbcType=VARCHAR},
+    <if test="siteNumber != null and siteNumber !=''" >
+      and site_number = #{siteNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="siteName != null and siteName !=''" >
+      and site_name like CONCAT('%',#{siteName},'%')
+    </if>
+    <if test="isValid != null and isValid !=''">
+      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
   </select>
 </mapper>

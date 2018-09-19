@@ -29,8 +29,7 @@ public class SiteServiceImpl implements SiteService {
      * @return
      */
     @Override
-    public ResultMessage querySites(Site site) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
+    public List<Site> querySites(Site site) {
         Map<String,Object> param = new HashMap<>();
         if (null != site){
             if (null !=site.getSiteName()&& StringUtils.isBlank(site.getSiteName())){
@@ -42,11 +41,8 @@ public class SiteServiceImpl implements SiteService {
         }
         param.put("status",1);
         List<Site> sites = siteDao.querySites(param);
-        if (sites.size()==0){
-            resultMessage.setMessage("暂无工地");
-        }
-        resultMessage.addObject("sites",sites);
-        return resultMessage;
+
+        return sites;
     }
 
     /***
@@ -55,14 +51,10 @@ public class SiteServiceImpl implements SiteService {
      * @return
      */
     @Override
-    public ResultMessage querySite(Long id) {
+    public Site querySite(Long id) {
         ResultMessage resultMessage = ResultMessage.createResultMessage();
         Site site = siteDao.querySiteById(id);
-        if (null==site){
-            resultMessage.setMessage("需要查询的工地不存在");
-        }
-        resultMessage.addObject("site",site);
-        return resultMessage;
+        return site;
     }
 
     /***
@@ -89,7 +81,7 @@ public class SiteServiceImpl implements SiteService {
         }*/
         String siteNumber = "BH"+System.currentTimeMillis()+"";
         site.setSiteNumber(siteNumber);
-
+        site.setIsValid("Y");
         return siteDao.addSite(site);
     }
 
@@ -133,5 +125,15 @@ public class SiteServiceImpl implements SiteService {
         site1.setStatus(0);
 //todo 删除该工地下所有投放点
         return  siteDao.updateSite(site1);
+    }
+
+    @Override
+    public List<Site> querySitesByParam(Map<String, Object> param) {
+        return siteDao.querySites(param);
+    }
+
+    @Override
+    public Integer querySitesCountByParam(Map<String, Object> param) {
+        return siteDao.querySitesCountByParam(param);
     }
 }
