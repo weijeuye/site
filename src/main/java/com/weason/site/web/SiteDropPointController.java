@@ -1,6 +1,5 @@
 package com.weason.site.web;
 
-import com.weason.site.pojo.Site;
 import com.weason.site.pojo.SiteDropPoint;
 import com.weason.site.service.SiteDropPointService;
 import com.weason.util.ResultMessage;

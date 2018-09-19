@@ -70,7 +70,7 @@ public class SiteController {
     public Object querySite(@PathVariable Long id,Model model,HttpServletRequest request){
         ResultMessage resultMessage=ResultMessage.createResultMessage();
         if(id==null){
-            return resultMessage.PARAM_EXCEPTION_RESULT;
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
         String basePath=HttpUtils.getBasePath(request);
         Site site=siteService.querySite(id);
