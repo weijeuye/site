@@ -26,7 +26,7 @@ public class CarDao extends MyBatisDao {
      * @return
      */
     public List<Car> queryCars(Map<String,Object> param){
-        return super.queryForListForReport("queryCars",param);
+        return super.queryForList("queryCars",param);
     }
 
     /***
@@ -54,14 +54,5 @@ public class CarDao extends MyBatisDao {
      */
     public int updateCar(Car car){
         return super.update("updateByPrimaryKeySelective",car);
-    }
-
-    /***
-     * 删除车辆
-     * @param id
-     * @return
-     */
-    public int deleteCar(Long id){
-        return super.update("deleteCar",id);
     }
 }

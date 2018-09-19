@@ -37,7 +37,6 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/findUsers",method = RequestMethod.GET)
-
     public String queryUsers(User queryParam, Model model,HttpServletRequest request,Integer page){
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);

@@ -13,13 +13,16 @@ import java.util.Map;
 public interface CarTeamService {
     /***
      * 获取所有车队
-     * @param carTeam
+     * @param param
      * @return
      */
-    List<CarTeam> queryCarTeam(CarTeam carTeam);
-
     public List<CarTeam> queryCarTeamsByParam(Map<String, Object> param);
 
+    /***
+     *查询车队数量
+     * @param param
+     * @return
+     */
     public Integer queryCarTeamCountByParam(Map<String, Object> param);
 
     /***

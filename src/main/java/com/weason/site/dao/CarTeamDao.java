@@ -26,7 +26,7 @@ public class CarTeamDao extends MyBatisDao {
      * @return
      */
     public List<CarTeam> queryCarTeamsByParam(Map<String,Object> param){
-        return super.queryForListForReport("queryCarTeamsByParam",param);
+        return super.queryForList("queryCarTeamsByParam",param);
     }
 
     /**
@@ -65,12 +65,4 @@ public class CarTeamDao extends MyBatisDao {
         return super.update("updateByPrimaryKeySelective",carTeam);
     }
 
-    /***
-     * 删除车队
-     * @param id
-     * @return
-     */
-    public int deleteCarTeam(Long id){
-        return super.update("deleteCarTeam",id);
-    }
 }
