@@ -71,9 +71,9 @@ public class SiteServiceImpl implements SiteService {
      * @return
      */
     @Override
-    public ResultMessage addSite(Site site) {
+    public Integer addSite(Site site) {
         ResultMessage resultMessage = ResultMessage.createResultMessage();
-        if (StringUtils.isBlank(site.getSiteName())){
+      /*  if (StringUtils.isBlank(site.getSiteName())){
             resultMessage.setCode(ResultMessage.ERROR);
             resultMessage.setMessage("工地名称不能为空");
             return resultMessage;
@@ -86,11 +86,11 @@ public class SiteServiceImpl implements SiteService {
             resultMessage.setCode(ResultMessage.ERROR);
             resultMessage.setMessage("添加的工地已存在");
             return resultMessage;
-        }
+        }*/
         String siteNumber = "BH"+System.currentTimeMillis()+"";
         site.setSiteNumber(siteNumber);
-        siteDao.addSite(site);
-        return resultMessage;
+
+        return siteDao.addSite(site);
     }
 
     /***
@@ -99,7 +99,7 @@ public class SiteServiceImpl implements SiteService {
      * @return
      */
     @Override
-    public ResultMessage updateSite(Site site) {
+    public Integer updateSite(Site site) {
         ResultMessage resultMessage = ResultMessage.createResultMessage();
         Long id = site.getId();
         Site site1 = siteDao.querySiteById(id);
@@ -113,8 +113,8 @@ public class SiteServiceImpl implements SiteService {
         if (sites.size()>0){
             resultMessage.setMessage("工地名称已存在");
         }
-        siteDao.updateSite(site);
-        return resultMessage;
+
+        return siteDao.updateSite(site);
     }
 
     /***
@@ -123,16 +123,15 @@ public class SiteServiceImpl implements SiteService {
      * @return
      */
     @Override
-    public ResultMessage deleteSite(Long id) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
+    public Integer deleteSite(Long id) {
         Site site = siteDao.querySiteById(id);
         if (null==site){
-            resultMessage.setMessage("需要删除的工地不存在");
+           return 0;
         }
         Site site1 = new Site();
         site1.setId(id);
         site1.setStatus(0);
-        siteDao.updateSite(site1);
-        return resultMessage;
+//todo 删除该工地下所有投放点
+        return  siteDao.updateSite(site1);
     }
 }
