@@ -4,23 +4,98 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Car implements Serializable {
-    private Long id;
 
+    private static final long serialVersionUID = -3582420953917379031L;
+
+    private Long id;
+    /**
+     * 状态
+     */
     private Integer status;
 
     private Date createTime;
 
     private Date updateTime;
-
+    /**
+     * 车牌号
+     */
     private String plateNumber;
+    /**
+     * 车辆方数
+     */
+    private Double vehicle;
 
-    private Long vehicle;
-
+    /**
+     * 司机
+     */
     private String driver;
 
+    /**
+     * 所属车队ID
+     */
     private Long carTeamId;
+    /**
+     * 是否加高
+     */
+    private String isHeighten;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 加高数量
+     */
+    private Double heightenNumber;
+    /**
+     * 车辆颜色
+     */
+    private String carColor;
+
+    /**
+     * 是否有效
+     */
+    private String isValid;
+    /**
+     * 备注
+     */
+    private String memo;
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getIsHeighten() {
+        return isHeighten;
+    }
+
+    public void setIsHeighten(String isHeighten) {
+        this.isHeighten = isHeighten;
+    }
+
+    public Double getHeightenNumber() {
+        return heightenNumber;
+    }
+
+    public void setHeightenNumber(Double heightenNumber) {
+        this.heightenNumber = heightenNumber;
+    }
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public Long getId() {
         return id;
@@ -62,11 +137,11 @@ public class Car implements Serializable {
         this.plateNumber = plateNumber == null ? null : plateNumber.trim();
     }
 
-    public Long getVehicle() {
+    public Double getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Long vehicle) {
+    public void setVehicle(Double vehicle) {
         this.vehicle = vehicle;
     }
 

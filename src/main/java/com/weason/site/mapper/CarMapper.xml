@@ -7,12 +7,19 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
-    <result column="vehicle" property="vehicle" jdbcType="BIGINT" />
+    <result column="vehicle" property="vehicle" jdbcType="DOUBLE" />
     <result column="driver" property="driver" jdbcType="VARCHAR" />
     <result column="car_team_id" property="carTeamId" jdbcType="BIGINT" />
+
+    <result column="is_heighten" property="isHeighten" jdbcType="VARCHAR" />
+    <result column="heighten_number" property="heightenNumber" jdbcType="DOUBLE" />
+    <result column="car_color" property="carColor" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, plate_number, vehicle, driver, car_team_id
+    id, status, create_time, update_time, plate_number, vehicle, driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -27,10 +34,11 @@
   <insert id="insert" parameterType="com.weason.site.pojo.Car" >
     insert into u_car (id, status, create_time, 
       update_time, plate_number, vehicle, 
-      driver, car_team_id)
+      driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{plateNumber,jdbcType=VARCHAR}, #{vehicle,jdbcType=BIGINT}, 
-      #{driver,jdbcType=VARCHAR}, #{carTeamId,jdbcType=BIGINT})
+      #{driver,jdbcType=VARCHAR}, #{carTeamId,jdbcType=BIGINT},#{isHeighten,jdbcType=VARCHAR},
+      #{heightenNumber,jdbcType=DOUBLE},#{carColor,jdbcType=VARCHAR},#{isValid,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.Car" >
     insert into u_car
@@ -59,6 +67,23 @@
       <if test="carTeamId != null" >
         car_team_id,
       </if>
+
+      <if test="isHeighten != null" >
+        is_heighten,
+      </if>
+      <if test="heightenNumber != null" >
+        heighten_number,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="carColor != null" >
+        car_color,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,13 +102,28 @@
         #{plateNumber,jdbcType=VARCHAR},
       </if>
       <if test="vehicle != null" >
-        #{vehicle,jdbcType=BIGINT},
+        #{vehicle,jdbcType=DOUBLE},
       </if>
       <if test="driver != null" >
         #{driver,jdbcType=VARCHAR},
       </if>
       <if test="carTeamId != null" >
         #{carTeamId,jdbcType=BIGINT},
+      </if>
+      <if test="isHeighten != null" >
+        #{isHeighten,jdbcType=VARCHAR},
+      </if>
+      <if test="heightenNumber != null" >
+        #{heightenNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null and memo !='' " >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null" >
+        #{carColor,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -93,17 +133,12 @@
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="plateNumber != null" >
         plate_number = #{plateNumber,jdbcType=VARCHAR},
       </if>
       <if test="vehicle != null" >
-        vehicle = #{vehicle,jdbcType=BIGINT},
+        vehicle = #{vehicle,jdbcType=DOUBLE},
       </if>
       <if test="driver != null" >
         driver = #{driver,jdbcType=VARCHAR},
@@ -111,18 +146,119 @@
       <if test="carTeamId != null" >
         car_team_id = #{carTeamId,jdbcType=BIGINT},
       </if>
+
+      <if test="isHeighten != null" >
+        is_heighten = #{isHeighten,jdbcType=VARCHAR},
+      </if>
+      <if test="heightenNumber != null" >
+        heighten_number = #{heightenNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null" >
+        car_color = #{carColor,jdbcType=VARCHAR},
+      </if>
+      update_time = sysdate()
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weason.site.pojo.Car" >
     update u_car
     set status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
       plate_number = #{plateNumber,jdbcType=VARCHAR},
       vehicle = #{vehicle,jdbcType=BIGINT},
       driver = #{driver,jdbcType=VARCHAR},
-      car_team_id = #{carTeamId,jdbcType=BIGINT}
+      car_team_id = #{carTeamId,jdbcType=BIGINT},
+      is_heighten = #{isHeighten,jdbcType=VARCHAR},
+      heighten_number = #{heightenNumber,jdbcType=DOUBLE},
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      car_color = #{carColor,jdbcType=VARCHAR},
+      update_time = sysdate()
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+
+  <select id="queryCarsCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from u_car
+    where 1=1
+    <if test="id != null" >
+      and id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="plateNumber != null" >
+      and plate_number like CONCAT("%",#{plateNumber},"%")
+    </if>
+    <if test="vehicle != null" >
+      and vehicle = #{vehicle,jdbcType=DOUBLE}
+    </if>
+    <if test="driver != null" >
+      and driver like CONCAT("%",#{driver},"%")
+    </if>
+    <if test="carTeamId != null" >
+      and car_team_id = #{carTeamId,jdbcType=BIGINT}
+    </if>
+
+    <if test="isHeighten != null" >
+      and is_heighten = #{isHeighten,jdbcType=VARCHAR}
+    </if>
+    <if test="heightenNumber != null" >
+      and heighten_number = #{heightenNumber,jdbcType=DOUBLE}
+    </if>
+    <if test="isValid != null" >
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+    <if test="carColor != null" >
+      and car_color = #{carColor,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+  <select id="queryCarsByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <include refid="basic.pageSearchHead"/>
+    select *
+    from u_car
+    where 1=1
+    <if test="id != null" >
+      and id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="plateNumber != null" >
+      and plate_number like CONCAT("%",#{plateNumber},"%")
+    </if>
+    <if test="vehicle != null" >
+      and vehicle = #{vehicle,jdbcType=DOUBLE}
+    </if>
+    <if test="driver != null" >
+      and driver like CONCAT("%",#{driver},"%")
+    </if>
+    <if test="carTeamId != null" >
+      and car_team_id = #{carTeamId,jdbcType=BIGINT}
+    </if>
+
+    <if test="isHeighten != null" >
+      and is_heighten = #{isHeighten,jdbcType=VARCHAR}
+    </if>
+    <if test="heightenNumber != null" >
+      and heighten_number = #{heightenNumber,jdbcType=DOUBLE}
+    </if>
+    <if test="isValid != null" >
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+    <if test="carColor != null" >
+      and car_color = #{carColor,jdbcType=VARCHAR}
+    </if>
+
+    <include refid="basic.pageSearchFoot"/>
+  </select>
 </mapper>
