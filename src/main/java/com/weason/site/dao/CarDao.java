@@ -25,8 +25,17 @@ public class CarDao extends MyBatisDao {
      * @param param
      * @return
      */
-    public List<Car> queryCars(Map<String,Object> param){
-        return super.queryForList("queryCars",param);
+    public List<Car> queryCarsByParam(Map<String,Object> param){
+        return super.queryForList("queryCarsByParam",param);
+    }
+
+    /**
+     *查询车辆数量
+     * @param param
+     * @return
+     */
+    public Integer queryCarsCountByParam(Map<String,Object> param){
+        return super.get("queryCarsCountByParam",param);
     }
 
     /***
