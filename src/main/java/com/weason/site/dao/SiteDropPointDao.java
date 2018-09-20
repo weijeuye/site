@@ -25,10 +25,18 @@ public class SiteDropPointDao extends MyBatisDao {
      * @param param
      * @return
      */
-    public List<SiteDropPoint> querySiteDropPoints(Map<String,Object> param){
-        return super.queryForListForReport("querySiteDropPoints",param);
+    public List<SiteDropPoint> querySiteDropPointsByParam(Map<String,Object> param){
+        return super.queryForListForReport("querySiteDropPointsByParam",param);
     }
 
+    /***
+     * 查询投放点数量
+     * @param param
+     * @return
+     */
+    public Integer querySiteDropPointsCountByParam(Map<String,Object> param){
+        return super.get("querySiteDropPointsCountByParam",param);
+    }
     /***
      * 查询单个投放点信息
      * @param id
@@ -62,7 +70,7 @@ public class SiteDropPointDao extends MyBatisDao {
      * @return
      */
     public int deleteSiteDropPoint(Long id){
-        return super.update("deleteSiteDropPoint",id);
+        return super.delete("deleteSiteDropPoint",id);
     }
 }
 

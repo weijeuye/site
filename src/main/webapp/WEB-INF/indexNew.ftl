@@ -152,7 +152,7 @@
                             <!--以下为普通用户菜单-->
                             <a data-id="7"  href="${basePath}/siteUser/findUsers.do" permId="7"  data-name="车辆管理">车辆管理</a>
                             <a data-id="8"  href="${basePath}/siteUser/findBookBorrows.do" permId="8"  data-name="车队管理">车队管理</a>
-                            <a data-id="9"  href="${basePath}/siteUser/findBookBorrows.do" permId="9"  data-name="方点管理">方点管理</a>
+                            <a data-id="9"  href="${basePath}/siteDropPoint/findSiteDropPointList.do" permId="9"  data-name="方点管理">方点管理</a>
                         </dd>
                     </dl>
 
