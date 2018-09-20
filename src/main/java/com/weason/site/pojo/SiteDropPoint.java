@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class SiteDropPoint implements Serializable {
+    private static final long serialVersionUID = -8963511415238390961L;
     private Long id;
 
     private Integer status;
@@ -19,7 +20,25 @@ public class SiteDropPoint implements Serializable {
 
     private Long siteId;
 
-    private static final long serialVersionUID = 1L;
+   private String isValid;
+
+   private  String  memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
 
     public Long getId() {
         return id;

@@ -9,9 +9,12 @@
     <result column="drop_point" property="dropPoint" jdbcType="VARCHAR" />
     <result column="mileage" property="mileage" jdbcType="DECIMAL" />
     <result column="site_id" property="siteId" jdbcType="BIGINT" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, drop_point, mileage, site_id
+    id, status, create_time, update_time, drop_point, mileage, site_id,memo,is_valid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -26,10 +29,10 @@
   <insert id="insert" parameterType="com.weason.site.pojo.SiteDropPoint" >
     insert into u_site_drop_point (id, status, create_time, 
       update_time, drop_point, mileage, 
-      site_id)
+      site_id,memo,is_valid)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{dropPoint,jdbcType=VARCHAR}, #{mileage,jdbcType=DECIMAL}, 
-      #{siteId,jdbcType=BIGINT})
+      #{siteId,jdbcType=BIGINT},#{memo,jdbcType=VARCHAR},'Y')
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.SiteDropPoint" >
     insert into u_site_drop_point
@@ -55,6 +58,10 @@
       <if test="siteId != null" >
         site_id,
       </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      is_valid
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -78,6 +85,10 @@
       <if test="siteId != null" >
         #{siteId,jdbcType=BIGINT},
       </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      'Y'
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.weason.site.pojo.SiteDropPoint" >
@@ -101,6 +112,13 @@
       <if test="siteId != null" >
         site_id = #{siteId,jdbcType=BIGINT},
       </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=BIGINT},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=BIGINT},
+      </if>
+
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -111,7 +129,72 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       drop_point = #{dropPoint,jdbcType=VARCHAR},
       mileage = #{mileage,jdbcType=DECIMAL},
-      site_id = #{siteId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+      site_id = #{siteId,jdbcType=BIGINT},
+      memo = #{memo,jdbcType=BIGINT},
+      is_valid = #{memo,jdbcType=BIGINT}
+    where id = #{isValid,jdbcType=VARCHAR}
   </update>
+
+  <select id="querySiteDropPointsCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)
+    from u_site_drop_point
+    where 1=1
+    <if test="id != null" >
+      and id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="dropPoint != null and dropPoint != ''" >
+      and drop_point like CONCAT("%",#{dropPoint},"%")
+    </if>
+    <if test="mileage != null and mileage != ''" >
+      and drop_point =#{mileage,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null and siteId != '' ">
+      and site_id = #{siteId,jdbcType=VARCHAR}
+    </if>
+    <if test="isValid != null and isValid != '' ">
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+  <select id="querySiteDropPointsByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <include refid="basic.pageSearchHead"/>
+    select *
+    from u_site_drop_point
+    where 1=1
+    <if test="id != null" >
+      and id=#{id,jdbcType=BIGINT}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="dropPoint != null and dropPoint != ''" >
+      and drop_point like CONCAT("%",#{dropPoint},"%")
+    </if>
+    <if test="mileage != null and mileage != ''" >
+      and drop_point =#{mileage,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null and siteId != '' ">
+      and site_id = #{siteId,jdbcType=VARCHAR}
+    </if>
+    <if test="isValid != null and isValid != '' ">
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+    <include refid="basic.pageSearchFoot"/>
+  </select>
 </mapper>

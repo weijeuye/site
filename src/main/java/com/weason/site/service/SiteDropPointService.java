@@ -4,6 +4,7 @@ import com.weason.site.pojo.SiteDropPoint;
 import com.weason.util.ResultMessage;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Administrator
@@ -12,36 +13,42 @@ import java.util.List;
 public interface SiteDropPointService {
     /***
      * 查询所有工地投放点
-     * @param siteDropPoint
+     * @param param
      * @return
      */
-    List<SiteDropPoint> querySiteDropPoints(SiteDropPoint siteDropPoint);
+    List<SiteDropPoint> querySiteDropPoints(Map<String,Object> param);
 
+    /**
+     * 查询工地投放点数量
+     * @param param
+     * @return
+     */
+    public Integer querySiteDropPointsCount(Map<String,Object> param);
     /***
      * 获取单个工地投放点信息
      * @param id
      * @return
      */
-    ResultMessage querySiteDropPoint(Long id);
+    SiteDropPoint querySiteDropPoint(Long id);
 
     /***
      * 添加工地投放点
      * @param siteDropPoint
      * @return
      */
-    ResultMessage addSiteDropPoint(SiteDropPoint siteDropPoint);
+    Integer addSiteDropPoint(SiteDropPoint siteDropPoint);
 
     /***
      * 修改工地投放点信息
      * @param siteDropPoint
      * @return
      */
-    ResultMessage updateSiteDropPoint(SiteDropPoint siteDropPoint);
+    Integer updateSiteDropPoint(SiteDropPoint siteDropPoint);
 
     /***
      * 删除工地投放点
      * @param id
      * @return
      */
-    ResultMessage deleteSiteDropPoint(Long id);
+    Integer deleteSiteDropPoint(Long id);
 }

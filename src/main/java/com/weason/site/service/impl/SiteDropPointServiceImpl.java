@@ -23,22 +23,21 @@ public class SiteDropPointServiceImpl implements SiteDropPointService {
     private SiteDropPointDao siteDropPointDao;
     /***
      * 查询所有工地投放点
-     * @param siteDropPoint
+     * @param param
      * @return
      */
     @Override
-    public List<SiteDropPoint> querySiteDropPoints(SiteDropPoint siteDropPoint) {
-        Map<String,Object> param = new HashMap<>();
-        if (null != siteDropPoint){
-            if (null !=siteDropPoint.getDropPoint()&& StringUtils.isBlank(siteDropPoint.getDropPoint())){
-                param.put("dropPoint",siteDropPoint.getDropPoint());
-            }
-            if (null !=siteDropPoint.getSiteId()&&StringUtils.isBlank(siteDropPoint.getSiteId())){
-                param.put("siteId",siteDropPoint.getSiteId());
-            }
-        }
+    public List<SiteDropPoint> querySiteDropPoints(Map<String,Object> param) {
+
         param.put("status",1);
-        return siteDropPointDao.querySiteDropPoints(param);
+        return siteDropPointDao.querySiteDropPointsByParam(param);
+    }
+
+    @Override
+    public Integer querySiteDropPointsCount(Map<String,Object> param) {
+
+        param.put("status",1);
+        return siteDropPointDao.querySiteDropPointsCountByParam(param);
     }
 
     /***
@@ -47,8 +46,8 @@ public class SiteDropPointServiceImpl implements SiteDropPointService {
      * @return
      */
     @Override
-    public ResultMessage querySiteDropPoint(Long id) {
-        return null;
+    public SiteDropPoint querySiteDropPoint(Long id) {
+        return siteDropPointDao.querySiteDropPointById(id);
     }
 
     /***
@@ -57,8 +56,8 @@ public class SiteDropPointServiceImpl implements SiteDropPointService {
      * @return
      */
     @Override
-    public ResultMessage addSiteDropPoint(SiteDropPoint siteDropPoint) {
-        return null;
+    public Integer addSiteDropPoint(SiteDropPoint siteDropPoint) {
+        return siteDropPointDao.addSiteDropPoint(siteDropPoint);
     }
 
     /***
@@ -67,8 +66,8 @@ public class SiteDropPointServiceImpl implements SiteDropPointService {
      * @return
      */
     @Override
-    public ResultMessage updateSiteDropPoint(SiteDropPoint siteDropPoint) {
-        return null;
+    public Integer updateSiteDropPoint(SiteDropPoint siteDropPoint) {
+        return siteDropPointDao.updateSiteDropPoint(siteDropPoint);
     }
 
     /***
@@ -77,7 +76,7 @@ public class SiteDropPointServiceImpl implements SiteDropPointService {
      * @return
      */
     @Override
-    public ResultMessage deleteSiteDropPoint(Long id) {
-        return null;
+    public Integer deleteSiteDropPoint(Long id) {
+        return siteDropPointDao.deleteSiteDropPoint(id);
     }
 }
