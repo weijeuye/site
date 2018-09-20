@@ -113,16 +113,16 @@ public class CarTeamController {
     /***
      * 修改车队
      * @param carTeam
-     * @param model
      * @return
      */
     @RequestMapping(value = "/updateCarTeam",method = RequestMethod.PUT)
-    public String updateCarTeam(CarTeam carTeam,Model model){
+    public ResultMessage updateCarTeam(CarTeam carTeam){
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
         Long id = carTeam.getId();
         CarTeam carTeam1 = carTeamService.queryCarTeamById(id);
         if (null == carTeam1){
-            model.addAttribute(ResultMessage.ERROR,"车队信息不存在");
-            return null;
+            resultMessage.setMessage("修改的车队信息不存在");
+            return resultMessage;
         }
         if (carTeam1.getCarTeamName().equals(carTeam.getCarTeamName())){
             carTeam.setCarTeamName(null);
@@ -131,12 +131,11 @@ public class CarTeamController {
             map.put("carTeamName",carTeam.getCarTeamName());
             List list = carTeamService.queryCarTeamsByParam(map);
             if (list.size()>0){
-                model.addAttribute(ResultMessage.ERROR,"车队信息不存在");
-                return null;
+                resultMessage.setMessage("修改的车队名称已存在");
             }
         }
         carTeamService.updateCarTeam(carTeam);
-        return "/pages/site/carTeam/getCarTeams";
+        return resultMessage;
     }
 }
 
