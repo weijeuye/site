@@ -105,6 +105,7 @@ public class CarController {
             }
             return ResultMessage.UPDATE_FAIL_RESULT;
         }else {
+            car.setIsValid("Y");
             count =carService.AddCar(car);
             if(count > 0){
                 return ResultMessage.ADD_SUCCESS_RESULT;

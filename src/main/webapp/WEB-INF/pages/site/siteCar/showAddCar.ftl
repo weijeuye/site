@@ -7,13 +7,13 @@
     <table class="p_table form-inline">
         <tbody>
             <tr>
-             
-                <td class="p_label"><i class="cc1">*</i>车牌号：</td>
+
                 <input type="hidden"  id="id" name="id"  value="${car.id!''}" />
-                <td><input type="text" id="carNumber" name="carNumber" required="true"  value="${car.carNumber!''}" <#if car.carNumber?? >readonly </#if> </td>
+                <td class="p_label"><i class="cc1">*</i>车牌号：</td>
+                <td><input type="text" id="plateNumber" name="plateNumber" required="true"  value="${car.plateNumber!''}" <#if car.plateNumber?? >readonly </#if> </td>
                 <td class="p_label"><i class="cc1">*</i>方数：</td>
                 <td>
-                    <input type="text"  id="carName" name="carName" required="true" errorele="searchValidate" value="${car.carName!''}" maxlength="20"/>
+                    <input type="text"  id="vehicle" name="vehicle" required="true" errorele="searchValidate" value="${car.vehicle!''}" maxlength="20"/>
                 </td>
             </tr>
 

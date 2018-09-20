@@ -119,7 +119,7 @@
       <if test="isValid != null" >
         #{isValid,jdbcType=VARCHAR},
       </if>
-      <if test="memo != null and memo !='' " >
+      <if test="memo != null">
         #{memo,jdbcType=VARCHAR},
       </if>
       <if test="carColor != null" >
