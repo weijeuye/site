@@ -40,6 +40,8 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
         <property name="minIdle" value="1"></property>
         <!-- 获取连接最大等待时间 -->
         <property name="maxWait" value="60000"></property>
+         <property name="timeBetweenEvictionRunsMillis" value="48"></property>
+         <property name="minEvictableIdleTimeMillis" value="9"></property>
         </bean>
 
         <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->

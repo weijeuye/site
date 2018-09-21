@@ -54,7 +54,8 @@
                 <li class="nest-show"><a class="my-info" href='/super_back/log/viewAnnounceQuery.zul' data-id="viewAnnounce" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的公告"><i></i><em>我的公告</em></a></li>
                 <li class="nest-show"><a class="my-nty" href='/pet_back/notification/notification_configure!myNotification.do' data-id="viewNotification" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的通知"><i></i><em>我的通知</em></a></li>-->
                 <#--<li class="nest-show"><a class="my-pwd"  data-id="change_password" data-toggle="tooltip" data-placement="bottom" title="" data-name="修改密码"><i></i><em>修改密码</em></a></li>-->
-                  <li class="nest-show" id="updatePassword"><em>修改密码</em></a></li>
+                  <li class="nest-show"><a  id="updatePassword"  <#--data-toggle="tooltip" data-placement="bottom" title="" data-name="修改密码"-->><i></i><em>修改密码</em></a></li>
+                 <#-- <li class="nest-show" id="updatePassword"><em>修改密码</em></a></li>-->
                 <input type="hidden" value="${user}" id="user"/>
             </ul>
         </div>
