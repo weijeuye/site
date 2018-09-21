@@ -45,6 +45,12 @@
 
 
             <tr>
+                <td class="p_label">工地：</td>
+                <td>
+                    <input type="hidden"  id="siteId" name="siteId" errorele="searchValidate" value="${user.siteId!''}" maxlength="100">
+                    <input type="text"  class="form-control w270 search js_supplierName" id="siteName" name="siteName" errorele="searchValidate" value="${user.siteName!''}" maxlength="100">
+                </td>
+
                 <td class="p_label">备注：</td>
                 <td>
                     <input type="text"  id="memo" name="memo" errorele="searchValidate" value="${user.memo!''}" maxlength="100">
@@ -60,6 +66,9 @@
 
 <script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
+<script>
+    vst_pet_util.commListSuggest("#siteName", "#siteId",'/site/sitePlace/searchSiteList.do','');
+</script>
 <script>
     
     $("#dataForm").validate({

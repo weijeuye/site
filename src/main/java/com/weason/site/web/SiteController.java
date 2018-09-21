@@ -1,5 +1,6 @@
 package com.weason.site.web;
 
+import com.weason.site.pojo.CarTeam;
 import com.weason.site.pojo.Site;
 import com.weason.site.pojo.User;
 import com.weason.site.service.SiteService;
@@ -7,12 +8,15 @@ import com.weason.util.HttpUtils;
 import com.weason.util.Page;
 import com.weason.util.ResultMessage;
 import com.weason.util.StringUtils;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,5 +181,37 @@ public class SiteController {
         }
         resultMessage.addObject("error","删除失败！");
         return resultMessage;
+    }
+
+    /**
+     * 根据工地名称模糊查询列表数据
+     * @param search
+     * @param resp
+     */
+    @RequestMapping(value = "/searchSiteList")
+    @ResponseBody
+    public Object searchSupplierList(String search, HttpServletResponse resp){
+        JSONArray array = null;
+        Map<String, Object> param=new HashMap<String, Object>();
+        if(search!=null){
+            //param.put("siteNumber",search);
+            param.put("siteName",search);
+            param.put("isValid","Y");
+        }
+        try {
+            List<Site> list = siteService.querySitesByParam(param);
+            array = new JSONArray();
+            if(list != null && list.size() > 0){
+                for(Site site:list){
+                    JSONObject obj=new JSONObject();
+                    obj.put("id", site.getId());
+                    obj.put("text", site.getSiteName());
+                    array.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

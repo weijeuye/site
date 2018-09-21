@@ -162,7 +162,7 @@
     <if test="carTeamName != null" >
      and car_team_name like CONCAT('%',#{carTeamName},'%')
     </if>
-    <if test="contactWay != null" >
+    <if test="contactWay != null and contactWay!= ''" >
       and contact_way = #{contactWay,jdbcType=BIGINT}
     </if>
     <if test="personLiable != null" >
@@ -171,7 +171,7 @@
     <if test="siteId != null" >
       and site_id = #{siteId,jdbcType=BIGINT}
     </if>
-    <if test="isValid != null" >
+    <if test="isValid != null and isValid !=''" >
       and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
     <include refid="basic.pageSearchFoot"/>
@@ -188,7 +188,7 @@
     <if test="carTeamName != null" >
       and car_team_name like CONCAT('%',#{carTeamName},'%')
     </if>
-    <if test="contactWay != null" >
+    <if test="contactWay != null and contactWay!= '' " >
       and contact_way = #{contactWay,jdbcType=BIGINT}
     </if>
     <if test="personLiable != null" >
@@ -197,7 +197,7 @@
     <if test="siteId != null" >
       and site_id = #{siteId,jdbcType=BIGINT}
     </if>
-    <if test="isValid != null" >
+    <if test="isValid != null and isValid !='' " >
       and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
   </select>

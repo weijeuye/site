@@ -24,7 +24,8 @@
                 </td>
                 <td class="p_label">车队：</td>
                 <td>
-                    <input type="text"  id="carTeamId" name="carTeamId" errorele="searchValidate" value="${car.carTeamId!''}" maxlength="100">
+                    <input type="hidden"  id="carTeamId" name="carTeamId"  value="${car.carTeamId!''}" >
+                    <input type="text"  id="carTeamName" name="carTeamName"  class="form-control w270 search js_supplierName"  errorele="searchValidate" value="${car.carTeamId!''}" maxlength="100">
                 </td>
             </tr>
 
@@ -68,6 +69,9 @@
 
 <script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
+<script>
+    vst_pet_util.commListSuggest("#carTeamName", "#carTeamId",'/site/siteCarTeam/searchCarTeamList.do','');
+</script>
 <script>
     
     $("#dataForm").validate({
