@@ -117,4 +117,16 @@ public class UserServiceImpl implements UserService {
         }
         return resultMessage;
     }
+
+    @Override
+    public User queryUserByAccount(String account, String password) {
+        Map map = new HashMap();
+        map.put("account",account);
+        map.put("password",password);
+        List list = userDao.queryUsers(map);
+        if (list.size()>0){
+            return (User) list.get(0);
+        }
+        return null;
+    }
 }

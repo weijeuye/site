@@ -2,6 +2,7 @@ package com.weason.util;
 
 import com.weason.constant.SystemConstant;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,6 +39,18 @@ public class HttpUtils {
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + path;
 		return basePath;
+	}
+	/**
+	 * 得到请求的根目录
+	 *
+	 * @param request
+	 * @return
+	 */
+	public static void setBasePath(HttpServletRequest request, Model model) {
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://" + request.getServerName()
+				+ ":" + request.getServerPort() + path;
+		model.addAttribute("basePath",basePath);
 	}
 
 	/**

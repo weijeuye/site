@@ -20,6 +20,11 @@ public interface UserService {
      */
     List<User> queryUsers(Map<String,Object> param);
 
+    /***
+     * 查询用户量
+     * @param param
+     * @return
+     */
     Integer  queryUsersCount(Map<String,Object> param);
 
     /***
@@ -49,4 +54,12 @@ public interface UserService {
      * @return
      */
     ResultMessage deleteUser(Long id);
+
+    /***
+     * 根据用户名和密码查询用户
+     * @param account
+     * @param password
+     * @return
+     */
+    User queryUserByAccount(String account, String password);
 }

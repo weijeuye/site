@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>成长记图书管理系统</title>
+    <title>工地管理系统</title>
     <link rel="stylesheet" type="text/css" href="${basePath}/css/login/zui.css" media="all">
     <link rel="stylesheet" type="text/css" href="${basePath}/css/login/login.css" media="all">
     <link href="${basePath}/css/login/animate.min.css" rel="stylesheet">
@@ -25,10 +25,10 @@
                 <!-- 账号登陆 -->
                 <div id="MobileBox" class="item-box"  >
                     <div class="input-group user-name"> <span class="input-group-addon"><i class="icon-user"></i></span>
-                        <input type="text" id="userAccount" name="userAccount" class="form-control" placeholder="用户名/手机号">
+                        <input type="text" id="account" name="account" class="form-control" placeholder="用户名/手机号">
                     </div>
                     <div class="input-group password"> <span class="input-group-addon"><i class="icon-lock"></i></span>
-                        <input type="password" id="userPassword" name="userPassword" class="form-control" placeholder="密码">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="密码">
                     </div>
 
                     <div class="use-qrcode-a" id="message"> </div>
@@ -47,11 +47,11 @@
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.min.js"></script>
 <script type="text/javascript">
     $(".btn-primary").on("click",function () {
-        if($("#userAccount").val()==null || $("#userAccount").val()==''){
+        if($("#account").val()==null || $("#account").val()==''){
             alert("请填写用户名！");
             return;
         }
-        if($("#userPassword").val()==null || $("#userPassword").val()==''){
+        if($("#password").val()==null || $("#password").val()==''){
             alert("请填写密码！");
             return;
         }
@@ -61,12 +61,13 @@
             data:$("#loginForm").serialize(),
             dataType:"json",
             success:function (data) {
-                if(data.status == 1){
+                if(data.code == "success"){
                     $("#message").text(data.message+",跳转中...");
                     window.location.href="${basePath}/index.do";
 
                 }else {
                    $("#message").text(data.message) ;
+                    $("#message").css("color","#e9322d");
                 }
             }
         })

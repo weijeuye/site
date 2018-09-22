@@ -22,16 +22,10 @@
         };
 
         function loginOut(t) {
-            t.href='${basePath}'+"/loginout.do";
+            t.href='${basePath}'+"/loginOut.do";
         };
 
     </script>
-   <#-- <style type="text/css">
-        .chengzhangji:before  {
-            background: url("${basePath}/img/next.png") no-repeat;
-        }
-
-    </style>-->
 </head>
 <body>
 <div class="header clearfix">
@@ -39,23 +33,12 @@
         <a class="logo"><i></i><em>成长记</em></a>
     </div>
     <div class="right clearfix">
-	<#--<div class="search">-->
-	<#--<input type="text" placeholder="搜索...">-->
-	<#--<i></i>-->
-	<#--</div>-->
-        <#--<a href='/super_back/push/task_input.zul' data-id="task_input" data-toggle="tooltip" data-placement="bottom" title="" data-name="新增任务" class="new-task"><i></i><em>新增任务</em></a>-->
         <div class="header-dropdown">
             <a class="header-dropdown-toggle">
-                <strong></strong><em>${(user.userName)!""}-${(user.userName)!""}</em><i></i>
+                <strong></strong><em>${(user.alias)!""}</em><i></i>
             </a>
             <ul class="header-dropdown-menu">
-              <#--  <li class="nest-show"><a class="my-task" href='/super_back/log/viewTaskQuery.zul' data-id="viewTask" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的任务"><i></i><em>我的任务</em></a></li>
-                <li class="nest-show"><a class="my-msg"href='/super_back/log/viewMessageQuery.zul' data-id="viewMessage" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的消息"><i></i><em>我的消息</em></a></li>
-                <li class="nest-show"><a class="my-info" href='/super_back/log/viewAnnounceQuery.zul' data-id="viewAnnounce" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的公告"><i></i><em>我的公告</em></a></li>
-                <li class="nest-show"><a class="my-nty" href='/pet_back/notification/notification_configure!myNotification.do' data-id="viewNotification" data-toggle="tooltip" data-placement="bottom" title="" data-name="我的通知"><i></i><em>我的通知</em></a></li>-->
-                <#--<li class="nest-show"><a class="my-pwd"  data-id="change_password" data-toggle="tooltip" data-placement="bottom" title="" data-name="修改密码"><i></i><em>修改密码</em></a></li>-->
-                  <li class="nest-show"><a  id="updatePassword"  <#--data-toggle="tooltip" data-placement="bottom" title="" data-name="修改密码"-->><i></i><em>修改密码</em></a></li>
-                 <#-- <li class="nest-show" id="updatePassword"><em>修改密码</em></a></li>-->
+                 <li class="nest-show"><a  id="updatePassword"><i></i><em>修改密码</em></a></li>
                 <input type="hidden" value="${user}" id="user"/>
             </ul>
         </div>
@@ -68,81 +51,7 @@
         <div class="sidebar">
             <div class="shrink" ><i></i></div>
             <div class="sidebar-box-wrap">
-
-
-			<#--<#list menuList as obj>-->
-			<#--<dl class="nav nav-sidebar ${(obj.iconName)!''}">-->
-			<#--<dt><i></i><em title="${obj.name}">${obj.name}</em><b></b></dt>-->
-			<#--<dd>-->
-			<#--<#list obj.subList as subObj>-->
-			<#--<#if subObj.container>-->
-			<#--<dl>-->
-			<#--<dt>-->
-			<#--<span class="dt-icon"><i></i></span>-->
-			<#--<a  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}" data-id="${subObj.permissionId?c}" data-name="${subObj.name}"> ${subObj.name}</a></dt>-->
-			<#--<dd>-->
-			<#--<#list subObj.subList as thirdObj>-->
-			<#--<a data-id="${thirdObj.permissionId?c}"  href="${thirdObj.url?if_exists}" permId="${thirdObj.permissionId?c}" data-name="${thirdObj.name}">${thirdObj.name}</a>-->
-			<#--</#list>-->
-			<#--</dd>-->
-			<#--</dl>-->
-			<#--<#else>-->
-			<#--<a data-id="${subObj.permissionId?c}"  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}"  data-name="${subObj.name}">${subObj.name}</a>-->
-			<#--</#if>-->
-			<#--</#list>-->
-			<#--</dd>-->
-			<#--</dl>-->
-			<#--</#list>-->
-
-
-
-                <#--<div class="sidebar-box">
-				<#list menuList as obj>
-
-                    <dl class="nav nav-sidebar ${(obj.iconName)!''}">
-                        <dt><i></i><em title="${obj.name}">${obj.name}</em><b></b></dt>
-                        <dd>
-							<#list obj.subList as subObj>
-								<#if subObj.container>
-
-                                    <dl>
-                                        <dt>
-                                            <span class="dt-icon"></span>
-                                            <a  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}" data-id="${subObj.permissionId?c}" data-name="${subObj.name}"> ${subObj.name}</a>
-                                        </dt>
-                                        <dd>
-											<#list subObj.subList as thirdObj>
-                                                <a data-id="${thirdObj.permissionId?c}"  href="${thirdObj.url?if_exists}" permId="${thirdObj.permissionId?c}" data-name="${thirdObj.name}"><i></i>${thirdObj.name}</a>
-											</#list>
-                                        </dd>
-                                    </dl>
-								<#else>
-                                    <a data-id="${subObj.permissionId?c}"  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}"  data-name="${subObj.name}">${subObj.name}</a>
-								</#if>
-							</#list>
-                        </dd>
-                    </dl>
-				</#list>
-                </div>-->
-
-
                 <div class="sidebar-box">
-                    <dl class="nav nav-sidebar tab-system-management">
-                        <dt><i></i><em title="学员管理">学员管理</em><b></b></dt>
-                        <dd>
-                            <a data-id="1"  href="${basePath}/user/findUsers.do" permId="1"  data-name="学员信息管理">学员信息管理</a>
-                            <a data-id="2"  href="${basePath}/bookBorrow/findBookBorrows.do" permId="2"  data-name="借阅管理">借阅管理</a>
-                        </dd>
-                    </dl>
-
-                    <dl class="nav nav-sidebar tab-content-management">
-                        <dt><i></i><em title="图书管理">图书管理</em><b></b></dt>
-                        <dd>
-                            <a data-id="3"  href="${basePath}/book/findBookTypeList.do" permId="3"  data-name="图书类别信息">图书类别信息</a>
-                            <a data-id="4"  href="${basePath}/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>
-                        </dd>
-                    </dl>
-
                     <!--工地系统--->
 
                     <dl class="nav nav-sidebar tab-client-relation">
@@ -161,35 +70,8 @@
                         <dt><i></i><em title="单据管理">单据管理</em><b></b></dt>
                         <dd>
                             <a data-id="10"  href="${basePath}/siteUser/findBookTypeList.do" permId="10"  data-name="出库单管理">出库单管理</a>
-                           <#-- <a data-id="4"  href="${basePath}/book/findBooks.do" permId="4"  data-name="图书信息">图书信息</a>-->
                         </dd>
                     </dl>
-				<#--<#list menuList as obj>
-
-                    <dl class="nav nav-sidebar ${(obj.iconName)!''}">
-                        <dt><i></i><em title="${obj.name}">${obj.name}</em><b></b></dt>
-                        <dd>
-							<#list obj.subList as subObj>
-								<#if subObj.container>
-
-                                    <dl>
-                                        <dt>
-                                            <span class="dt-icon"></span>
-                                            <a  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}" data-id="${subObj.permissionId?c}" data-name="${subObj.name}"> ${subObj.name}</a>
-                                        </dt>
-                                        <dd>
-											<#list subObj.subList as thirdObj>
-                                                <a data-id="${thirdObj.permissionId?c}"  href="${thirdObj.url?if_exists}" permId="${thirdObj.permissionId?c}" data-name="${thirdObj.name}"><i></i>${thirdObj.name}</a>
-											</#list>
-                                        </dd>
-                                    </dl>
-								<#else>
-                                    <a data-id="${subObj.permissionId?c}"  href="${subObj.url?if_exists}" permId="${subObj.permissionId?c}"  data-name="${subObj.name}">${subObj.name}</a>
-								</#if>
-							</#list>
-                        </dd>
-                    </dl>
-				</#list>-->
                 </div>
 
                 <div class="sidebar-box-scroll">

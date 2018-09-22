@@ -1,6 +1,7 @@
-package com.weason.library.interceptor;
+package com.weason.util.intercepter;
 
 import com.weason.library.po.BookUser;
+import com.weason.site.pojo.User;
 import com.weason.util.HttpUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,21 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/**请求判断是否登录拦截器
  * @Author weilei
  * @date 2018/7/20 14:43
  */
 
-/**
- * 请求判断是否登录拦截器
- */
-public class LoginInterceptor  implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println(httpServletRequest.getRequestURI());
-        BookUser loginUser=(BookUser) httpServletRequest.getSession().getAttribute("library_user_session");
+        User user=(User) httpServletRequest.getSession().getAttribute("site_user");
         String basePath = HttpUtils.getBasePath(httpServletRequest);
-        if(loginUser ==null){
+        if(user ==null){
             httpServletResponse.sendRedirect(basePath+"/index.do");
             return  false;
         }

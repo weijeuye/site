@@ -110,7 +110,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"
 			<mvc:exclude-mapping path="/bootstrap/**" />
 			<mvc:exclude-mapping path="/js/**" />
 
-			<bean  class="com.weason.library.interceptor.LoginInterceptor"></bean>
+			<bean  class="com.weason.util.intercepter.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
