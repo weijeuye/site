@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 <#include "/pages/base/head_meta.ftl"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" name="renderer" content="webkit">
     <title>成长记图书管理系统</title>
-    <link rel="icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="${basePath}//css/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="${basePath}//css/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="${basePath}//css/images/favicon.ico" type="image/x-icon"/>
 
     <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/bootstrap.css">
     <link rel="stylesheet" href="${basePath}/css/newVersion1/framework/messenger.css">
@@ -17,12 +17,12 @@
 
     <script type="text/javascript">
 
-        function loginFuc(){ // 当登录超时的时候调用此方法
-            this.location='./login.do';
+        function loginFuc() { // 当登录超时的时候调用此方法
+            this.location = './login.do';
         };
 
         function loginOut(t) {
-            t.href='${basePath}'+"/loginOut.do";
+            t.href = '${basePath}' + "/loginOut.do";
         };
 
     </script>
@@ -38,7 +38,7 @@
                 <strong></strong><em>${(user.alias)!""}</em><i></i>
             </a>
             <ul class="header-dropdown-menu">
-                 <li class="nest-show"><a  id="updatePassword"><i></i><em>修改密码</em></a></li>
+                <li><a id="updatePassword"><i></i><em>修改密码</em></a></li>
                 <input type="hidden" value="${user}" id="user"/>
             </ul>
         </div>
@@ -49,27 +49,38 @@
 <div class="container-fluid">
     <div class="row console">
         <div class="sidebar">
-            <div class="shrink" ><i></i></div>
+            <div class="shrink"><i></i></div>
             <div class="sidebar-box-wrap">
                 <div class="sidebar-box">
                     <!--工地系统--->
 
                     <dl class="nav nav-sidebar tab-client-relation">
                         <dt><i></i><em title="学员管理">基础设置</em><b></b></dt>
-                        <dd>
-                            <a data-id="5"  href="${basePath}/siteUser/findUsers.do" permId="5"  data-name="用户管理">用户信息管理</a>
-                            <a data-id="6"  href="${basePath}/sitePlace/findSitePlaceList.do" permId="6"  data-name="工地管理">工地管理</a>
-                            <!--以下为普通用户菜单-->
-                            <a data-id="7"  href="${basePath}/siteCar/findCarList.do" permId="7"  data-name="车辆管理">车辆管理</a>
-                            <a data-id="8"  href="${basePath}/siteCarTeam/findCarTeamList.do" permId="8"  data-name="车队管理">车队管理</a>
-                            <a data-id="9"  href="${basePath}/siteDropPoint/findSiteDropPointList.do" permId="9"  data-name="方点管理">方点管理</a>
-                        </dd>
+                        <#if user.userType=="S">
+                             <dd>
+                                <a data-id="5" href="${basePath}/siteUser/findUsers.do" permId="5"
+                                   data-name="用户管理">用户信息管理</a>
+                                <a data-id="6" href="${basePath}/sitePlace/findSitePlaceList.do" permId="6"
+                                   data-name="工地管理">工地管理</a>
+                             </dd>
+                        <#else>
+                            <dd>
+                                <!--以下为普通用户菜单-->
+                                <a data-id="7" href="${basePath}/siteCar/findCarList.do" permId="7"
+                                   data-name="车辆管理">车辆管理</a>
+                                <a data-id="8" href="${basePath}/siteCarTeam/findCarTeamList.do" permId="8"
+                                   data-name="车队管理">车队管理</a>
+                                <a data-id="9" href="${basePath}/siteDropPoint/findSiteDropPointList.do" permId="9"
+                                   data-name="方点管理">方点管理</a>
+                            </dd>
+                        </#if>
                     </dl>
 
                     <dl class="nav nav-sidebar tab-financial-management">
                         <dt><i></i><em title="单据管理">单据管理</em><b></b></dt>
                         <dd>
-                            <a data-id="10"  href="${basePath}/siteUser/findBookTypeList.do" permId="10"  data-name="出库单管理">出库单管理</a>
+                            <a data-id="10" href="${basePath}/siteUser/findBookTypeList.do" permId="10"
+                               data-name="出库单管理">出库单管理</a>
                         </dd>
                     </dl>
                 </div>
@@ -152,35 +163,35 @@
 </div>
 <div id="contextmenu-mask"></div>
 <ul id="contextmenu" class="dropdown-menu">
-    <!--<li class="JS_open_new_tab"><a>新标签页打开</a></li>-->
     <li class="JS_refresh_tab"><a>刷新标签页</a></li>
     <li role="presentation" class="divider"></li>
     <li class="JS_close_other_tab"><a>关闭其他标签页</a></li>
 </ul>
 <#include "/pages/base/foot.ftl"/>
-<#--<script src="http://pic.lvmama.com/js/backstage/vst/framework/jquery-1.11.3.min.js"></script>-->
-<#--<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.11.3.min.js"></script>-->
 <script src="${basePath}/js/newVersion1/bootstrap.js"></script>
 <script src="${basePath}/js/newVersion1/index.js"></script>
 <script src="${basePath}/js/newVersion1/messenger.min.js"></script>
 
-<#--<script src="/pet_back/js/newVersion/messenger.min.js"></script>-->
 <script>
 
-    $("#updatePassword").bind("click",function(){
-        var url = "${basePath}/user/showUpdatePassWord.do";
-        updateDialog = new xDialog(url, {}, {title:"密码修改",width:900});
+    $("#updatePassword").bind("click", function () {
+        var url = "${basePath}/siteUser/showUpdatePassword.do";
+        updateDialog = new xDialog(url, {}, {title: "密码修改", width: 900});
     });
 
-    function confirmAndRefresh(result){
+    function confirmAndRefresh(result) {
         if (result.code == "success") {
-            pandora.dialog({wrapClass: "dialog-mini", content:result.message, okValue:"确定",ok:function(){
-                $("#searchForm").submit();
-            }});
-        }else {
-            pandora.dialog({wrapClass: "dialog-mini", content:result.message, okValue:"确定",ok:function(){
-                //$.alert(result.message);
-            }});
+            pandora.dialog({
+                wrapClass: "dialog-mini", content: result.message, okValue: "确定", ok: function () {
+                    $("#searchForm").submit();
+                }
+            });
+        } else {
+            pandora.dialog({
+                wrapClass: "dialog-mini", content: result.message, okValue: "确定", ok: function () {
+                    //$.alert(result.message);
+                }
+            });
         }
     }
 </script>

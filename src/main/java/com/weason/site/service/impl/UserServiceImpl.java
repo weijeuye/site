@@ -1,8 +1,12 @@
 package com.weason.site.service.impl;
 
+import com.weason.site.dao.SiteDao;
 import com.weason.site.dao.UserDao;
+import com.weason.site.pojo.Site;
 import com.weason.site.pojo.User;
 import com.weason.site.service.UserService;
+import com.weason.site.vo.UserVo;
+import com.weason.util.BeanUtils;
 import com.weason.util.CryptographyUtil;
 import com.weason.util.ResultMessage;
 import com.weason.util.StringUtils;
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private SiteDao siteDao;
 
     @Override
     public List<User> queryUsers(Map<String,Object> param) {
@@ -39,10 +45,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User queryUser(Long id) {
+    public UserVo queryUser(Long id) {
         User user = userDao.queryUserById(id);
-
-        return user;
+        UserVo userVo = BeanUtils.copyProperties(user,UserVo.class);
+        Long siteId = user.getSiteId();
+        Site site = siteDao.querySiteById(siteId);
+        userVo.setSiteName(site.getSiteName());
+        return userVo;
     }
 
     @Override
@@ -54,48 +63,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer updateUser(User user) {
-       /* ResultMessage resultMessage = ResultMessage.createResultMessage();
-        Long id = user.getId();
-        boolean flag = false;
-        int i;
-        User user1 = userDao.queryUserById(id);
-        //判断用户是否存在
-        if (null == user1){
-            resultMessage.setMessage("修改得用户不存在");
-            resultMessage.setCode(ResultMessage.ERROR);
-            return resultMessage;
-        }
-        //不允许修改账户
-        if(StringUtils.isNotBlank(user.getAccount())){
-            if (!user.getAccount().equals(user1.getAccount())){
-                resultMessage.setMessage("用户账户不允许修改");
-                resultMessage.setCode(ResultMessage.ERROR);
-                return resultMessage;
-            }
-        }
-        //判断是否有需要修改得信息
-        if (StringUtils.isNotBlank(user.getPassword())&&(!CryptographyUtil.md5(user.getPassword()).equals(user1.getPassword()))){
-            user.setPassword(CryptographyUtil.md5(user.getPassword()));
-            flag = true;
-        }else {
-            user.setPassword(null);
-        }
-        if (StringUtils.isNotBlank(user.getAlias())&&(!user.getAlias().equals(user1.getAlias()))){
-            flag = true;
-        }else {
-            user.setAlias(null);
-        }
-        if (flag == false){
-            resultMessage.setMessage("无需要修改得信息");
-            resultMessage.setCode(ResultMessage.ERROR);
-            return resultMessage;
-        }else {
-            i = userDao.updateUser(user);
-        }
-        if (i==0){
-            resultMessage.setMessage("修改用户信息失败");
-            resultMessage.setCode(ResultMessage.SYS_ERROR);
-        }*/
         return userDao.updateUser(user);
     }
 

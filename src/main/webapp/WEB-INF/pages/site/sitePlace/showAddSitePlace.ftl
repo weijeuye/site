@@ -8,9 +8,11 @@
         <tbody>
             <tr>
              
-                <td class="p_label"><i class="cc1">*</i>工地编号：</td>
                 <input type="hidden"  id="id" name="id"  value="${site.id!''}" />
-                <td><input type="text" id="siteNumber" name="siteNumber" required="true"  value="${site.siteNumber!''}" <#if site.siteNumber?? >readonly </#if> </td>
+                <#if site.siteNumber??>
+                    <td class="p_label"><i class="cc1">*</i>工地编号：</td>
+                    <td><input type="text" id="siteNumber" name="siteNumber" required="true"  value="${site.siteNumber!''}" disabled/> </td>
+                </#if>
                 <td class="p_label"><i class="cc1">*</i>工地名称：</td>
                 <td>
                     <input type="text"  id="siteName" name="siteName" required="true" errorele="searchValidate" value="${site.siteName!''}" maxlength="20"/>

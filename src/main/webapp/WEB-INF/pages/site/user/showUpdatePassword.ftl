@@ -40,7 +40,6 @@
 
 <script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
 <script type="text/javascript" src="${basePath}/js/jquery.barcode.js"> </script>
-<#--<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.11.3.min.js" </script>-->
 <script type="text/javascript">
 
 $("#dataForm").validate({
@@ -62,7 +61,7 @@ $("#saveButton").on("click", function() {
         return false;
     }
     $.ajax({
-        url : "${basePath}/user/updatePassWord.do",
+        url : "${basePath}/siteUser/updatePassWord.do",
         type : "post",
         dataType : "json",
         //async : false,

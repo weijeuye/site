@@ -346,7 +346,6 @@ $(function () {
         var wrapHeight = $sidebarBoxWrap.height();
 
         if (wrapHeight > height) {
-            console.log("not");
             $sidebarScroll.hide();
             return false;
         } else {

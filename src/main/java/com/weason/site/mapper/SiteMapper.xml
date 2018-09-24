@@ -155,4 +155,25 @@
       and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
   </select>
+
+  <select id="querySiteList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    <include refid="basic.pageSearchHead"/>
+    select
+    <include refid="Base_Column_List" />
+    from u_site
+    where 1=1
+    <if test="status != null" >
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    <if test="siteNumber != null and siteNumber !='' " >
+      and site_number = #{siteNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="siteName != null and siteName !='' " >
+      and site_name =#{siteName,jdbcType=VARCHAR}
+    </if>
+    <if test="isValid != null and isValid !=''">
+      and is_valid = #{isValid,jdbcType=VARCHAR}
+    </if>
+    <include refid="basic.pageSearchFoot"/>
+  </select>
 </mapper>

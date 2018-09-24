@@ -7,13 +7,13 @@
     <table class="p_table form-inline">
         <tbody>
             <tr>
-             
-                <td class="p_label"><i class="cc1">*</i>账号：</td>
+
                 <input type="hidden"  id="id" name="id"  value="${user.id!''}" />
-                <td><input type="text" id="account" name="account" required="true" digits:true value="${user.account!''}" <#if user.account?? >readonly </#if> </td>
+                <td class="p_label"><i class="cc1">*</i>账号：</td>
+                <td><input type="text" id="account" name="account" required="true" digits:true value="${user.account!''}" <#if user.account?? >disabled </#if>/> </td>
                 <td class="p_label"><i class="cc1">*</i>姓名：</td>
                 <td>
-                    <input type="text" class="searchInput" id="alias" name="alias" required="true" errorele="searchValidate" value="${user.alias!''}" maxlength="20"/>
+                    <input type="text"  id="alias" name="alias" required="true" errorele="searchValidate" value="${user.alias!''}" maxlength="20"/>
                 </td>
             </tr>
 
@@ -35,20 +35,15 @@
                 <td>
                     <input type="text"  id="phone" name="phone" errorele="searchValidate"  value="${user.phone!''}" maxlength="11" placeholder="请输入十一位手机号码">
                 </td>
-               <#-- <td class="p_label"><i class="cc1">*</i>出生日期：</td>
-                <td>
-                   &lt;#&ndash; ${(user.birthday?string("yyyy-MM-dd"))!''}&ndash;&gt;
-                    <input type="text" id="birthday" name="birthday" errorele="searchValidate" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${user.birthday!''}" required="true"/>
-                </td>-->
             </tr>
 
 
 
             <tr>
-                <td class="p_label">工地：</td>
+                <td class="p_label"><i class="cc1">*</i>工地：</td>
                 <td>
                     <input type="hidden"  id="siteId" name="siteId" errorele="searchValidate" value="${user.siteId!''}" maxlength="100">
-                    <input type="text"  class="form-control w270 search js_supplierName" id="siteName" name="siteName" errorele="searchValidate" value="${user.siteName!''}" maxlength="100">
+                    <input type="text"  class="form-control w270 search js_supplierName" required="true" id="siteName" name="siteName" errorele="searchValidate" value="${user.siteName!''}" maxlength="100">
                 </td>
 
                 <td class="p_label">备注：</td>
@@ -67,7 +62,7 @@
 <script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
 <script>
-    vst_pet_util.commListSuggest("#siteName", "#siteId",'/site/sitePlace/searchSiteList.do','');
+    vst_pet_util.commListSuggest("#siteName", "#siteId",'${basePath}/sitePlace/searchSiteList.do','');
 </script>
 <script>
     
@@ -102,7 +97,12 @@
         if( !testTelephone ("账号输入框",phone)){
             return false;
         }
-
+        debugger
+        var a = $("#siteId").val();
+        if ($("#siteId").val()==null||$("#siteId").val()=="") {
+            $.alert("选择的工地不存在");
+            return false;
+        }
         $.ajax({
             url : "${basePath}/siteUser/addUser.do",
             type : "post",
@@ -120,7 +120,6 @@
             }
         });
     });
-    
     
 </script>
 </body>

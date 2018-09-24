@@ -22,11 +22,20 @@ public class SiteDao extends MyBatisDao {
 
     /***
      * 查询工地列表
+     * 用于模糊查询
      * @param param
      * @return
      */
     public List<Site> querySites(Map<String,Object> param){
-        return super.queryForListForReport("querySites",param);
+        return super.queryForList("querySites",param);
+    }
+    /***
+     * 查询工地列表
+     * @param param
+     * @return
+     */
+    public List<Site> querySiteList(Map<String,Object> param){
+        return super.queryForList("querySiteList",param);
     }
 
     /**

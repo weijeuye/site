@@ -2,6 +2,7 @@ package com.weason.site.web;
 
 import com.weason.site.pojo.User;
 import com.weason.site.service.UserService;
+import com.weason.site.vo.UserVo;
 import com.weason.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +50,8 @@ public class UserController {
             }
         }
         parameters.put("gender",queryParam.getGender());
-        //parameters.put("status",queryParam.getStatus());
         parameters.put("isValid",queryParam.getIsValid());
+        parameters.put("userType","N");
         int count = userService.queryUsersCount(parameters);
 
         int pagenum = page == null ? 1 : page;
@@ -105,25 +106,6 @@ public class UserController {
                     return resultMessage;
                 }
             }
-          /*  //判断是否有需要修改得信息
-            if (StringUtils.isNotBlank(user.getPassword())&&(!CryptographyUtil.md5(user.getPassword()).equals(user1.getPassword()))){
-                user.setPassword(CryptographyUtil.md5(user.getPassword()));
-                flag = true;
-            }else {
-                user.setPassword(null);
-            }
-            if (StringUtils.isNotBlank(user.getAlias())&&(!user.getAlias().equals(user1.getAlias()))){
-                flag = true;
-            }else {
-                user.setAlias(null);
-            }
-            if (flag == false){
-                resultMessage.setMessage("无需要修改得信息");
-                resultMessage.setCode(ResultMessage.ERROR);
-                return resultMessage;
-            }else {
-                i = userDao.updateUser(user);
-            }*/
             Integer i=userService.updateUser(user);
             if (i==0){
                 resultMessage.setMessage("修改用户信息失败");
@@ -135,12 +117,10 @@ public class UserController {
         }
         user.setIsValid("Y");
         user.setUserType("N");
-        user.setPassword("123456");
         String account = user.getAccount();
-        String password = user.getPassword();
-        if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
+        if(StringUtils.isBlank(account)){
             resultMessage.setCode(ResultMessage.ERROR);
-            resultMessage.setMessage("用户账户或密码为空");
+            resultMessage.setMessage("请输入账户名称");
             return resultMessage;
         }
         Map<String,Object> param = new HashMap<>();
@@ -152,7 +132,7 @@ public class UserController {
             resultMessage.setMessage("创建用户账号已存在,不允许重复创建");
             return resultMessage;
         }
-        user.setPassword(CryptographyUtil.md5(password));
+        user.setPassword(CryptographyUtil.md5("000000"));
         int i = userService.addUser(user);
         if(i==0){
             resultMessage.setCode(ResultMessage.SYS_ERROR);
@@ -170,14 +150,57 @@ public class UserController {
             return "/pages/site/user/showAddUser";
         }
         String basePath=HttpUtils.getBasePath(request);
-        User user =userService.queryUser(id);
+        UserVo user =userService.queryUser(id);
         model.addAttribute("basePath",basePath);
         model.addAttribute("user",user);
         return "/pages/site/user/showAddUser";
     }
 
     /***
-     * 删除用户
+     * 跳转修改密码页面
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/showUpdatePassword")
+    public String showUpdatePassword(HttpServletRequest request,Model model){
+        String basePath = HttpUtils.getBasePath(request);
+        model.addAttribute("basePath",basePath);
+        User user=(User) request.getSession().getAttribute("site_user");
+
+        if(user!=null ){
+            model.addAttribute("user",user);
+            return   "/pages/site/user/showUpdatePassword";
+        }
+        return "login";
+    }
+
+    /***
+     * 修改密码
+     * @param request
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping("/updatePassWord")
+    @ResponseBody
+    public  Object updatePassWord(HttpServletRequest request, String oldPassword,String newPassword){
+        if(oldPassword ==null || newPassword==null ){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        User user= (User) request.getSession().getAttribute("site_user");
+        if (!CryptographyUtil.md5(oldPassword).equals(user.getPassword())){
+            return ResultMessage.OLDPASSWORD_ISNOT_RIGHT;
+        }
+        User param =new User();
+        user.setId(user.getId());
+        user.setPassword(newPassword);
+        userService.updateUser(param);
+        return   ResultMessage.UPDATE_PASSWORD_SUCCESS;
+    }
+
+    /***
+     * 设置有效，无效
      * @param id
      * @return
      */

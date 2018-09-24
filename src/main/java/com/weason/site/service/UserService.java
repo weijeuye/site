@@ -1,6 +1,7 @@
 package com.weason.site.service;
 
 import com.weason.site.pojo.User;
+import com.weason.site.vo.UserVo;
 import com.weason.util.ResultMessage;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    User queryUser(Long id);
+    UserVo queryUser(Long id);
 
     /***
      * 添加用户

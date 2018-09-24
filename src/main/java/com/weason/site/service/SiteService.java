@@ -13,14 +13,14 @@ import java.util.Map;
 public interface SiteService {
     /***
      * 获取所有工地
-     * @param site
+     * @param param
      * @return
      */
-    List<Site> querySites(Site site);
+    List<Site> querySites(Map<String,Object> param);
 
-    public List<Site> querySitesByParam(Map<String,Object> param);
+    List<Site> querySitesByParam(Map<String,Object> param);
 
-    public Integer querySitesCountByParam(Map<String,Object> param);
+    Integer querySitesCountByParam(Map<String,Object> param);
 
     /***
      * 获取单个工地信息
@@ -49,4 +49,11 @@ public interface SiteService {
      * @return
      */
     Integer deleteSite(Long id);
+
+    /***
+     * 修改工地状态
+     * @param site
+     * @return
+     */
+    Object updateSiteStatus(Site site);
 }

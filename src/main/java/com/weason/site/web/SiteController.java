@@ -35,17 +35,11 @@ public class SiteController {
      * 获取所有工地信息
      * @return
      */
-    /*@RequestMapping(value = "/getAll",method = RequestMethod.GET)
-    @ResponseBody
-    *//*public ResultMessage querySites(Site site){
-        return siteService.querySites(site);
-    }*/
-
     @RequestMapping(value = "/findSitePlaceList",method = RequestMethod.GET)
     public String querySites(Site queryParam, HttpServletRequest request, Model model,Integer page){
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);
-        parameters.put("siteNumber",queryParam.getSiteName());
+        parameters.put("siteNumber",queryParam.getSiteNumber());
         parameters.put("isValid",queryParam.getIsValid());
         parameters.put("siteName",queryParam.getSiteName());
         int count = siteService.querySitesCountByParam(parameters);
@@ -104,44 +98,42 @@ public class SiteController {
         return "/pages/site/sitePlace/showAddSitePlace";
     }
     /***
-     * 保存工地
+     * 保存或修改工地信息
      * @param site
      * @return
      */
     @RequestMapping(value = "/saveSitePlace",method = RequestMethod.POST)
     @ResponseBody
-    public ResultMessage addSite( Site site){
-        int count=0;
+    public ResultMessage addSite(Site site){
+        ResultMessage resultMessage=ResultMessage.createResultMessage();
+        int count;
         if(site!=null && site.getId()!=null){
+            Site site1 = siteService.querySite(site.getId());
+            if (null==site1){
+                resultMessage.setMessage("需要修改的工地不存在");
+                resultMessage.setCode(ResultMessage.ERROR);
+                return resultMessage;
+            }
+            if (!site1.getSiteName().equals(site.getSiteName())){
+                if (checkSiteName(site, resultMessage)) {
+                    return resultMessage;
+                }
+            }
             count=siteService.updateSite(site);
             if(count > 0){
                 return ResultMessage.UPDATE_SUCCESS_RESULT;
             }
             return ResultMessage.UPDATE_FAIL_RESULT;
         }else {
+            if (checkSiteName(site, resultMessage)) {
+                return resultMessage;
+            }
             count =siteService.addSite(site);
             if(count > 0){
                 return ResultMessage.ADD_SUCCESS_RESULT;
             }
             return ResultMessage.ADD_FAIL_RESULT;
         }
-    }
-
-    /***
-     * 修改工地信息
-     * @param site
-     * @return
-     */
-    @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    @ResponseBody
-    public ResultMessage updateSite(@RequestBody Site site){
-        ResultMessage resultMessage=ResultMessage.createResultMessage();
-        int count =siteService.updateSite(site);
-        if(count > 0){
-            return resultMessage;
-        }
-        resultMessage.addObject("error","修改失败！");
-        return resultMessage;
     }
 
     /**
@@ -159,12 +151,7 @@ public class SiteController {
         Site site=new Site();
         site.setId(id);
         site.setIsValid(isValid);
-        int count =siteService.updateSite(site);
-        if( count > 0){
-            return ResultMessage.UPDATE_SUCCESS_RESULT;
-        }else {
-            return ResultMessage.UPDATE_FAIL_RESULT;
-        }
+        return siteService.updateSiteStatus(site);
     }
     /***
      * 删除工地
@@ -194,7 +181,6 @@ public class SiteController {
         JSONArray array = null;
         Map<String, Object> param=new HashMap<String, Object>();
         if(search!=null){
-            //param.put("siteNumber",search);
             param.put("siteName",search);
             param.put("isValid","Y");
         }
@@ -213,5 +199,24 @@ public class SiteController {
             e.printStackTrace();
         }
         return array;
+    }
+
+    /***
+     * 检查工地名称是否存在
+     * @param site
+     * @param resultMessage
+     * @return
+     */
+    private boolean checkSiteName(Site site, ResultMessage resultMessage) {
+        Map<String,Object> param = new HashMap<>();
+        param.put("siteName",site.getSiteName());
+        param.put("isValid","Y");
+        List<Site> sites = siteService.querySites(param);
+        if (sites.size()>0){
+            resultMessage.setMessage("工地名称已存在");
+            resultMessage.setCode(ResultMessage.ERROR);
+            return true;
+        }
+        return false;
     }
 }

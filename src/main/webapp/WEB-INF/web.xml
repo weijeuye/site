@@ -19,6 +19,10 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>site</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>
   </servlet-mapping>
@@ -83,7 +87,7 @@
   </session-config>
 
   <welcome-file-list>
-    <welcome-file>/index.do</welcome-file>
+    <welcome-file>index</welcome-file>
   </welcome-file-list>
 
 </web-app>

@@ -1,6 +1,10 @@
 package com.weason.site.service.impl;
 
+import com.weason.constant.SystemConstant;
+import com.weason.site.dao.CarTeamDao;
 import com.weason.site.dao.SiteDao;
+import com.weason.site.dao.SiteDropPointDao;
+import com.weason.site.dao.UserDao;
 import com.weason.site.pojo.Site;
 import com.weason.site.pojo.User;
 import com.weason.site.service.SiteService;
@@ -8,6 +12,7 @@ import com.weason.util.ResultMessage;
 import com.weason.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,27 +27,21 @@ import java.util.Map;
 public class SiteServiceImpl implements SiteService {
     @Autowired
     private SiteDao siteDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private CarTeamDao carTeamDao;
+    @Autowired
+    private SiteDropPointDao siteDropPointDao;
 
     /***
      * 获取所有工地
-     * @param site
+     * @param param
      * @return
      */
     @Override
-    public List<Site> querySites(Site site) {
-        Map<String,Object> param = new HashMap<>();
-        if (null != site){
-            if (null !=site.getSiteName()&& StringUtils.isBlank(site.getSiteName())){
-                param.put("siteName",site.getSiteName());
-            }
-            if (null !=site.getSiteNumber()&&StringUtils.isBlank(site.getSiteNumber())){
-                param.put("siteNumber",site.getSiteNumber());
-            }
-        }
-        param.put("status",1);
-        List<Site> sites = siteDao.querySites(param);
-
-        return sites;
+    public List<Site> querySites(Map<String,Object> param) {
+        return siteDao.querySiteList(param);
     }
 
     /***
@@ -64,22 +63,7 @@ public class SiteServiceImpl implements SiteService {
      */
     @Override
     public Integer addSite(Site site) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
-      /*  if (StringUtils.isBlank(site.getSiteName())){
-            resultMessage.setCode(ResultMessage.ERROR);
-            resultMessage.setMessage("工地名称不能为空");
-            return resultMessage;
-        }
-        Map<String,Object> param = new HashMap<>();
-        param.put("siteName",site.getSiteName());
-        param.put("status",1);
-        List<Site> sites = siteDao.querySites(param);
-        if (sites.size()>0){
-            resultMessage.setCode(ResultMessage.ERROR);
-            resultMessage.setMessage("添加的工地已存在");
-            return resultMessage;
-        }*/
-        String siteNumber = "BH"+System.currentTimeMillis()+"";
+        String siteNumber = "BH"+System.currentTimeMillis();
         site.setSiteNumber(siteNumber);
         site.setIsValid("Y");
         return siteDao.addSite(site);
@@ -92,20 +76,6 @@ public class SiteServiceImpl implements SiteService {
      */
     @Override
     public Integer updateSite(Site site) {
-        ResultMessage resultMessage = ResultMessage.createResultMessage();
-        Long id = site.getId();
-        Site site1 = siteDao.querySiteById(id);
-        if (null==site1){
-            resultMessage.setMessage("需要修改的工地不存在");
-        }
-        Map<String,Object> param = new HashMap<>();
-        param.put("siteName",site.getSiteName());
-        param.put("status",1);
-        List<Site> sites = siteDao.querySites(param);
-        if (sites.size()>0){
-            resultMessage.setMessage("工地名称已存在");
-        }
-
         return siteDao.updateSite(site);
     }
 
@@ -125,6 +95,18 @@ public class SiteServiceImpl implements SiteService {
         site1.setStatus(0);
 //todo 删除该工地下所有投放点
         return  siteDao.updateSite(site1);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Object updateSiteStatus(Site site) {
+        siteDao.updateSite(site);
+        if (SystemConstant.IS_VALID_Y.equals(site.getIsValid())){
+
+        }else{
+
+        }
+        return null;
     }
 
     @Override

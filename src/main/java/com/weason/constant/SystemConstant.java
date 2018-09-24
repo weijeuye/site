@@ -44,4 +44,6 @@ public class SystemConstant {
 	 */
 	public static final String LANGUAGE = "language";
 
+	public static final String IS_VALID_Y = "Y" ;
+
 }
