@@ -64,5 +64,13 @@ public class CarTeamDao extends MyBatisDao {
     public int updateCarTeam(CarTeam carTeam){
         return super.update("updateByPrimaryKeySelective",carTeam);
     }
+    /***
+     * 修改车队状态
+     * @param carTeam
+     * @return
+     */
+    public int updateCarTeamStatus(CarTeam carTeam){
+        return super.update("updateStatusBySiteId",carTeam);
+    }
 
 }

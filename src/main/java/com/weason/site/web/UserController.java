@@ -199,16 +199,18 @@ public class UserController {
         return   ResultMessage.UPDATE_PASSWORD_SUCCESS;
     }
 
-    /***
-     * 设置有效，无效
-     * @param id
-     * @return
-     */
+
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.PUT)
     @ResponseBody
     public ResultMessage deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
+
+    /***
+     * 设置有效，无效
+     * @param id
+     * @return
+     */
     @RequestMapping("/updateStatus")
     @ResponseBody
     public Object updateStatus(Long id ,String isValid){

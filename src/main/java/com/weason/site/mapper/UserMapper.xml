@@ -23,7 +23,7 @@
     select
     <include refid="Base_Column_List" />
     from u_user
-    where id = #{id,jdbcType=BIGINT} and status = 1
+    where id = #{id,jdbcType=BIGINT} and is_valid = 'Y'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from u_user
@@ -168,11 +168,16 @@
       site_id = #{siteId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.User">
+    update u_user
+    set  is_valid =#{isValid,jdbcType=VARCHAR}
+    where site_id = #{siteId,jdbcType=BIGINT}
+  </update>
 
   <select id="queryUsersCount" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*)
     from u_user
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -194,9 +199,6 @@
     <if test="alias != null  and alias != ''">
       and alias = #{alias,jdbcType=VARCHAR}
     </if>
-    <if test="isValid != null and isValid != '' ">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
     <if test="userType != null and userType != ''">
       and user_type = #{userType,jdbcType=VARCHAR}
     </if>
@@ -213,7 +215,7 @@
     select
     <include refid="Base_Column_List" />
     from u_user
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -234,9 +236,6 @@
     </if>
     <if test="alias != null and alias != ''">
       and alias = #{alias,jdbcType=VARCHAR}
-    </if>
-    <if test="isValid != null and isValid != ''">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
     <if test="userType != null and userType != ''">
       and user_type = #{userType,jdbcType=VARCHAR}

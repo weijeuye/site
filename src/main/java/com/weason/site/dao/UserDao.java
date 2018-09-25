@@ -65,5 +65,13 @@ public class UserDao extends MyBatisDao {
     public int updateUser(User user){
         return super.update("updateByPrimaryKeySelective",user);
     }
+    /***
+     * 修改用户状态
+     * @param user
+     * @return
+     */
+    public int updateUserStatus(User user){
+        return super.update("updateStatusBySiteId",user);
+    }
 
 }

@@ -123,15 +123,4 @@ public class SiteDropPointController {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
     }
-
-    /***
-     * 删除工地投放点
-     * @param id
-     * @return
-     */
-    /*@RequestMapping(value = "/delete/{id}",method = RequestMethod.PUT)
-    @ResponseBody
-    public ResultMessage deleteSiteDropPoint(@PathVariable Long id){
-        return siteDropPointService.deleteSiteDropPoint(id);
-    }*/
 }

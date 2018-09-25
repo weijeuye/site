@@ -10,7 +10,6 @@
     <result column="vehicle" property="vehicle" jdbcType="DOUBLE" />
     <result column="driver" property="driver" jdbcType="VARCHAR" />
     <result column="car_team_id" property="carTeamId" jdbcType="BIGINT" />
-
     <result column="is_heighten" property="isHeighten" jdbcType="VARCHAR" />
     <result column="heighten_number" property="heightenNumber" jdbcType="DOUBLE" />
     <result column="car_color" property="carColor" jdbcType="VARCHAR" />
@@ -25,7 +24,7 @@
     select 
     <include refid="Base_Column_List" />
     from u_car
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and is_valid = 'Y'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_car
@@ -187,7 +186,7 @@
   <select id="queryCarsCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*)
     from u_car
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -206,27 +205,22 @@
     <if test="carTeamId != null" >
       and car_team_id = #{carTeamId,jdbcType=BIGINT}
     </if>
-
     <if test="isHeighten != null" >
       and is_heighten = #{isHeighten,jdbcType=VARCHAR}
     </if>
     <if test="heightenNumber != null" >
       and heighten_number = #{heightenNumber,jdbcType=DOUBLE}
     </if>
-    <if test="isValid != null" >
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
     <if test="carColor != null" >
       and car_color = #{carColor,jdbcType=VARCHAR}
     </if>
-
   </select>
 
   <select id="queryCarsByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
     <include refid="basic.pageSearchHead"/>
     select *
     from u_car
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -245,15 +239,11 @@
     <if test="carTeamId != null" >
       and car_team_id = #{carTeamId,jdbcType=BIGINT}
     </if>
-
     <if test="isHeighten != null" >
       and is_heighten = #{isHeighten,jdbcType=VARCHAR}
     </if>
     <if test="heightenNumber != null" >
       and heighten_number = #{heightenNumber,jdbcType=DOUBLE}
-    </if>
-    <if test="isValid != null" >
-      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
     <if test="carColor != null" >
       and car_color = #{carColor,jdbcType=VARCHAR}

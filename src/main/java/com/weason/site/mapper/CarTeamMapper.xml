@@ -21,7 +21,7 @@
     select 
     <include refid="Base_Column_List" />
     from u_car_team
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and is_valid = 'Y'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_car_team
@@ -148,6 +148,11 @@
       memo = #{memo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.CarTeam" >
+    update u_car_team
+    set is_valid = #{isValid,jdbcType=VARCHAR}
+    where site_id = #{siteId,jdbcType=BIGINT}
+  </update>
 
 
   <select id="queryCarTeamsByParam" resultMap="BaseResultMap" parameterType="java.util.Map" >
@@ -155,7 +160,7 @@
     select
     <include refid="Base_Column_List" />
     from u_car_team
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="status != null" >
      and  status = #{status,jdbcType=TINYINT}
     </if>
@@ -171,9 +176,6 @@
     <if test="siteId != null" >
       and site_id = #{siteId,jdbcType=BIGINT}
     </if>
-    <if test="isValid != null and isValid !=''" >
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
     <include refid="basic.pageSearchFoot"/>
   </select>
 
@@ -181,7 +183,7 @@
     select
     count(*)
     from u_car_team
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="status != null" >
       and  status = #{status,jdbcType=TINYINT}
     </if>
@@ -196,9 +198,6 @@
     </if>
     <if test="siteId != null" >
       and site_id = #{siteId,jdbcType=BIGINT}
-    </if>
-    <if test="isValid != null and isValid !='' " >
-      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
   </select>
 </mapper>

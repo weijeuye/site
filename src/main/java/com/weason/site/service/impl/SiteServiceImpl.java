@@ -5,7 +5,9 @@ import com.weason.site.dao.CarTeamDao;
 import com.weason.site.dao.SiteDao;
 import com.weason.site.dao.SiteDropPointDao;
 import com.weason.site.dao.UserDao;
+import com.weason.site.pojo.CarTeam;
 import com.weason.site.pojo.Site;
+import com.weason.site.pojo.SiteDropPoint;
 import com.weason.site.pojo.User;
 import com.weason.site.service.SiteService;
 import com.weason.util.ResultMessage;
@@ -99,14 +101,21 @@ public class SiteServiceImpl implements SiteService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Object updateSiteStatus(Site site) {
+    public Object updateSiteStatus(Site site){
         siteDao.updateSite(site);
-        if (SystemConstant.IS_VALID_Y.equals(site.getIsValid())){
-
-        }else{
-
-        }
-        return null;
+        User user = new User();
+        user.setSiteId(site.getId());
+        user.setIsValid(site.getIsValid());
+        userDao.updateUserStatus(user);
+        CarTeam carTeam = new CarTeam();
+        carTeam.setSiteId(site.getId());
+        carTeam.setIsValid(site.getIsValid());
+        carTeamDao.updateCarTeamStatus(carTeam);
+        SiteDropPoint siteDropPoint = new SiteDropPoint();
+        siteDropPoint.setSiteId(site.getId());
+        siteDropPoint.setIsValid(site.getIsValid());
+        siteDropPointDao.updateSiteDropPointStatus(siteDropPoint);
+        return ResultMessage.createResultMessage();
     }
 
     @Override

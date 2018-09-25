@@ -63,6 +63,14 @@ public class SiteDropPointDao extends MyBatisDao {
     public int updateSiteDropPoint(SiteDropPoint siteDropPoint){
         return super.update("updateByPrimaryKeySelective",siteDropPoint);
     }
+    /***
+     * 修改投放点信息
+     * @param siteDropPoint
+     * @return
+     */
+    public int updateSiteDropPointStatus(SiteDropPoint siteDropPoint){
+        return super.update("updateStatusBySiteId",siteDropPoint);
+    }
 
     /***
      * 删除投放点

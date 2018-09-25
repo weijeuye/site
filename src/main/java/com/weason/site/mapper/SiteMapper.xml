@@ -19,7 +19,7 @@
     select 
     <include refid="Base_Column_List" />
     from u_site
-    where id = #{id,jdbcType=BIGINT} and status = 1
+    where id = #{id,jdbcType=BIGINT} and is_valid = 'Y'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_site
@@ -121,7 +121,7 @@
     select
     <include refid="Base_Column_List" />
     from u_site
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="status != null" >
       and status = #{status,jdbcType=TINYINT}
     </if>
@@ -131,9 +131,6 @@
     <if test="siteName != null and siteName !='' " >
       and site_name like CONCAT('%',#{siteName},'%')
     </if>
-    <if test="isValid != null and isValid !=''">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
     <include refid="basic.pageSearchFoot"/>
   </select>
 
@@ -141,7 +138,7 @@
     select
      count(*)
     from u_site
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="status != null" >
       and status = #{status,jdbcType=TINYINT}
     </if>
@@ -151,9 +148,6 @@
     <if test="siteName != null and siteName !=''" >
       and site_name like CONCAT('%',#{siteName},'%')
     </if>
-    <if test="isValid != null and isValid !=''">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
   </select>
 
   <select id="querySiteList" resultMap="BaseResultMap" parameterType="java.util.Map" >
@@ -161,7 +155,7 @@
     select
     <include refid="Base_Column_List" />
     from u_site
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="status != null" >
       and status = #{status,jdbcType=TINYINT}
     </if>
@@ -170,9 +164,6 @@
     </if>
     <if test="siteName != null and siteName !='' " >
       and site_name =#{siteName,jdbcType=VARCHAR}
-    </if>
-    <if test="isValid != null and isValid !=''">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
     <include refid="basic.pageSearchFoot"/>
   </select>

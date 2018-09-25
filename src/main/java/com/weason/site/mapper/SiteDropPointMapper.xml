@@ -20,7 +20,7 @@
     select 
     <include refid="Base_Column_List" />
     from u_site_drop_point
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and is_valid = 'Y'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_site_drop_point
@@ -134,11 +134,16 @@
       is_valid = #{memo,jdbcType=BIGINT}
     where id = #{isValid,jdbcType=VARCHAR}
   </update>
+  <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.SiteDropPoint" >
+    update u_site_drop_point
+    set site_id = #{siteId,jdbcType=BIGINT}
+    where is_valid = #{memo,jdbcType=BIGINT}
+  </update>
 
   <select id="querySiteDropPointsCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*)
     from u_site_drop_point
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -160,17 +165,13 @@
     <if test="siteId != null and siteId != '' ">
       and site_id = #{siteId,jdbcType=VARCHAR}
     </if>
-    <if test="isValid != null and isValid != '' ">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
-    </if>
-
   </select>
 
   <select id="querySiteDropPointsByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
     <include refid="basic.pageSearchHead"/>
     select *
     from u_site_drop_point
-    where 1=1
+    where 1=1 and is_valid = 'Y'
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -191,9 +192,6 @@
     </if>
     <if test="siteId != null and siteId != '' ">
       and site_id = #{siteId,jdbcType=VARCHAR}
-    </if>
-    <if test="isValid != null and isValid != '' ">
-      and is_valid = #{isValid,jdbcType=VARCHAR}
     </if>
     <include refid="basic.pageSearchFoot"/>
   </select>
