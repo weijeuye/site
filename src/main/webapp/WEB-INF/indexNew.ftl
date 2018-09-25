@@ -79,8 +79,14 @@
                     <dl class="nav nav-sidebar tab-financial-management">
                         <dt><i></i><em title="单据管理">单据管理</em><b></b></dt>
                         <dd>
-                            <a data-id="10" href="${basePath}/siteUser/findBookTypeList.do" permId="10"
-                               data-name="出库单管理">出库单管理</a>
+                        <#if user.userType=="S">
+                            <a data-id="10" href="${basePath}/siteOrder/findOrders.do" permId="10"
+                               data-name="出库单管理">管理员出库单管理</a>
+                        <#else>
+                            <a data-id="10" href="${basePath}/siteOrder/findOrders.do" permId="10"
+                               data-name="出库单管理">普通出库单管理</a>
+                        </#if>
+
                         </dd>
                     </dl>
                 </div>

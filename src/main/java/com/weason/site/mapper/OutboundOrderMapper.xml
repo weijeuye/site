@@ -10,9 +10,14 @@
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
     <result column="car_team_id" property="carTeamId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="drop_point_id" property="dropPointId" jdbcType="BIGINT" />
+    <result column="vehicle" property="vehicle" jdbcType="DOUBLE" />
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, site_id, price, plate_number, car_team_id
+    id, status, create_time, update_time, site_id, price, plate_number, car_team_id,user_id,amount,drop_point_id,vehicle
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -58,7 +63,19 @@
       </if>
       <if test="carTeamId != null" >
         car_team_id,
-      </if>
+      </if>,
+      <if test="userId != null" >
+        user_id,
+      </if>,
+      <if test="amount != null" >
+        amount,
+      </if>,
+      <if test="dropPointId != null" >
+        drop_point_id,
+      </if>,
+      <if test="vehicle != null" >
+        vehicle,
+      </if>,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -85,6 +102,18 @@
       <if test="carTeamId != null" >
         #{carTeamId,jdbcType=BIGINT},
       </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>,
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>,
+      <if test="dropPointId != null" >
+        #{dropPointId,jdbcType=BIGINT},
+      </if>,
+      <if test="vehicle != null" >
+        #{vehicle,jdbcType=DOUBLE},
+      </if>,
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.weason.site.pojo.OutboundOrder" >

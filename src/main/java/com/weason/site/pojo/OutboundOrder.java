@@ -21,6 +21,48 @@ public class OutboundOrder implements Serializable {
 
     private Long carTeamId;
 
+    private Long userId;
+
+    private Double amount;
+
+    private Long dropPointId;
+    /**
+     * 出库方数
+     */
+    private Long vehicle;
+
+    public Long getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Long vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Long getDropPointId() {
+        return dropPointId;
+    }
+
+    public void setDropPointId(Long dropPointId) {
+        this.dropPointId = dropPointId;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {

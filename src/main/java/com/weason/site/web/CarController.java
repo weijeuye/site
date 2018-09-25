@@ -1,17 +1,21 @@
 package com.weason.site.web;
 
 import com.weason.site.pojo.Car;
+import com.weason.site.pojo.CarTeam;
 import com.weason.site.pojo.Site;
 import com.weason.site.service.CarService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
 import com.weason.util.ResultMessage;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,5 +174,36 @@ public class CarController {
         }
         resultMessage.addObject("error","删除失败！");
         return resultMessage;
+    }
+
+    /**
+     * 根据车车牌号模糊查询列表数据
+     * @param search
+     * @param resp
+     */
+    @RequestMapping(value = "/searchCarList")
+    @ResponseBody
+    public Object searchCarList(String search, HttpServletResponse resp){
+        JSONArray array = null;
+        Map<String, Object> param=new HashMap<String, Object>();
+        if(search!=null){
+            param.put("plateNumber",search);
+            param.put("isValid","Y");
+        }
+        try {
+            List<Car> list = carService.queryCarTeamsByParam(param);
+            array = new JSONArray();
+            if(list != null && list.size() > 0){
+                for(Car car:list){
+                    JSONObject obj=new JSONObject();
+                    obj.put("id", car.getId());
+                    obj.put("text", car.getPlateNumber());
+                    array.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

@@ -1,7 +1,11 @@
 package com.weason.site.dao;
 
+import com.weason.site.pojo.OutboundOrder;
 import com.weason.util.mybaties.MyBatisDao;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: library
@@ -11,4 +15,12 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public class OutboundOrderDao extends MyBatisDao {
+
+    public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String, Object> param) {
+        return super.queryForList("",param);
+    }
+
+    public Integer addOutboundOrder(OutboundOrder outboundOrder) {
+        return super.insert("insertSelective",outboundOrder);
+    }
 }
