@@ -150,7 +150,8 @@
   </update>
   <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.CarTeam" >
     update u_car_team
-    set is_valid = #{isValid,jdbcType=VARCHAR}
+    set is_valid = #{isValid,jdbcType=VARCHAR},
+        update_time = sysdate()
     where site_id = #{siteId,jdbcType=BIGINT}
   </update>
 

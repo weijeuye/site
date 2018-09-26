@@ -40,7 +40,7 @@
                 </td>
               </tr>
             <tr>
-                <td class="s_label">是否有效：</td>
+                <#--<td class="s_label">是否有效：</td>
                 <td class="w18">
                     <select name="isValid">
                     <#if queryParam.isValid??>
@@ -54,7 +54,7 @@
                         <option value="N" >无效</option>
                     </#if>
                     </select>
-                </td>
+                </td>-->
                 <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
                 <td class="s_label"><a class="btn btn_cc1" id="addUser_button">新增</a></td>
                 <td></td>
@@ -77,7 +77,7 @@
             	<th>姓名</th>
                 <th>性别</th>
                 <th>电话</th>
-                <th>是否有效</th>
+                <#--<th>是否有效</th>-->
                 <th>备注</th>
                 <th>编辑</th>
             </tr>
@@ -97,18 +97,17 @@
                     </td>
 
                     <td>${user.phone!''} </td>
-                    <td>
+                    <#--<td>
 						<#if user?? && user.isValid == "Y">
                             <span style="color:green" class="cancelProp">有效</span>
 						<#else >
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
-					</td>
+					</td>-->
                     <td>${user.memo!''} </td>
-                    <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${user.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${user.id!''}" data2="${user.isValid}">${(user.isValid=="Y")?string("设为无效", "设为有效")}</a>
+						<a href="javascript:;"  class="editFlag" data1="${user.id!''}" data2="${user.isValid}">${(user.isValid=="Y")?string("禁用", "设为有效")}</a>
 
                     </td>
 				</tr>
@@ -156,7 +155,7 @@ $(function(){
 		 var userId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
 		 var url = "${basePath}/siteUser/updateStatus.do?id="+userId+"&isValid="+isValid;
-		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
+		 msg = isValid === "N" ? "确认禁用  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.get(url, function(data){
                  if(data && data.code=='success'){

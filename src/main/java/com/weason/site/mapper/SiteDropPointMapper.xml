@@ -128,7 +128,8 @@
   </update>
   <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.SiteDropPoint" >
     update u_site_drop_point
-    set site_id = #{siteId,jdbcType=BIGINT}
+    set site_id = #{siteId,jdbcType=BIGINT},
+        update_time = sysdate()
     where is_valid = #{memo,jdbcType=BIGINT}
   </update>
 

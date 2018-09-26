@@ -64,4 +64,6 @@ public class CarDao extends MyBatisDao {
     public int updateCar(Car car){
         return super.update("updateByPrimaryKeySelective",car);
     }
+
+    public int updateByCarTeamId(Long id) {return super.update("updateByCarTeamId",id);}
 }

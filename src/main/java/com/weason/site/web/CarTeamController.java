@@ -176,7 +176,7 @@ public class CarTeamController {
         return resultMessage;
     }
     /**
-     * 修改工地状态
+     * 修改车队状态
      * @param id
      * @param isValid
      * @return
@@ -190,12 +190,7 @@ public class CarTeamController {
         CarTeam carTeam = new CarTeam();
         carTeam.setId(id);
         carTeam.setIsValid(isValid);
-        int count = carTeamService.updateCarTeam(carTeam);
-        if (count > 0) {
-            return ResultMessage.UPDATE_SUCCESS_RESULT;
-        } else {
-            return ResultMessage.UPDATE_FAIL_RESULT;
-        }
+        return  carTeamService.updateCarTeamStatus(carTeam);
     }
     /**
      * 根据车队名称模糊查询列表数据

@@ -170,7 +170,8 @@
   </update>
   <update id="updateStatusBySiteId" parameterType="com.weason.site.pojo.User">
     update u_user
-    set  is_valid =#{isValid,jdbcType=VARCHAR}
+    set  is_valid =#{isValid,jdbcType=VARCHAR},
+         update_time = sysdate()
     where site_id = #{siteId,jdbcType=BIGINT}
   </update>
 

@@ -40,7 +40,6 @@ public class SiteController {
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);
         parameters.put("siteNumber",queryParam.getSiteNumber());
-        parameters.put("isValid",queryParam.getIsValid());
         parameters.put("siteName",queryParam.getSiteName());
         int count = siteService.querySitesCountByParam(parameters);
 

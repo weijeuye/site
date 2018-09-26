@@ -52,4 +52,11 @@ public interface CarTeamService {
      * @return
      */
     Integer deleteCarTeam(Long id);
+
+    /***
+     * 修改車隊狀態
+     * @param carTeam
+     * @return
+     */
+    Object updateCarTeamStatus(CarTeam carTeam);
 }

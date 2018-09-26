@@ -180,7 +180,13 @@
       update_time = sysdate()
     where id = #{id,jdbcType=BIGINT}
   </update>
-
+  <update id="updateByPrimaryKey" parameterType="java.lang.Integer" >
+    update u_car
+    set
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      update_time = sysdate()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
 
   <select id="queryCarsCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map">
