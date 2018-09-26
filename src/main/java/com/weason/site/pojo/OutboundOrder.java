@@ -15,7 +15,7 @@ public class OutboundOrder implements Serializable {
 
     private Long siteId;
 
-    private BigDecimal price;
+    private Double price;
 
     private String plateNumber;
 
@@ -29,13 +29,45 @@ public class OutboundOrder implements Serializable {
     /**
      * 出库方数
      */
-    private Long vehicle;
+    private Double vehicle;
 
-    public Long getVehicle() {
+    private Double mileage;
+
+    private String memo;
+    /**
+     * 单据号
+     */
+    private String orderNumber;
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public Double getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Double mileage) {
+        this.mileage = mileage;
+    }
+
+    public Double getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Long vehicle) {
+    public void setVehicle(Double vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -105,11 +137,11 @@ public class OutboundOrder implements Serializable {
         this.siteId = siteId;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

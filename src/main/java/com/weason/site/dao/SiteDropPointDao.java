@@ -26,7 +26,7 @@ public class SiteDropPointDao extends MyBatisDao {
      * @return
      */
     public List<SiteDropPoint> querySiteDropPointsByParam(Map<String,Object> param){
-        return super.queryForListForReport("querySiteDropPointsByParam",param);
+        return super.queryForList("querySiteDropPointsByParam",param);
     }
 
     /***

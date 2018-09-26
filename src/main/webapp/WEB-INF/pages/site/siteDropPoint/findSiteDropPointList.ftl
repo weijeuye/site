@@ -22,7 +22,7 @@
                 <#--<td class="s_label">工地编号</td>
                 <td class="w18"><input type="text" name="siteDropPointNumber" value="${queryParam.siteDropPointNumber!''}"></td>-->
                 <td class="s_label">投放点名称</td>
-                <td class="w18"><input type="text" name="siteDropPointName" value="${queryParam.siteDropPointName!''}"></td>
+                <td class="w18"><input type="text" name="dropPoint" value="${queryParam.dropPoint!''}"></td>
                 <td class="s_label">是否有效：</td>
                 <td class="w18">
                     <select name="isValid">

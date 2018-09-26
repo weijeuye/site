@@ -1,17 +1,21 @@
 package com.weason.site.web;
 
+import com.weason.site.pojo.Car;
 import com.weason.site.pojo.Site;
 import com.weason.site.pojo.SiteDropPoint;
 import com.weason.site.service.SiteDropPointService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
 import com.weason.util.ResultMessage;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,5 +126,53 @@ public class SiteDropPointController {
         }else {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
+    }
+
+    /**
+     * 根据投放点模糊查询列表数据
+     * @param search
+     * @param resp
+     */
+    @RequestMapping(value = "/searchCarList")
+    @ResponseBody
+    public Object searchCarList(String search, HttpServletResponse resp){
+        JSONArray array = null;
+        Map<String, Object> param=new HashMap<String, Object>();
+        if(search!=null){
+            param.put("plateNumber",search);
+            param.put("isValid","Y");
+        }
+        try {
+            List<SiteDropPoint> list = siteDropPointService.querySiteDropPoints(param);
+            array = new JSONArray();
+            if(list != null && list.size() > 0){
+                for(SiteDropPoint siteDropPoint:list){
+                    JSONObject obj=new JSONObject();
+                    obj.put("id", siteDropPoint.getId());
+                    obj.put("text", siteDropPoint.getDropPoint());
+                    array.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    /***
+     * 获取单个投放点信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/getSingle",method = RequestMethod.GET)
+    @ResponseBody
+    public Object querySite(Long id, Model model, HttpServletRequest request){
+        ResultMessage resultMessage=ResultMessage.createResultMessage();
+        if(id==null){
+            return ResultMessage.PARAM_EXCEPTION_RESULT;
+        }
+        SiteDropPoint siteDropPoint=siteDropPointService.querySiteDropPoint(id);
+        resultMessage.addObject("siteDropPoint",siteDropPoint);
+        return resultMessage;
     }
 }

@@ -124,7 +124,7 @@ var vst_pet_util = {
 				if(null != idNode)
 				{
 					$(idNode).val(item.id);
-			
+					$(idNode).trigger('input');
 				}
 			}
 		});
@@ -148,6 +148,7 @@ var vst_pet_util = {
 				if(null != idNode)
 				{
 					$(idNode).val(item.id);
+                    $(idNode).trigger('input');
 				}
 			}
 		});

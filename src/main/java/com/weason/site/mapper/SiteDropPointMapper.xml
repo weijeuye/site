@@ -6,7 +6,7 @@
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="drop_point" property="dropPoint" jdbcType="VARCHAR" />
+    <result column="drop_point" property="dropPoint" jdbcType="BIGINT" />
     <result column="mileage" property="mileage" jdbcType="DECIMAL" />
     <result column="site_id" property="siteId" jdbcType="BIGINT" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
@@ -46,11 +46,8 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="dropPoint != null" >
-        drop_point,
+      <if test="dropPointId != null" >
+        drop_point_id,
       </if>
       <if test="mileage != null" >
         mileage,
@@ -70,17 +67,12 @@
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="dropPoint != null" >
-        #{dropPoint,jdbcType=VARCHAR},
+    sysdate(),
+      <if test="dropPointId != null" >
+        #{dropPointId,jdbcType=VARCHAR},
       </if>
       <if test="mileage != null" >
-        #{mileage,jdbcType=DECIMAL},
+        #{mileage,jdbcType=DOUBLE},
       </if>
       <if test="siteId != null" >
         #{siteId,jdbcType=BIGINT},
@@ -188,7 +180,7 @@
       and drop_point like CONCAT("%",#{dropPoint},"%")
     </if>
     <if test="mileage != null and mileage != ''" >
-      and drop_point =#{mileage,jdbcType=VARCHAR}
+      and mileage =#{mileage,jdbcType=VARCHAR}
     </if>
     <if test="siteId != null and siteId != '' ">
       and site_id = #{siteId,jdbcType=VARCHAR}

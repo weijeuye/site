@@ -60,17 +60,16 @@ public class CarController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getSingle/{id}",method = RequestMethod.GET)
-    public Object querySite(@PathVariable Long id, Model model, HttpServletRequest request){
+    @RequestMapping(value = "/getSingle",method = RequestMethod.GET)
+    @ResponseBody
+    public Object querySite(Long id, Model model, HttpServletRequest request){
         ResultMessage resultMessage=ResultMessage.createResultMessage();
         if(id==null){
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        String basePath=HttpUtils.getBasePath(request);
         Car car=carService.queryCarById(id);
-        model.addAttribute("car",car);
-        model.addAttribute("basePath",basePath);
-        return "/pages/site/siteCar/showAddCar";
+        resultMessage.addObject("car",car);
+        return resultMessage;
     }
 
 

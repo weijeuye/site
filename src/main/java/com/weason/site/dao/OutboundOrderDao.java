@@ -16,6 +16,10 @@ import java.util.Map;
 @Repository
 public class OutboundOrderDao extends MyBatisDao {
 
+    public OutboundOrderDao(){
+        super("outboundOrderMapper");
+    }
+
     public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String, Object> param) {
         return super.queryForList("",param);
     }

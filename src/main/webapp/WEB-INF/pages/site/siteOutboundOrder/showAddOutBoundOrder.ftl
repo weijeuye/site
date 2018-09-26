@@ -12,7 +12,8 @@
                 <td class="p_label"><i class="cc1">*</i>车牌号：</td>
                 <td>
                     <input type="text"  id="plateNumber" name="plateNumber"  class="form-control w270 search js_supplierName" required="true" errorele="searchValidate"  maxlength="20"/>
-                    <input type="hidden"  id="carId" name="carId"/>
+                    <input type="hidden"  id="carId" name="carId" />
+                    <input type="hidden"  id="carTeamId" name="carTeamId" />
                 </td>
 
                 <td class="p_label"><i class="cc1">*</i>方数：</td>
@@ -39,9 +40,20 @@
             <tr>
                 <td class="p_label">投放点</td>
                 <td>
-                    <input type="text"  id="dropPointId" name="dropPointId" errorele="searchValidate"  maxlength="100">
+                    <input type="text"  id="dropPoint" name="dropPoint" class="form-control w270 search js_supplierName" errorele="searchValidate"  maxlength="100">
+                    <input type="hidden"  id="dropPointId" name="dropPointId" errorele="searchValidate"  maxlength="100">
                 </td>
 
+
+                <td class="p_label">公里数：</td>
+                <td>
+                    <input type="text"  id="mileage" name="mileage" errorele="searchValidate"  maxlength="1000" readonly>
+                </td>
+
+
+            </tr>
+
+            <tr>
                 <td class="p_label">备注：</td>
                 <td>
                     <input type="text"  id="memo" name="memo" errorele="searchValidate"  maxlength="1000">
@@ -58,25 +70,84 @@
 <script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
 <script>
     vst_pet_util.commListSuggest("#plateNumber", "#carId",'/site/siteCar/searchCarList.do','');
+    vst_pet_util.commListSuggest("#dropPoint", "#dropPointId",'/site/siteDropPoint/searchCarList.do','');
 </script>
 
 <script type="text/javascript">
     $(function(){
-        $("#carId").on('input propertychange',function(){
+        $(document).ready(function () {
+        })
+    })
+
+    $("#price").bind('input propertychange',function(){
+        var price=this.value;
+        var vehicle=$("#vehicle").val();
+        calAmount(price,vehicle);
+
+    })
+    //计算金额
+    function calAmount(price,vehicle) {
+        if(price && price!='' && vehicle && vehicle!=""){
+            var amount=Number(price)* Number(vehicle);
+            if(!isNaN(amount)){
+                $("#amount").val(amount);
+            }
+        }else {
+            $("#amount").val("");
+        }
+    }
+    //根据车牌号带出方数
+    $("#carId").bind('input propertychange',function(){
         debugger;
-        alert("niha ");
-        })
-    })
-
-
-    $(document).ready(function () {
-
-        $("#carId").bind('input propertychange',function(){
-            debugger;
-            alert("niha ");
-        })
-    })
-
+        var id=this.value;
+        if(id && id!='') {
+            var url = "${basePath}/siteCar/getSingle.do?id=" + id;
+            $.ajax({
+                url: url,
+                type: "get",
+                dataType: "json",
+                success: function (result) {
+                    if (result.code = "success" && result.attributes!=null) {
+                        var car = result.attributes.car;
+                        $("#vehicle").val(car.vehicle);
+                        $("#carTeamId").val(car.carTeamId);
+                        var price= $("#price").val();
+                        var vehicle=$("#vehicle").val();
+                        calAmount(price,vehicle);
+                    }
+                }
+            })
+        }else {
+            $("#vehicle").val("");
+        }
+        var price=$("#price").val();
+        var vehicle=$("#vehicle").val();
+        calAmount(price,vehicle);
+    });
+    //录入投放点带出公里数
+    $("#dropPointId").bind('input propertychange',function(){
+        debugger;
+        var dropPointId=this.value;
+        if(dropPointId && dropPointId!='') {
+            var url = "${basePath}/siteDropPoint/getSingle.do?id=" + dropPointId;
+            $.ajax({
+                url: url,
+                type: "get",
+                dataType: "json",
+                success: function (result) {
+                    if (result.code = "success" && result.attributes!=null) {
+                        var siteDropPoint = result.attributes.siteDropPoint;
+                        $("#mileage").val(siteDropPoint.mileage);
+                    }
+                }
+            })
+        }else {
+            $("#mileage").val("");
+        }
+        var price=$("#price").val();
+        var vehicle=$("#vehicle").val();
+        calAmount(price,vehicle);
+    });
 
     $("#dataForm").validate({
       rules: {
@@ -92,7 +163,7 @@
         }
 
         $.ajax({
-            url : "${basePath}/sitePlace/saveSitePlace.do",
+            url : "${basePath}/siteOrder/addOrder.do",
             type : "post",
             dataType : "json",
             //async : false,

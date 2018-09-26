@@ -24,6 +24,6 @@ public class OutboundOrderServiceImpl implements OutboundOrderService {
 
     @Override
     public Integer addOutboundOrder(OutboundOrder outboundOrder) {
-        return null;
+        return outboundOrderDao.addOutboundOrder(outboundOrder);
     }
 }
