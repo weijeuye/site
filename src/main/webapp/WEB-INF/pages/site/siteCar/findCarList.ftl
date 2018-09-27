@@ -15,15 +15,15 @@
 </div>
 
 <div class="iframe_search">
-<form method="get" action='${basePath}/carCar/findCarList.do' id="searchForm">
+<form method="get" action='${basePath}/siteCar/findCarList.do' id="searchForm">
     <table class="s_table">
         <tbody>
             <tr>
                 <td class="s_label">车牌号</td>
                 <td class="w18"><input type="text" name="carNumber" value="${queryParam.carNumber!''}"></td>
                 <td class="s_label">司机</td>
-                <td class="w18"><input type="text" name="carName" value="${queryParam.carName!''}"></td>
-                <td class="s_label">是否有效：</td>
+                <td class="w18"><input type="text" name="driver" value="${queryParam.driver!''}"></td>
+               <#-- <td class="s_label">是否有效：</td>
                 <td class="w18">
                     <select name="isValid">
                     <#if queryParam.isValid??>
@@ -37,7 +37,7 @@
                         <option value="N" >无效</option>
                     </#if>
                     </select>
-                </td>
+                </td>-->
               </tr>
             <tr>
                 <td class="s_label">颜色</td>
@@ -83,7 +83,7 @@
                 <th>车队</th>
                 <th>是否加高</th>
                 <th>加高方数</th>
-                <th>是否有效</th>
+                <#--<th>是否有效</th>-->
                 <th>备注</th>
                 <th>编辑</th>
             </tr>
@@ -104,18 +104,17 @@
                         </#if>
                     </td>
                     <td>${car.heightenNumber!''} </td>
-                    <td>
+                    <#--<td>
 						<#if car?? && car.isValid == "Y">
                             <span style="color:green" class="cancelProp">有效</span>
 						<#else >
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
-					</td>
+					</td>-->
                     <td>${car.memo!''} </td>
-                    <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${car.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${car.id!''}" data2="${car.isValid}">${(car.isValid=="Y")?string("设为无效", "设为有效")}</a>
+						<a href="javascript:;"  class="editFlag" data1="${car.id!''}" data2="${car.isValid}">${(car.isValid=="Y")?string("禁用", "设为有效")}</a>
 
                     </td>
 				</tr>
@@ -165,7 +164,7 @@ $(function(){
 		 var carId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
 		 var url = "${basePath}/siteCar/updateStatus.do?id="+carId+"&isValid="+isValid;
-		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
+		 msg = isValid === "N" ? "确认禁用  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.post(url, function(data){
                  if(data && data.code=='success'){

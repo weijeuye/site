@@ -44,7 +44,6 @@ public class SiteDropPointController {
         parameters.put("dropPoint",queryParam.getDropPoint());
         parameters.put("siteId",queryParam.getSiteId());
         parameters.put("status",1);
-        parameters.put("isValid",queryParam.getIsValid());
         int count = siteDropPointService.querySiteDropPointsCount(parameters);
 
         int pagenum = page == null ? 1 : page;
@@ -84,7 +83,7 @@ public class SiteDropPointController {
         return "/pages/site/siteDropPoint/showAddSiteDropPoint";
     }
     /***
-     * 保存工地(新增或者修改)
+     * 保存工地投放点(新增或者修改)
      * @param siteDropPoint
      * @return
      */
@@ -101,7 +100,7 @@ public class SiteDropPointController {
         }else {
             User user=(User) request.getSession().getAttribute("site_user");
             if(user == null){
-                return ResultMessage.UPDATE_SUCCESS_RESULT.LOGIN_TIMEOUT;
+                return ResultMessage.LOGIN_TIMEOUT;
             }
             siteDropPoint.setSiteId(user.getSiteId());
             count =siteDropPointService.addSiteDropPoint(siteDropPoint);
