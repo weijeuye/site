@@ -180,12 +180,12 @@
       update_time = sysdate()
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="java.lang.Integer" >
+  <update id="updateByCarTeamId" parameterType="java.lang.Integer" >
     update u_car
     set
-      is_valid = #{isValid,jdbcType=VARCHAR},
+      is_valid = "N",
       update_time = sysdate()
-    where id = #{id,jdbcType=BIGINT}
+    where car_team_id = #{id,jdbcType=BIGINT}
   </update>
 
 

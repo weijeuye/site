@@ -21,7 +21,11 @@ public class OutboundOrderDao extends MyBatisDao {
     }
 
     public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String, Object> param) {
-        return super.queryForList("",param);
+        return super.queryForList("selectByParam",param);
+    }
+
+    public OutboundOrder queryOutBoundOrderByParam(Map<String, Object> param) {
+        return super.get("selectByParam",param);
     }
 
     public Integer addOutboundOrder(OutboundOrder outboundOrder) {

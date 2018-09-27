@@ -119,11 +119,16 @@ public class OutboundOrderController {
         //填充制单人和工地信息
         outboundOrder.setUserId(user.getId());
         outboundOrder.setSiteId(user.getSiteId());
-
+        String billNo="BN"+System.currentTimeMillis();
+        outboundOrder.setBillNo(billNo);
         int count =outboundOrderService.addOutboundOrder(outboundOrder);
         if(count == 0){
             return ResultMessage.ADD_FAIL_RESULT;
         }
+        Map<String,Object> param=new HashMap<String, Object>();
+        param.put("billNo",billNo);
+        OutboundOrder outboundOrder1=outboundOrderService.queryOutBoundOrderByParam(param);
+        resultMessage.addObject("outboundOrder",outboundOrder1);
         return resultMessage;
     }
 

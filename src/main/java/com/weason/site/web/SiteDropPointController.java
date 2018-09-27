@@ -3,6 +3,7 @@ package com.weason.site.web;
 import com.weason.site.pojo.Car;
 import com.weason.site.pojo.Site;
 import com.weason.site.pojo.SiteDropPoint;
+import com.weason.site.pojo.User;
 import com.weason.site.service.SiteDropPointService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
@@ -89,7 +90,7 @@ public class SiteDropPointController {
      */
     @RequestMapping(value = "/saveSiteDropPoint",method = RequestMethod.POST)
     @ResponseBody
-    public ResultMessage addSite( SiteDropPoint siteDropPoint){
+    public ResultMessage addSite( SiteDropPoint siteDropPoint,HttpServletRequest request){
         int count=0;
         if(siteDropPoint!=null && siteDropPoint.getId()!=null){
             count=siteDropPointService.updateSiteDropPoint(siteDropPoint);
@@ -98,6 +99,11 @@ public class SiteDropPointController {
             }
             return ResultMessage.UPDATE_FAIL_RESULT;
         }else {
+            User user=(User) request.getSession().getAttribute("site_user");
+            if(user == null){
+                return ResultMessage.UPDATE_SUCCESS_RESULT.LOGIN_TIMEOUT;
+            }
+            siteDropPoint.setSiteId(user.getSiteId());
             count =siteDropPointService.addSiteDropPoint(siteDropPoint);
             if(count > 0){
                 return ResultMessage.ADD_SUCCESS_RESULT;

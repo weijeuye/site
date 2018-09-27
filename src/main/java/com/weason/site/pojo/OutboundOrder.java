@@ -37,14 +37,14 @@ public class OutboundOrder implements Serializable {
     /**
      * 单据号
      */
-    private String orderNumber;
+    private String billNo;
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getBillNo() {
+        return billNo;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
     }
 
     public String getMemo() {

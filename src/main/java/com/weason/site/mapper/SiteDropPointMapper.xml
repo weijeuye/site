@@ -43,11 +43,9 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="createTime != null" >
         create_time,
-      </if>
-      <if test="dropPointId != null" >
-        drop_point_id,
+      <if test="dropPoint != null" >
+        drop_point,
       </if>
       <if test="mileage != null" >
         mileage,
@@ -67,9 +65,9 @@
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-    sysdate(),
-      <if test="dropPointId != null" >
-        #{dropPointId,jdbcType=VARCHAR},
+      sysdate(),
+      <if test="dropPoint != null" >
+        #{dropPoint,jdbcType=VARCHAR},
       </if>
       <if test="mileage != null" >
         #{mileage,jdbcType=DOUBLE},
@@ -89,9 +87,7 @@
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>

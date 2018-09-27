@@ -14,16 +14,49 @@
     <result column="amount" property="amount" jdbcType="DOUBLE" />
     <result column="drop_point_id" property="dropPointId" jdbcType="BIGINT" />
     <result column="vehicle" property="vehicle" jdbcType="DOUBLE" />
+    <result column="mileage" property="mileage" jdbcType="DOUBLE" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, site_id, price, plate_number, car_team_id,user_id,amount,drop_point_id,vehicle
+    id, status, create_time, update_time, site_id, price, plate_number, car_team_id,user_id,amount,drop_point_id,vehicle,mileage,memo,bill_no
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from u_outbound_order
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from u_outbound_order
+    where 1=1
+    <if test="billNo != null" >
+     and   bill_no = #{billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and   user_id = #{userId,jdbcType=BIGINT}
+    </if>
+    <if test="siteId != null" >
+      and   site_id = #{siteId,jdbcType=BIGINT}
+    </if>
+    <if test="carTeamId != null" >
+      and   car_team_id = #{carTeamId,jdbcType=BIGINT}
+    </if>
+    <if test="plateNumber != null" >
+      and   plate_number = #{plateNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="dropPointId != null" >
+      and   drop_point_id = #{dropPointId,jdbcType=BIGINT}
+    </if>
+    <if test="createTime != null" >
+      and   create_time = #{createTime,jdbcType=VARCHAR}
+    </if>
+
+
+
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from u_outbound_order
@@ -77,8 +110,8 @@
       <if test="memo != null" >
         memo,
       </if>
-      <if test="orderNumber != null" >
-        order_number,
+      <if test="billNo != null" >
+        bill_no,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -119,8 +152,8 @@
       <if test="memo != null" >
         #{memo,jdbcType=VARCHAR},
       </if>
-      <if test="orderNumber != null" >
-        #{orderNumber,jdbcType=VARCHAR},
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

@@ -19,7 +19,12 @@ public class OutboundOrderServiceImpl implements OutboundOrderService {
     private OutboundOrderDao outboundOrderDao;
     @Override
     public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String, Object> param) {
-        return null;
+        return outboundOrderDao.queryOutBoundOrdersListByParam(param);
+    }
+
+    @Override
+    public OutboundOrder queryOutBoundOrderByParam(Map<String, Object> param) {
+        return outboundOrderDao.queryOutBoundOrderByParam(param);
     }
 
     @Override

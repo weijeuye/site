@@ -54,7 +54,7 @@
         }
 
         $.ajax({
-            url : "${basePath}/siteDropPoint/savesiteDropPointPlace.do",
+            url : "${basePath}/siteDropPoint/saveSiteDropPoint.do",
             type : "post",
             dataType : "json",
             //async : false,

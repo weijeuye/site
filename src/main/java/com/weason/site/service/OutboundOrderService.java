@@ -12,11 +12,18 @@ import java.util.Map;
 
 public interface OutboundOrderService {
     /**
-     * 根据条件查询出库单
+     * 根据条件查询出库单列表
      * @param param
      * @return
      */
     public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String,Object> param);
+
+    /**
+     * 根据条件查询出库单
+     * @param param
+     * @return
+     */
+    public OutboundOrder queryOutBoundOrderByParam(Map<String,Object> param);
 
     /**
      * 新增出库单
