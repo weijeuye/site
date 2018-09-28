@@ -51,9 +51,6 @@ public class CarTeamController {
             if (null!=queryParam.getContactWay()&&StringUtils.isNotBlank(queryParam.getContactWay())){
                 parameters.put("contactWay",queryParam.getContactWay());
             }
-            if (null!=queryParam.getIsValid()&&StringUtils.isNotBlank(queryParam.getIsValid())){
-                parameters.put("isValid",queryParam.getIsValid());
-            }
         }
 
         Integer count = carTeamService.queryCarTeamCountByParam(parameters);

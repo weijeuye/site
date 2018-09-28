@@ -35,9 +35,9 @@ public class CarController {
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);
         parameters.put("plateNumber",queryParam.getPlateNumber());
-        parameters.put("isValid",queryParam.getIsValid());
         parameters.put("isHeighten",queryParam.getIsHeighten());
         parameters.put("carColor",queryParam.getCarColor());
+        parameters.put("driver",queryParam.getDriver());
         int count = carService.queryCarTeamCountByParam(parameters);
 
         int pagenum = page == null ? 1 : page;

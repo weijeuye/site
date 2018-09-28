@@ -23,7 +23,7 @@
                 <td class="w18"><input type="text" name="siteDropPointNumber" value="${queryParam.siteDropPointNumber!''}"></td>-->
                 <td class="s_label">投放点名称</td>
                 <td class="w18"><input type="text" name="dropPoint" value="${queryParam.dropPoint!''}"></td>
-                <td class="s_label">是否有效：</td>
+                <#--<td class="s_label">是否有效：</td>
                 <td class="w18">
                     <select name="isValid">
                     <#if queryParam.isValid??>
@@ -37,7 +37,7 @@
                         <option value="N" >无效</option>
                     </#if>
                     </select>
-                </td>
+                </td>-->
               </tr>
             <tr>
                 <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
@@ -60,7 +60,7 @@
             	<th>投放点编号</th>
                 <th>投放点名称</th>
                 <th>英里数</th>
-            	<th>是否有效</th>
+            	<#--<th>是否有效</th>-->
                 <th>备注</th>
                 <th>编辑</th>
             </tr>
@@ -82,7 +82,7 @@
                     <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
 					<td class="oper">
 						<a class="editDict" href="javascript:;" data="${siteDropPoint.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${siteDropPoint.id!''}" data2="${siteDropPoint.isValid}">${(siteDropPoint.isValid=="Y")?string("设为无效", "设为有效")}</a>
+						<a href="javascript:;"  class="editFlag" data1="${siteDropPoint.id!''}" data2="${siteDropPoint.isValid}">${(siteDropPoint.isValid=="Y")?string("禁用", "设为有效")}</a>
 
                     </td>
 				</tr>
@@ -130,7 +130,7 @@ $(function(){
 		 var siteDropPointId=$(this).attr("data1");
 		 var isValid=$(this).attr("data2") == "N" ? "Y": "N";
 		 var url = "${basePath}/siteDropPoint/updateStatus.do?id="+siteDropPointId+"&isValid="+isValid;
-		 msg = isValid === "N" ? "确认设为无效  ？" : "确认设为有效  ？";
+		 msg = isValid === "N" ? "确认禁用  ？" : "确认设为有效  ？";
 	 	 $.confirm(msg, function () {
 			 $.post(url, function(data){
                  if(data && data.code=='success'){
