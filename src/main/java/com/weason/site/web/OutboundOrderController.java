@@ -5,6 +5,7 @@ import com.weason.site.pojo.OutboundOrder;
 import com.weason.site.pojo.User;
 import com.weason.site.service.OutboundOrderService;
 import com.weason.site.service.UserService;
+import com.weason.site.vo.OutBoundOrderVo;
 import com.weason.site.vo.UserVo;
 import com.weason.util.*;
 import org.slf4j.Logger;
@@ -42,32 +43,38 @@ public class OutboundOrderController {
      * @return
      */
     @RequestMapping(value = "/findOrders",method = RequestMethod.GET)
-    public String queryUsers(OutboundOrder queryParam, Model model, HttpServletRequest request, Integer page){
+    public String queryUsers(OutBoundOrderVo queryParam, Model model, HttpServletRequest request, Integer page){
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);
         if (null != queryParam){
-            if (null !=queryParam.getCarTeamId()&& !StringUtils.isBlank(queryParam.getCarTeamId())){
-                parameters.put("carTeamId",queryParam.getCarTeamId());
-            }
+
             if (null !=queryParam.getCreateTime()&& !StringUtils.isBlank(queryParam.getCreateTime())){
                 parameters.put("createTime",queryParam.getCreateTime());
             }
+            if (null !=queryParam.getPlateNumber()&& !StringUtils.isBlank(queryParam.getPlateNumber())){
+                parameters.put("plateNumber",queryParam.getPlateNumber());
+            }
+            if (null !=queryParam.getAlias()&& !StringUtils.isBlank(queryParam.getAlias())){
+                parameters.put("alias",queryParam.getAlias());
+            }
         }
-        parameters.put("dropPointId",queryParam.getDropPointId());
-        int count = userService.queryUsersCount(parameters);
+
+        User user =(User) request.getSession().getAttribute("site_user");
+        parameters.put("siteId",user.getSiteId());
+        int count = outboundOrderService.selectOutBoundOrderCountByParam(parameters);
 
         int pagenum = page == null ? 1 : page;
         Page pageParam = Page.page(count, 10, pagenum);
         pageParam.buildUrl(request);
         parameters.put("_start", pageParam.getStartRows());
         parameters.put("_end", pageParam.getEndRows());
-        List<User> users = userService.queryUsers(parameters);
-        pageParam.setItems(users);
+        List<OutBoundOrderVo> outboundOrderVos = outboundOrderService.selectOutBoundOrderListByParam(parameters);
+        pageParam.setItems(outboundOrderVos);
         String basePath = HttpUtils.getBasePath(request);
         model.addAttribute("page",pagenum);
         model.addAttribute("pageParam", pageParam);
         model.addAttribute("basePath",basePath);
-        model.addAttribute("outboundOrders",users);
+        model.addAttribute("outboundOrderVos",outboundOrderVos);
         return "/pages/site/siteOutboundOrder/findOutBoundOrderList";
     }
 
@@ -127,10 +134,25 @@ public class OutboundOrderController {
         }
         Map<String,Object> param=new HashMap<String, Object>();
         param.put("billNo",billNo);
-        OutboundOrder outboundOrder1=outboundOrderService.queryOutBoundOrderByParam(param);
-        resultMessage.addObject("outboundOrder",outboundOrder1);
+        OutBoundOrderVo outBoundOrderVo=outboundOrderService.selectOutBoundOrderByBillNo(param);
+        resultMessage.addObject("outboundOrder",outBoundOrderVo);
         return resultMessage;
     }
 
+    /***
+     * 测试出库单据打印
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/testOrderPrint",method = RequestMethod.GET)
+    @ResponseBody
+    public ResultMessage testOrderPrint(HttpServletRequest request){
+        ResultMessage resultMessage = ResultMessage.createResultMessage();
+        Map<String,Object> param=new HashMap<String, Object>();
+        param.put("billNo","BN1538019544222");
+        OutBoundOrderVo outBoundOrderVo=outboundOrderService.selectOutBoundOrderByBillNo(param);
+        resultMessage.addObject("outboundOrder",outBoundOrderVo);
+        return resultMessage;
+    }
 
 }

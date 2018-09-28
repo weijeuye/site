@@ -1,6 +1,7 @@
 package com.weason.site.dao;
 
 import com.weason.site.pojo.OutboundOrder;
+import com.weason.site.vo.OutBoundOrderVo;
 import com.weason.util.mybaties.MyBatisDao;
 import org.springframework.stereotype.Repository;
 
@@ -20,9 +21,6 @@ public class OutboundOrderDao extends MyBatisDao {
         super("outboundOrderMapper");
     }
 
-    public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String, Object> param) {
-        return super.queryForList("selectByParam",param);
-    }
 
     public OutboundOrder queryOutBoundOrderByParam(Map<String, Object> param) {
         return super.get("selectByParam",param);
@@ -30,5 +28,17 @@ public class OutboundOrderDao extends MyBatisDao {
 
     public Integer addOutboundOrder(OutboundOrder outboundOrder) {
         return super.insert("insertSelective",outboundOrder);
+    }
+
+    public OutBoundOrderVo selectOutBoundOrderByBillNo(Map<String, Object> param) {
+        return super.get("selectOutBoundOrderByBillNo",param);
+    }
+
+    public List<OutBoundOrderVo> selectOutBoundOrderListByParam(Map<String, Object> param) {
+        return super.queryForList("selectOutBoundOrderListByParam",param);
+    }
+
+    public Integer selectOutBoundOrderCountByParam(Map<String, Object> param) {
+        return super.get("selectOutBoundOrderCountByParam",param);
     }
 }

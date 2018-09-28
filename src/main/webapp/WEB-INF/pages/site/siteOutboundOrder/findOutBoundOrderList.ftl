@@ -59,17 +59,18 @@
             </tr>
         </thead>
         <tbody>
-			<#list outboundOrders as outboundOrder>
-				<#--<tr>
-                    <td>${outboundOrder.outboundOrderNumber!''} </td>
-					<td>${outboundOrder.outboundOrderName!''} </td>
-                    <td>${outboundOrder.memo!''} </td>
-					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${outboundOrder.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${outboundOrder.id!''}" data2="${outboundOrder.isValid}">${(outboundOrder.isValid=="Y")?string("设为无效", "设为有效")}</a>
+			<#list outboundOrderVos as outboundOrderVo>
+				<tr>
+                    <td>${outboundOrderVo.billNo!''} </td>
+					<td>${outboundOrderVo.plateNumber!''} </td>
+                    <td>${outboundOrderVo.dropPoint!''} </td>
+                    <td>${outboundOrderVo.price!''} </td>
+                    <td>${outboundOrderVo.vehicle!''} </td>
+                    <td>${outboundOrderVo.amount!''} </td>
+                    <td>${outboundOrderVo.alias!''} </td>
+                    <td>${outboundOrderVo.memo!''} </td>
 
-                    </td>
-				</tr>-->
+				</tr>
 			</#list>
         </tbody>
     </table>

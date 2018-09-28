@@ -1,6 +1,7 @@
 package com.weason.site.service;
 
 import com.weason.site.pojo.OutboundOrder;
+import com.weason.site.vo.OutBoundOrderVo;
 
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,6 @@ import java.util.Map;
  */
 
 public interface OutboundOrderService {
-    /**
-     * 根据条件查询出库单列表
-     * @param param
-     * @return
-     */
-    public List<OutboundOrder> queryOutBoundOrdersListByParam(Map<String,Object> param);
 
     /**
      * 根据条件查询出库单
@@ -31,4 +26,25 @@ public interface OutboundOrderService {
      * @return
      */
     public Integer addOutboundOrder(OutboundOrder outboundOrder);
+
+    /**
+     * 用于打印 显示
+     * @param param
+     * @return
+     */
+    public OutBoundOrderVo selectOutBoundOrderByBillNo(Map<String, Object> param);
+
+    /**
+     * 查询出库单列表
+     * @param param
+     * @return
+     */
+    public List<OutBoundOrderVo> selectOutBoundOrderListByParam(Map<String, Object> param);
+
+    /**
+     * 查询出库单数量
+     * @param param
+     * @return
+     */
+    public Integer selectOutBoundOrderCountByParam(Map<String, Object> param);
 }
