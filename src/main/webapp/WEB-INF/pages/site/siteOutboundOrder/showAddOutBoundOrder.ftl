@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
 </head>
 <body>
@@ -67,16 +67,15 @@
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="saveButton">保存</button>
 <button class="pbtn pbtn-small btn-ok" style="float: right; margin-top: 20px;" id="printDesignButton">打印</button>
 
-
-<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"</script>
-<script type="text/javascript" src="${basePath}/bootstrap/js/jquery-1.7.2.min.js" </script>
-<script type="text/javascript" src="${basePath}/lodop/LodopFuncs.js"/>
-<script type="text/javascript" src="${basePath}/lodop/my.js"/>
-<script type="text/javascript" src="${basePath}/lodop/jquery.tmpl.js"/>
+<script type="text/javascript" src="${basePath}/bootstrap/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${basePath}/lodop/LodopFuncs.js"></script>
+<script type="text/javascript" src="${basePath}/lodop/my.js"></script>
+<script type="text/javascript" src="${basePath}/lodop/jquery.tmpl.js"></script>
+<script type="text/javascript" src="${basePath}/bootstrap/js/vst_pet_util.js"></script>
 
 <script>
-    vst_pet_util.commListSuggest("#plateNumber", "#carId",'/site/siteCar/searchCarList.do','');
-    vst_pet_util.commListSuggest("#dropPoint", "#dropPointId",'/site/siteDropPoint/searchCarList.do','');
+    vst_pet_util.commListSuggest("#plateNumber", "#carId",'${basePath}/siteCar/searchCarList.do','');
+    vst_pet_util.commListSuggest("#dropPoint", "#dropPointId",'${basePath}/siteDropPoint/searchDropPointList.do','');
 </script>
 <!-- 打印模版：出库单 -->
 <script id="tmpl_print" type="text/x-jquery-tmpl" style="display: none">

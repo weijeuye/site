@@ -24,7 +24,51 @@ public class OutBoundOrderVo implements Serializable{
     private String siteName;
     private String alias;
     private String driver;
+    private Long userId;
+    private Long dropPointId;
+    private Long siteId;
+    private Long carTeamId;
+    private String carTeam;
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getDropPointId() {
+        return dropPointId;
+    }
+
+    public void setDropPointId(Long dropPointId) {
+        this.dropPointId = dropPointId;
+    }
+
+    public Long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Long siteId) {
+        this.siteId = siteId;
+    }
+
+    public Long getCarTeamId() {
+        return carTeamId;
+    }
+
+    public void setCarTeamId(Long carTeamId) {
+        this.carTeamId = carTeamId;
+    }
+
+    public String getCarTeam() {
+        return carTeam;
+    }
+
+    public void setCarTeam(String carTeam) {
+        this.carTeam = carTeam;
+    }
 
     public String getBillNo() {
         return billNo;

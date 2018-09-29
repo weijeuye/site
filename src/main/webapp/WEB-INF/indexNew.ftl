@@ -80,7 +80,7 @@
                         <dt><i></i><em title="单据管理">单据管理</em><b></b></dt>
                         <dd>
                         <#if user.userType=="S">
-                            <a data-id="10" href="${basePath}/siteOrder/findOrders.do" permId="10"
+                            <a data-id="10" href="${basePath}/siteOrder/findAllOrders.do" permId="10"
                                data-name="出库单管理">管理员出库单管理</a>
                         <#else>
                             <a data-id="10" href="${basePath}/siteOrder/findOrders.do" permId="10"

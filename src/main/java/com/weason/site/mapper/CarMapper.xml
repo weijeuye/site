@@ -15,10 +15,11 @@
     <result column="car_color" property="carColor" jdbcType="VARCHAR" />
     <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="site_id" property="siteId" jdbcType="BIGINT" />
 
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time, plate_number, vehicle, driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo
+    id, status, create_time, update_time, plate_number, vehicle, driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo,site_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -33,11 +34,12 @@
   <insert id="insert" parameterType="com.weason.site.pojo.Car" >
     insert into u_car (id, status, create_time, 
       update_time, plate_number, vehicle, 
-      driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo)
+      driver, car_team_id,is_heighten,heighten_number,car_color,is_valid,memo,site_id)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{plateNumber,jdbcType=VARCHAR}, #{vehicle,jdbcType=BIGINT}, 
       #{driver,jdbcType=VARCHAR}, #{carTeamId,jdbcType=BIGINT},#{isHeighten,jdbcType=VARCHAR},
-      #{heightenNumber,jdbcType=DOUBLE},#{carColor,jdbcType=VARCHAR},#{isValid,jdbcType=VARCHAR},#{memo,jdbcType=VARCHAR})
+      #{heightenNumber,jdbcType=DOUBLE},#{carColor,jdbcType=VARCHAR},#{isValid,jdbcType=VARCHAR},
+      #{memo,jdbcType=VARCHAR},#{siteId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.weason.site.pojo.Car" >
     insert into u_car
@@ -82,6 +84,9 @@
       <if test="carColor != null" >
         car_color,
       </if>
+      <if test="siteId != null" >
+        site_id,
+      </if>
 
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -123,6 +128,9 @@
       </if>
       <if test="carColor != null" >
         #{carColor,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -193,6 +201,9 @@
     select count(*)
     from u_car
     where 1=1 and is_valid = 'Y'
+    <if test="siteId != null" >
+      and site_id=#{siteId,jdbcType=BIGINT}
+    </if>
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>
@@ -227,6 +238,9 @@
     select *
     from u_car
     where 1=1 and is_valid = 'Y'
+    <if test="siteId != null" >
+      and site_id=#{siteId,jdbcType=BIGINT}
+    </if>
     <if test="id != null" >
       and id=#{id,jdbcType=BIGINT}
     </if>

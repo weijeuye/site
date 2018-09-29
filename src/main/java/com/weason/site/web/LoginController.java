@@ -1,5 +1,6 @@
 package com.weason.site.web;
 
+import com.weason.constant.SystemConstant;
 import com.weason.site.pojo.User;
 import com.weason.site.service.UserService;
 import com.weason.util.CryptographyUtil;
@@ -53,7 +54,7 @@ public class LoginController {
             return resultMessage;
         }
         HttpSession session=request.getSession(true);
-        session.setAttribute("site_user",user1);
+        session.setAttribute(SystemConstant.SITE_USER_SESSION,user1);
         return  resultMessage;
     }
     @RequestMapping("/loginOut")
@@ -65,7 +66,7 @@ public class LoginController {
     }
     @RequestMapping("/index")
     public Object index(Model model,HttpServletRequest request,HttpServletResponse response){
-        User user =(User)request.getSession().getAttribute("site_user");
+        User user =(User)request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
         String basePath = HttpUtils.getBasePath(request);
         model.addAttribute("basePath",basePath);
         model.addAttribute("user",user);

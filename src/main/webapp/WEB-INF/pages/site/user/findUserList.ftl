@@ -67,36 +67,38 @@
 </div>
 	
 <!-- 主要内容显示区域\\ -->
-<div class="iframe-content mt20">   
-    <div class="p_box">
-	<table class="p_table table_center">
-        <thead>
-            <tr>
-            	<th>用户ID</th>
-                <th>账号</th>
-            	<th>姓名</th>
-                <th>性别</th>
-                <th>电话</th>
-                <#--<th>是否有效</th>-->
-                <th>备注</th>
-                <th>编辑</th>
-            </tr>
-        </thead>
-        <tbody>
-			<#list users as user>
-				<tr>
-                    <td>${user.id!''} </td>
-					<td>${user.account!''} </td>
-					<td>${user.alias!''} </td>
-                    <td>
-                        <#if user.gender?? && user.gender == 'M'>
-                            <span style="color:green" class="cancelProp">男</span>
-                        <#else>
-                            <span style="color:red" class="cancelProp">女</span>
-                        </#if>
-                    </td>
+<div class="iframe-content mt20">
+    <#if users?? && users?size gt 0>
 
-                    <td>${user.phone!''} </td>
+        <div class="p_box">
+            <table class="p_table table_center">
+                <thead>
+                <tr>
+                    <th>用户ID</th>
+                    <th>账号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>电话</th>
+                <#--<th>是否有效</th>-->
+                    <th>备注</th>
+                    <th>编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <#list users as user>
+                    <tr>
+                        <td>${user.id!''} </td>
+                        <td>${user.account!''} </td>
+                        <td>${user.alias!''} </td>
+                        <td>
+                            <#if user.gender?? && user.gender == 'M'>
+                                <span style="color:green" class="cancelProp">男</span>
+                            <#else>
+                                <span style="color:red" class="cancelProp">女</span>
+                            </#if>
+                        </td>
+
+                        <td>${user.phone!''} </td>
                     <#--<td>
 						<#if user?? && user.isValid == "Y">
                             <span style="color:green" class="cancelProp">有效</span>
@@ -104,25 +106,29 @@
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>-->
-                    <td>${user.memo!''} </td>
-					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${user.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${user.id!''}" data2="${user.isValid}">${(user.isValid=="Y")?string("禁用", "设为有效")}</a>
+                        <td>${user.memo!''} </td>
+                        <td class="oper">
+                            <a class="editDict" href="javascript:;" data="${user.id!''}" data2="" >编辑</a>
+                            <a href="javascript:;"  class="editFlag" data1="${user.id!''}" data2="${user.isValid}">${(user.isValid=="Y")?string("禁用", "设为有效")}</a>
 
-                    </td>
-				</tr>
-			</#list>
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                    </#list>
+                </tbody>
+            </table>
 
-	<#if pageParam.items?exists> 
-		<div class="paging" > 
-			${pageParam.getPagination()}
-		</div> 
-	</#if>
-        
-</div><!-- div p_box -->
-	
+            <#if pageParam.items?exists>
+                <div class="paging" >
+                ${pageParam.getPagination()}
+                </div>
+            </#if>
+
+        </div><!-- div p_box -->
+    <#else>
+        <!-- 无结果 -->
+        <div class="no_data mt20"><i class="icon-warn32"></i>暂无相关数据！</div>
+    </#if>
+
 </div><!-- //主要内容显示区域 -->
 <#include "/pages/base/foot.ftl"/>
 </body>

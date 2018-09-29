@@ -1,8 +1,10 @@
 package com.weason.site.web;
 
+import com.weason.constant.SystemConstant;
 import com.weason.site.pojo.Car;
 import com.weason.site.pojo.CarTeam;
 import com.weason.site.pojo.Site;
+import com.weason.site.pojo.User;
 import com.weason.site.service.CarService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
@@ -38,6 +40,8 @@ public class CarController {
         parameters.put("isHeighten",queryParam.getIsHeighten());
         parameters.put("carColor",queryParam.getCarColor());
         parameters.put("driver",queryParam.getDriver());
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        parameters.put("siteId",user.getSiteId());
         int count = carService.queryCarTeamCountByParam(parameters);
 
         int pagenum = page == null ? 1 : page;
@@ -99,7 +103,7 @@ public class CarController {
      */
     @RequestMapping(value = "/saveCar",method = RequestMethod.POST)
     @ResponseBody
-    public ResultMessage addSite( Car car){
+    public ResultMessage addSite( Car car,HttpServletRequest request){
         int count=0;
         if(car!=null && car.getId()!=null){
             count=carService.updateCar(car);
@@ -109,6 +113,8 @@ public class CarController {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }else {
             car.setIsValid("Y");
+            User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+            car.setSiteId(user.getSiteId());
             count =carService.AddCar(car);
             if(count > 0){
                 return ResultMessage.ADD_SUCCESS_RESULT;
@@ -178,16 +184,20 @@ public class CarController {
     /**
      * 根据车车牌号模糊查询列表数据
      * @param search
-     * @param resp
+     * @param request
      */
     @RequestMapping(value = "/searchCarList")
     @ResponseBody
-    public Object searchCarList(String search, HttpServletResponse resp){
+    public Object searchCarList(String search, HttpServletRequest request){
         JSONArray array = null;
         Map<String, Object> param=new HashMap<String, Object>();
         if(search!=null){
             param.put("plateNumber",search);
             param.put("isValid","Y");
+        }
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        if(user!=null && !"S".equals(user.getUserType())){
+            param.put("siteId",user.getSiteId());
         }
         try {
             List<Car> list = carService.queryCarTeamsByParam(param);

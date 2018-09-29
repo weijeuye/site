@@ -46,10 +46,28 @@
       }
     });
 
+    //手机号正则
+    var r=/^((0\d{2,3}-\d{7,8})|(1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}))$/;
+
+
+    function testTelephone(str,phone) {
+        if(!phone || phone==""){
+            return true;
+        }
+        if(!r.test(phone)){
+            $.alert(str+"请输入正确的手机格式！");
+            return false;
+        };
+        return true;
+    }
     //保存
     $("#saveButton").on("click", function() {
         debugger;
         if(!$("#dataForm").validate().form()){
+            return false;
+        }
+        var phone=$("#contactWay").val();
+            if( !testTelephone ("联系方式输入框",phone)){
             return false;
         }
         var id=$("#id").val();

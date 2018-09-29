@@ -15,46 +15,50 @@
 </div>
 
 <div class="iframe_search">
-<form method="get" action='${basePath}/siteOrder/findOrders.do' id="searchForm">
+<form method="get" action='${basePath}/siteOrder/findAllOrders.do' id="searchForm">
     <table class="s_table">
         <tbody>
-        <tr>
-            <td class="s_label">单据号</td>
-            <td class="w18"><input type="text" name="billNo"  value="${queryParam.billNo!''}"></td>
+            <tr>
+                <td class="s_label">单据号</td>
+                <td class="w18"><input type="text" name="billNo"  value="${queryParam.billNo!''}"></td>
 
-            <td class="s_label">车牌号</td>
-            <td class="w18"><input type="text" name="plateNumber" value="${queryParam.plateNumber!''}"></td>
+                <td class="s_label">车牌号</td>
+                <td class="w18"><input type="text" name="plateNumber" value="${queryParam.plateNumber!''}"></td>
+                <td class="s_label">车队</td>
+                <td  class="w18"><input type="text" class="form-control w270 search js_supplierName" name="carTeamName" id="carTeamName" value="${queryParam.carTeamName!''}">
+                    <input type="hidden" name="carTeamId" id="carTeamId" value="${queryParam.carTeamId!''}">
+                </td>
 
-        </tr>
-        <tr>
-            <td class="s_label">车队</td>
-            <td  class="w18"><input type="text" class="form-control w270 search js_supplierName" name="carTeamName" id="carTeamName" value="${queryParam.carTeamName!''}">
-                <input type="hidden" name="carTeamId" id="carTeamId" value="${queryParam.carTeamId!''}">
-            </td>
+              </tr>
+            <tr>
 
-            <td class="s_label">出库人</td>
-            <td class="w18"><input type="text" class=" w260 search" name="alias" id="alias"  value="${queryParam.alias!''}"></td>
-            <input type="hidden" name="userId" id="userId" value="${queryParam.userId!''}">
+                <td class="s_label">出库人</td>
+                <td class="w18"><input type="text" class=" w260 search" name="alias" id="alias"  value="${queryParam.alias!''}"></td>
+               <input type="hidden" name="userId" id="userId" value="${queryParam.userId!''}">
 
-            <td class="s_label">投放点</td>
-            <td class="w18"><input type="text" name="dropPoint"  id="dropPoint" class="form-control w270 search js_supplierName" value="${queryParam.dropPoint!''}"></td>
-            <input type="hidden" name="dropPointId" id="dropPointId" value="${queryParam.dropPointId!''}">
+                <td class="s_label">投放点</td>
+                <td class="w18"><input type="text" name="dropPoint"  id="dropPoint" class="form-control w270 search js_supplierName" value="${queryParam.dropPoint!''}"></td>
+                <input type="hidden" name="dropPointId" id="dropPointId" value="${queryParam.dropPointId!''}">
+
+                <td class="s_label">工地</td>
+                <td class="w18"><input type="text" class="form-control w270 search js_supplierName" name="siteName" id="siteName" value="${queryParam.siteName!''}"></td>
+               <input type="hidden" name="siteId" id="siteId" value="${queryParam.siteId!''}">
 
 
-        </tr>
+            </tr>
 
-        <tr>
-            <td class="s_label">开始时间</td>
-            <td class="w18"><input type="text" name="createTime" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${queryParam.createTime!''}"></td>
+            <tr>
+                <td class="s_label">开始时间</td>
+                <td class="w18"><input type="text" name="createTime" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${queryParam.createTime!''}"></td>
 
-            <td class="s_label">结束时间</td>
-            <td class="w18"><input type="text" name="endCreateTime" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${queryParam.createTime!''}"></td>
+                <td class="s_label">结束时间</td>
+                <td class="w18"><input type="text" name="endCreateTime" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="${queryParam.createTime!''}"></td>
 
-            <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
+                <td class="s_label"><a class="btn btn_cc1" id="search_button">查询</a></td>
 
-            <td></td>
-            <input type="hidden" name="page" value="${page}">
-        </tr>
+                <td></td>
+                <input type="hidden" name="page" value="${page}">
+            </tr>
         </tbody>
     </table>	
 </form>
@@ -63,7 +67,6 @@
 <!-- 主要内容显示区域\\ -->
 <div class="iframe-content mt20">
     <#if outboundOrderVos?? &&outboundOrderVos?size gt 0>
-
         <div class="p_box">
             <table class="p_table table_center">
                 <thead>
@@ -102,7 +105,7 @@
             </#if>
 
         </div><!-- div p_box -->
-     <#else>
+    <#else>
         <!-- 无结果 -->
         <div class="no_data mt20"><i class="icon-warn32"></i>暂无相关数据！</div>
     </#if>
@@ -110,7 +113,6 @@
 </div><!-- //主要内容显示区域 -->
 <#include "/pages/base/foot.ftl"/>
 
-<script type="text/javascript" src="${basePath}/bootstrap/js/vst_pet_util.js"></script>
 </body>
 </html>
 <script>
@@ -121,6 +123,7 @@
 
 </script>
 
+
 <script>
 //属性列表弹出框对象，不要有重名的
 var  updateDialog;
@@ -130,12 +133,6 @@ $(function(){
 	$("#search_button").bind("click",function(){
 		$("#searchForm").submit();
 	});
-    //新增
-    $("#addoutboundOrder_button").bind('click',function(){
-        var url = "${basePath}/siteOrder/showAddOrder.do";
-        updateDialog = new xDialog(url, {}, {title:"单据录入",width:900});
-    });
-
 
 	function confirmAndRefresh(result){
 		if (result.code == "success") {
