@@ -19,8 +19,44 @@
     <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
 
   </resultMap>
+
+
+  <resultMap id="outBoundOrderResultMap" type="com.weason.site.vo.OutBoundOrderVo">
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="mileage" property="mileage" jdbcType="DOUBLE" />
+    <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="mileage" property="mileage" jdbcType="DOUBLE" />
+    <result column="vehicle" property="vehicle" jdbcType="DOUBLE" />
+    <result column="drop_point" property="dropPoint" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="driver" property="driver" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+
+
   <sql id="Base_Column_List" >
     id, status, create_time, update_time, site_id, price, plate_number, car_team_id,user_id,amount,drop_point_id,vehicle,mileage,memo,bill_no
+  </sql>
+
+  <sql id="outBoundOder_Column_List" >
+    oo.bill_no,
+    oo.amount,
+    oo.create_time,
+    oo.memo,
+    oo.mileage,
+    oo.plate_number,
+    oo.price,
+    oo.vehicle,
+    sdp.drop_point,
+    ui.site_name,
+    uu.alias,
+    uc.driver
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -195,4 +231,119 @@
       car_team_id = #{carTeamId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectOutBoundOrderByBillNo" resultMap="outBoundOrderResultMap" parameterType="java.util.Map" >
+  SELECT
+    <include refid="outBoundOder_Column_List"/>
+
+    from
+    site.u_outbound_order oo,
+    site.u_site_drop_point sdp,
+    site.u_site ui,
+    site.u_user uu,
+    site.u_car uc
+  where 1=1
+  and  oo.drop_point_id = sdp.id
+  and oo.site_id=ui.id
+  and oo.user_id=uu.id
+  and oo.plate_number=uc.plate_number
+  <if test="billNo != null" >
+    and   bill_no = #{billNo,jdbcType=VARCHAR}
+  </if>
+  </select>
+
+  <select id="selectOutBoundOrderListByParam" resultMap="outBoundOrderResultMap" parameterType="java.util.Map" >
+    SELECT
+    <include refid="outBoundOder_Column_List"/>
+    from
+    site.u_outbound_order oo,
+    site.u_site_drop_point sdp,
+    site.u_site ui,
+    site.u_user uu,
+    site.u_car uc
+    where 1=1
+    and  oo.drop_point_id = sdp.id
+    and oo.site_id=ui.id
+    and oo.user_id=uu.id
+    and oo.plate_number=uc.plate_number
+    <if test="billNo != null" >
+      and   oo.bill_no = #{billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="plateNumber != null" >
+      and   oo.plate_number like CONCAT("%",#{plateNumber},"%")
+    </if>
+    <if test="alias != null" >
+      and   uu.alias like CONCAT("%",#{alias},"%")
+    </if>
+    <if test="userId != null and userId !='' " >
+      and   oo.user_id =#{userId,jdbcType=BIGINT}
+    </if>
+    <if test="carTeamName != null and carTeamName !='' " >
+      and   uc.car_team_name like CONCAT("%",#{carTeamName},"%")
+    </if>
+    <if test="carTeamId != null and carTeamId !='' " >
+      and   uc.id =#{carTeamId,jdbcType=BIGINT}
+    </if>
+    <if test="siteName != null and siteName !='' " >
+      and   ui.site_name like CONCAT("%",#{siteName},"%")
+    </if>
+    <if test="siteId != null and siteId !='' " >
+      and   ui.id = #{siteId,jdbcType=BIGINT}
+    </if>
+    <if test="dropPoint != null and dropPoint !='' " >
+      and   sdp.dropPoint like CONCAT("%",#{dropPoint},"%")
+    </if>
+    <if test="dropPointId != null and dropPointId !='' " >
+      and   oo.drop_point_id  = #{dropPointId,jdbcType=BIGINT}
+    </if>
+
+  </select>
+
+
+  <select id="selectOutBoundOrderCountByParam" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    SELECT
+    count(*)
+    from
+    site.u_outbound_order oo,
+    site.u_site_drop_point sdp,
+    site.u_site ui,
+    site.u_user uu,
+    site.u_car uc
+    where 1=1
+    and  oo.drop_point_id = sdp.id
+    and oo.site_id=ui.id
+    and oo.user_id=uu.id
+    and oo.plate_number=uc.plate_number
+    <if test="billNo != null" >
+      and   oo.bill_no = #{billNo,jdbcType=VARCHAR}
+    </if>
+    <if test="plateNumber != null" >
+      and   oo.plate_number like CONCAT("%",#{plateNumber},"%")
+    </if>
+    <if test="alias != null" >
+      and   uu.alias like CONCAT("%",#{alias},"%")
+    </if>
+    <if test="userId != null and userId !='' " >
+      and   oo.user_id =#{userId,jdbcType=BIGINT}
+    </if>
+    <if test="carTeamName != null and carTeamName !='' " >
+      and   uc.car_team_name like CONCAT("%",#{carTeamName},"%")
+    </if>
+    <if test="carTeamId != null and carTeamId !='' " >
+      and   uc.id =#{carTeamId,jdbcType=BIGINT}
+    </if>
+    <if test="siteName != null and siteName !='' " >
+      and   ui.site_name like CONCAT("%",#{siteName},"%")
+    </if>
+    <if test="siteId != null and siteId !='' " >
+      and   ui.id = #{siteId,jdbcType=BIGINT}
+    </if>
+    <if test="dropPoint != null and dropPoint !='' " >
+      and   sdp.dropPoint like CONCAT("%",#{dropPoint},"%")
+    </if>
+    <if test="dropPointId != null and dropPointId !='' " >
+      and   oo.drop_point_id  = #{dropPointId,jdbcType=BIGINT}
+    </if>
+  </select>
+
 </mapper>

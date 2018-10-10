@@ -55,27 +55,29 @@
 </div>
 	
 <!-- 主要内容显示区域\\ -->
-<div class="iframe-content mt20">   
-    <div class="p_box">
-	<table class="p_table table_center">
-        <thead>
-            <tr>
-            	<th>车队id</th>
-                <th>车队名称</th>
-                <th>负责人</th>
-            	<th>联系方式</th>
+<div class="iframe-content mt20">
+    <#if carTeams?? && carTeams ?size gt 0>
+
+        <div class="p_box">
+            <table class="p_table table_center">
+                <thead>
+                <tr>
+                    <th>车队id</th>
+                    <th>车队名称</th>
+                    <th>负责人</th>
+                    <th>联系方式</th>
                 <#--<th>是否有效</th>-->
-                <th>备注</th>
-                <th>编辑</th>
-            </tr>
-        </thead>
-        <tbody>
-			<#list carTeams as carTeam>
-				<tr>
-                    <td>${carTeam.id!''} </td>
-					<td>${carTeam.carTeamName!''} </td>
-                    <td>${carTeam.personLiable!''} </td>
-                    <td>${carTeam.contactWay!''} </td>
+                    <th>备注</th>
+                    <th>编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <#list carTeams as carTeam>
+                    <tr>
+                        <td>${carTeam.id!''} </td>
+                        <td>${carTeam.carTeamName!''} </td>
+                        <td>${carTeam.personLiable!''} </td>
+                        <td>${carTeam.contactWay!''} </td>
                     <#--<td>
 						<#if carTeam?? && carTeam.isValid == "Y">
                             <span style="color:green" class="cancelProp">有效</span>
@@ -83,25 +85,29 @@
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
 					</td>-->
-                    <td>${carTeam.memo!''} </td>
-					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${carTeam.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${carTeam.id!''}" data2="${carTeam.isValid}">${(carTeam.isValid=="Y")?string("禁用", "设为有效")}</a>
+                        <td>${carTeam.memo!''} </td>
+                        <td class="oper">
+                            <a class="editDict" href="javascript:;" data="${carTeam.id!''}" data2="" >编辑</a>
+                            <a href="javascript:;"  class="editFlag" data1="${carTeam.id!''}" data2="${carTeam.isValid}">${(carTeam.isValid=="Y")?string("禁用", "设为有效")}</a>
 
-                    </td>
-				</tr>
-			</#list>
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                    </#list>
+                </tbody>
+            </table>
 
-	<#if pageParam.items?exists> 
-		<div class="paging" > 
-			${pageParam.getPagination()}
-		</div> 
-	</#if>
-        
-</div><!-- div p_box -->
-	
+            <#if pageParam.items?exists>
+                <div class="paging" >
+                ${pageParam.getPagination()}
+                </div>
+            </#if>
+
+        </div><!-- div p_box -->
+    <#else>
+        <!-- 无结果 -->
+        <div class="no_data mt20"><i class="icon-warn32"></i>暂无相关数据！</div>
+    </#if>
+
 </div><!-- //主要内容显示区域 -->
 <#include "/pages/base/foot.ftl"/>
 </body>

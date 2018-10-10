@@ -71,65 +71,71 @@
 </div>
 	
 <!-- 主要内容显示区域\\ -->
-<div class="iframe-content mt20">   
-    <div class="p_box">
-	<table class="p_table table_center">
-        <thead>
-            <tr>
-            	<th>车牌号</th>
-                <th>司机</th>
-                <th>方数</th>
-            	<th>颜色</th>
-                <th>车队</th>
-                <th>是否加高</th>
-                <th>加高方数</th>
-                <#--<th>是否有效</th>-->
-                <th>备注</th>
-                <th>编辑</th>
-            </tr>
-        </thead>
-        <tbody>
-			<#list cars as car>
-				<tr>
-                    <td>${car.plateNumber!''} </td>
-					<td>${car.driver!''} </td>
-                    <td>${car.vehicle!''} </td>
-                    <td>${car.carColor!''} </td>
-                    <td>${car.carTeamId!''} </td>
-                    <td>
-                        <#if car?? && car.isHeighten == "Y">
-                            <span style="color:green" class="cancelProp">加高</span>
-                        <#else >
-                            <span style="color:red" class="cancelProp">无加高</span>
-                        </#if>
-                    </td>
-                    <td>${car.heightenNumber!''} </td>
-                    <#--<td>
-						<#if car?? && car.isValid == "Y">
-                            <span style="color:green" class="cancelProp">有效</span>
-						<#else >
-                            <span style="color:red" class="cancelProp">无效</span>
-						</#if>
-					</td>-->
-                    <td>${car.memo!''} </td>
-					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${car.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${car.id!''}" data2="${car.isValid}">${(car.isValid=="Y")?string("禁用", "设为有效")}</a>
+<div class="iframe-content mt20">
+  <#if cars?? && cars?size gt 0>
 
-                    </td>
-				</tr>
-			</#list>
-        </tbody>
-    </table>
+      <div class="p_box">
+          <table class="p_table table_center">
+              <thead>
+              <tr>
+                  <th>车牌号</th>
+                  <th>司机</th>
+                  <th>方数</th>
+                  <th>颜色</th>
+                  <th>车队</th>
+                  <th>是否加高</th>
+                  <th>加高方数</th>
+              <#--<th>是否有效</th>-->
+                  <th>备注</th>
+                  <th>编辑</th>
+              </tr>
+              </thead>
+              <tbody>
+                  <#list cars as car>
+                  <tr>
+                      <td>${car.plateNumber!''} </td>
+                      <td>${car.driver!''} </td>
+                      <td>${car.vehicle!''} </td>
+                      <td>${car.carColor!''} </td>
+                      <td>${car.carTeamId!''} </td>
+                      <td>
+                          <#if car?? && car.isHeighten == "Y">
+                              <span style="color:green" class="cancelProp">加高</span>
+                          <#else >
+                              <span style="color:red" class="cancelProp">无加高</span>
+                          </#if>
+                      </td>
+                      <td>${car.heightenNumber!''} </td>
+                  <#--<td>
+                      <#if car?? && car.isValid == "Y">
+                          <span style="color:green" class="cancelProp">有效</span>
+                      <#else >
+                          <span style="color:red" class="cancelProp">无效</span>
+                      </#if>
+                  </td>-->
+                      <td>${car.memo!''} </td>
+                      <td class="oper">
+                          <a class="editDict" href="javascript:;" data="${car.id!''}" data2="" >编辑</a>
+                          <a href="javascript:;"  class="editFlag" data1="${car.id!''}" data2="${car.isValid}">${(car.isValid=="Y")?string("禁用", "设为有效")}</a>
 
-	<#if pageParam.items?exists> 
-		<div class="paging" > 
-			${pageParam.getPagination()}
-		</div> 
-	</#if>
-        
-</div><!-- div p_box -->
-	
+                      </td>
+                  </tr>
+                  </#list>
+              </tbody>
+          </table>
+
+          <#if pageParam.items?exists>
+              <div class="paging" >
+              ${pageParam.getPagination()}
+              </div>
+          </#if>
+
+      </div><!-- div p_box -->
+  <#else>
+      <!-- 无结果 -->
+      <div class="no_data mt20"><i class="icon-warn32"></i>暂无相关数据！</div>
+  </#if>
+
 </div><!-- //主要内容显示区域 -->
 <#include "/pages/base/foot.ftl"/>
 <script type="text/javascript" src="${basePath}/bootstrap/js/vst_pet_util.js"></script>

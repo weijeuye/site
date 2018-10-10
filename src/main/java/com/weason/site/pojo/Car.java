@@ -56,6 +56,18 @@ public class Car implements Serializable {
      * 备注
      */
     private String memo;
+    /**
+     * 工地
+     */
+    private Long siteId;
+
+    public Long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Long siteId) {
+        this.siteId = siteId;
+    }
 
     public String getCarColor() {
         return carColor;

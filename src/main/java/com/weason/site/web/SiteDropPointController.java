@@ -1,5 +1,6 @@
 package com.weason.site.web;
 
+import com.weason.constant.SystemConstant;
 import com.weason.site.pojo.Car;
 import com.weason.site.pojo.Site;
 import com.weason.site.pojo.SiteDropPoint;
@@ -42,7 +43,10 @@ public class SiteDropPointController {
         Map<String,Object> parameters=new HashMap<String,Object>();
         model.addAttribute("queryParam",queryParam);
         parameters.put("dropPoint",queryParam.getDropPoint());
-        parameters.put("siteId",queryParam.getSiteId());
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        if(user!=null && !"S".equals(user.getUserType())){
+            parameters.put("siteId",user.getSiteId());
+        }
         parameters.put("status",1);
         int count = siteDropPointService.querySiteDropPointsCount(parameters);
 
@@ -98,7 +102,7 @@ public class SiteDropPointController {
             }
             return ResultMessage.UPDATE_FAIL_RESULT;
         }else {
-            User user=(User) request.getSession().getAttribute("site_user");
+            User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
             if(user == null){
                 return ResultMessage.LOGIN_TIMEOUT;
             }
@@ -136,16 +140,20 @@ public class SiteDropPointController {
     /**
      * 根据投放点模糊查询列表数据
      * @param search
-     * @param resp
+     * @param request
      */
-    @RequestMapping(value = "/searchCarList")
+    @RequestMapping(value = "/searchDropPointList")
     @ResponseBody
-    public Object searchCarList(String search, HttpServletResponse resp){
+    public Object searchDropPointList(String search, HttpServletRequest request){
         JSONArray array = null;
         Map<String, Object> param=new HashMap<String, Object>();
         if(search!=null){
             param.put("plateNumber",search);
             param.put("isValid","Y");
+        }
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        if(user!=null && !"S".equals(user.getUserType())){
+            param.put("siteId",user.getSiteId());
         }
         try {
             List<SiteDropPoint> list = siteDropPointService.querySiteDropPoints(param);

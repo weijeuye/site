@@ -197,8 +197,8 @@
     <if test="password != null and password != ''" >
       and password = #{password,jdbcType=VARCHAR}
     </if>
-    <if test="alias != null  and alias != ''">
-      and alias = #{alias,jdbcType=VARCHAR}
+    <if test="alias != null and alias != ''">
+      and alias LIKE CONCAT("%",#{alias},"%")
     </if>
     <if test="userType != null and userType != ''">
       and user_type = #{userType,jdbcType=VARCHAR}
@@ -236,7 +236,7 @@
       and password = #{password,jdbcType=VARCHAR}
     </if>
     <if test="alias != null and alias != ''">
-      and alias = #{alias,jdbcType=VARCHAR}
+      and alias LIKE CONCAT("%",#{alias},"%")
     </if>
     <if test="userType != null and userType != ''">
       and user_type = #{userType,jdbcType=VARCHAR}

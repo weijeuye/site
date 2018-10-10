@@ -49,8 +49,8 @@
                         <option value="N" <#if car.isHeighten=='N'>selected</#if>>无加高</option>
 
                     <#else>
-                        <option value="Y" selected>加高</option>
-                        <option value="N" >无加高</option>
+                        <option value="Y" >加高</option>
+                        <option value="N" selected>无加高</option>
                     </#if>
                     </select>
                 </td>

@@ -1,7 +1,9 @@
 package com.weason.site.web;
 
+import com.weason.constant.SystemConstant;
 import com.weason.site.pojo.Car;
 import com.weason.site.pojo.CarTeam;
+import com.weason.site.pojo.User;
 import com.weason.site.service.CarTeamService;
 import com.weason.util.HttpUtils;
 import com.weason.util.Page;
@@ -52,7 +54,10 @@ public class CarTeamController {
                 parameters.put("contactWay",queryParam.getContactWay());
             }
         }
-
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        if(user!=null && !"S".equals(user.getUserType())){
+            parameters.put("siteId",user.getSiteId());
+        }
         Integer count = carTeamService.queryCarTeamCountByParam(parameters);
         int pageNum = page == null ? 1 : page;
         Page pageParam = Page.page(count, 10, pageNum);
@@ -109,31 +114,38 @@ public class CarTeamController {
      */
     @RequestMapping(value = "/addCarTeam",method = RequestMethod.POST)
     @ResponseBody
-    public ResultMessage addCarTeam(CarTeam carTeam){
+    public ResultMessage addCarTeam(CarTeam carTeam,HttpServletRequest request){
         ResultMessage resultMessage = ResultMessage.createResultMessage();
         Map<String,Object> map=new HashMap<String,Object>();
         if (null==carTeam){
+            resultMessage.setCode("error");
             resultMessage.setMessage("添加得车队信息不能为空");
             return resultMessage;
         }
         if(null == carTeam.getCarTeamName()){
+            resultMessage.setCode("error");
             resultMessage.setMessage("添加得车队名称不能为空");
             return resultMessage;
         }
         if (null == carTeam.getPersonLiable()){
+            resultMessage.setCode("error");
             resultMessage.setMessage("添加得车队负责人不能为空");
             return resultMessage;
         }
         if (null == carTeam.getContactWay()){
+            resultMessage.setCode("error");
             resultMessage.setMessage("添加得联系方式不能为空");
             return resultMessage;
         }
         map.put("carTeamName",carTeam.getCarTeamName());
         List<CarTeam> carTeams = carTeamService.queryCarTeamsByParam(map);
         if (carTeams.size()>0){
+            resultMessage.setCode("error");
             resultMessage.setMessage("需要添加得车队名称已存在");
             return resultMessage;
         }
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        carTeam.setSiteId(user.getSiteId());
         int count = carTeamService.AddCarTeam(carTeam);
         if(count == 0){
             return ResultMessage.ADD_FAIL_RESULT;
@@ -146,12 +158,14 @@ public class CarTeamController {
      * @param carTeam
      * @return
      */
-    @RequestMapping(value = "/updateCarTeam",method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateCarTeam",method = RequestMethod.POST)
+    @ResponseBody
     public ResultMessage updateCarTeam(CarTeam carTeam){
         ResultMessage resultMessage = ResultMessage.createResultMessage();
         Long id = carTeam.getId();
         CarTeam carTeam1 = carTeamService.queryCarTeamById(id);
         if (null == carTeam1){
+            resultMessage.setCode("error");
             resultMessage.setMessage("修改的车队信息不存在");
             return resultMessage;
         }
@@ -162,6 +176,7 @@ public class CarTeamController {
             map.put("carTeamName",carTeam.getCarTeamName());
             List list = carTeamService.queryCarTeamsByParam(map);
             if (list.size()>0){
+                resultMessage.setCode("error");
                 resultMessage.setMessage("修改的车队名称已存在");
             }
         }
@@ -192,17 +207,19 @@ public class CarTeamController {
     /**
      * 根据车队名称模糊查询列表数据
      * @param search
-     * @param resp
+     * @param request
      */
     @RequestMapping(value = "/searchCarTeamList")
     @ResponseBody
-    public Object searchSupplierList(String search, HttpServletResponse resp){
+    public Object searchSupplierList(String search, HttpServletRequest request){
         JSONArray array = null;
         Map<String, Object> param=new HashMap<String, Object>();
         if(search!=null){
             param.put("carTeamName",search);
             param.put("isValid","Y");
         }
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+        param.put("siteId",user.getSiteId());
         try {
             List<CarTeam> list = carTeamService.queryCarTeamsByParam(param);
             array = new JSONArray();

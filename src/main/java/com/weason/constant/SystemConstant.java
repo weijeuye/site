@@ -45,5 +45,9 @@ public class SystemConstant {
 	public static final String LANGUAGE = "language";
 
 	public static final String IS_VALID_Y = "Y" ;
+	/**
+	 * 工地用户session
+	 */
+	public static final String SITE_USER_SESSION="site_user";
 
 }

@@ -1,5 +1,6 @@
 package com.weason.util.intercepter;
 
+import com.weason.constant.SystemConstant;
 import com.weason.library.po.BookUser;
 import com.weason.site.pojo.User;
 import com.weason.util.HttpUtils;
@@ -18,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println(httpServletRequest.getRequestURI());
-        User user=(User) httpServletRequest.getSession().getAttribute("site_user");
+        User user=(User) httpServletRequest.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
         String basePath = HttpUtils.getBasePath(httpServletRequest);
         if(user ==null){
             httpServletResponse.sendRedirect(basePath+"/index.do");

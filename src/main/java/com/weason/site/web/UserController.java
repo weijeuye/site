@@ -1,9 +1,13 @@
 package com.weason.site.web;
 
+import com.weason.constant.SystemConstant;
+import com.weason.site.pojo.CarTeam;
 import com.weason.site.pojo.User;
 import com.weason.site.service.UserService;
 import com.weason.site.vo.UserVo;
 import com.weason.util.*;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +170,7 @@ public class UserController {
     public String showUpdatePassword(HttpServletRequest request,Model model){
         String basePath = HttpUtils.getBasePath(request);
         model.addAttribute("basePath",basePath);
-        User user=(User) request.getSession().getAttribute("site_user");
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
 
         if(user!=null ){
             model.addAttribute("user",user);
@@ -188,7 +192,7 @@ public class UserController {
         if(oldPassword ==null || newPassword==null ){
             return ResultMessage.PARAM_EXCEPTION_RESULT;
         }
-        User user= (User) request.getSession().getAttribute("site_user");
+        User user= (User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
         if (!CryptographyUtil.md5(oldPassword).equals(user.getPassword())){
             return ResultMessage.OLDPASSWORD_ISNOT_RIGHT;
         }
@@ -227,5 +231,40 @@ public class UserController {
         }else {
             return ResultMessage.UPDATE_FAIL_RESULT;
         }
+    }
+
+    /**
+     * 根据用户名称模糊查询列表数据
+     * @param search
+     * @param request
+     */
+    @RequestMapping(value = "/searchUserList")
+    @ResponseBody
+    public Object searchUserList(String search, HttpServletRequest request){
+        JSONArray array = null;
+        Map<String, Object> param=new HashMap<String, Object>();
+        param.put("alias",search);
+        param.put("isValid","Y");
+        param.put("userType","N");
+        User user=(User) request.getSession().getAttribute(SystemConstant.SITE_USER_SESSION);
+
+        if(user!=null && !"S".equals(user.getUserType())){
+            param.put("siteId",user.getSiteId());
+        }
+        try {
+            List<User> list = userService.queryUsers(param);
+            array = new JSONArray();
+            if(list != null && list.size() > 0){
+                for(User user1:list){
+                    JSONObject obj=new JSONObject();
+                    obj.put("id", user1.getId());
+                    obj.put("text", user1.getAlias());
+                    array.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

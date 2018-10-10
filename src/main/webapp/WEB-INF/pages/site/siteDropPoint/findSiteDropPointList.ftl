@@ -52,52 +52,57 @@
 </div>
 	
 <!-- 主要内容显示区域\\ -->
-<div class="iframe-content mt20">   
-    <div class="p_box">
-	<table class="p_table table_center">
-        <thead>
-            <tr>
-            	<th>投放点编号</th>
-                <th>投放点名称</th>
-                <th>英里数</th>
-            	<#--<th>是否有效</th>-->
-                <th>备注</th>
-                <th>编辑</th>
-            </tr>
-        </thead>
-        <tbody>
-			<#list siteDropPoints as siteDropPoint>
-				<tr>
-                    <td>${siteDropPoint.id!''} </td>
-					<td>${siteDropPoint.dropPoint!''} </td>
-                    <td>${siteDropPoint.mileage!''} </td>
-                    <td>
+<div class="iframe-content mt20">
+    <#if siteDropPoints?? &&siteDropPoints?size gt 0>
+        <div class="p_box">
+            <table class="p_table table_center">
+                <thead>
+                <tr>
+                    <th>投放点编号</th>
+                    <th>投放点名称</th>
+                    <th>英里数</th>
+                <#--<th>是否有效</th>-->
+                    <th>备注</th>
+                    <th>编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <#list siteDropPoints as siteDropPoint>
+                    <tr>
+                        <td>${siteDropPoint.id!''} </td>
+                        <td>${siteDropPoint.dropPoint!''} </td>
+                        <td>${siteDropPoint.mileage!''} </td>
+                    <#--<td>
 						<#if siteDropPoint?? && siteDropPoint.isValid == "Y">
                             <span style="color:green" class="cancelProp">有效</span>
 						<#else >
                             <span style="color:red" class="cancelProp">无效</span>
 						</#if>
-					</td>
-                    <td>${siteDropPoint.memo!''} </td>
+					</td>-->
+                        <td>${siteDropPoint.memo!''} </td>
                     <#--<td><img src="https://img1.doubanio.com\/view\/subject\/s\/public\/s3272509.jpg"></td>-->
-					<td class="oper">
-						<a class="editDict" href="javascript:;" data="${siteDropPoint.id!''}" data2="" >编辑</a>
-						<a href="javascript:;"  class="editFlag" data1="${siteDropPoint.id!''}" data2="${siteDropPoint.isValid}">${(siteDropPoint.isValid=="Y")?string("禁用", "设为有效")}</a>
+                        <td class="oper">
+                            <a class="editDict" href="javascript:;" data="${siteDropPoint.id!''}" data2="" >编辑</a>
+                            <a href="javascript:;"  class="editFlag" data1="${siteDropPoint.id!''}" data2="${siteDropPoint.isValid}">${(siteDropPoint.isValid=="Y")?string("禁用", "设为有效")}</a>
 
-                    </td>
-				</tr>
-			</#list>
-        </tbody>
-    </table>
+                        </td>
+                    </tr>
+                    </#list>
+                </tbody>
+            </table>
 
-	<#if pageParam.items?exists> 
-		<div class="paging" > 
-			${pageParam.getPagination()}
-		</div> 
-	</#if>
-        
-</div><!-- div p_box -->
-	
+            <#if pageParam.items?exists>
+                <div class="paging" >
+                ${pageParam.getPagination()}
+                </div>
+            </#if>
+
+        </div><!-- div p_box -->
+    <#else>
+        <!-- 无结果 -->
+        <div class="no_data mt20"><i class="icon-warn32"></i>暂无相关数据！</div>
+    </#if>
+
 </div><!-- //主要内容显示区域 -->
 <#include "/pages/base/foot.ftl"/>
 </body>
