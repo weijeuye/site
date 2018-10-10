@@ -18,3 +18,10 @@ ps -ef |grep java
         解压：tar zxvf filename.tar.gz
         压缩：tar zcvf filename.tar.gz dirname
         压缩多个文件：tar zcvf filename.tar.gz dirname1 dirname2 dirname3.....
+
+rm [选项] 文件
+选项说明：
+-f　　　　-force　　　　　　忽略不存在的文件，强制删除，无任何提示
+-i　　　　--interactive　　　 进行交互式地删除
+-r | -R　　--recursive　　　  递归式地删除列出的目录下的所有目录和文件
+-v　　　   --verbose　　　　详细显示进行的步骤
